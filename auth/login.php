@@ -6,35 +6,36 @@ require __DIR__ . '/../config/db.php';
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $ci = trim($_POST['ci'] ?? '');
+  $login = trim($_POST['login'] ?? ''); // Puede ser CI o email
   $password = $_POST['password'] ?? '';
 
-  if ($ci === '' || $password === '') {
-    $error = 'CI y contraseña son obligatorios.';
+  if ($login === '' || $password === '') {
+    $error = 'Correo/CI y contraseña son obligatorios.';
   } else {
     $stmt = $mysqli->prepare("
-      SELECT u.id, u.ci, u.nombre, u.password_hash, r.nombre AS rol
+      SELECT u.id, u.ci, u.nombre, u.email, u.password_hash, r.nombre AS rol
       FROM usuarios u
       JOIN roles r ON r.id = u.role_id
-      WHERE u.ci = ?
+      WHERE u.ci = ? OR u.email = ?
       LIMIT 1
     ");
-    $stmt->bind_param('s', $ci);
+    $stmt->bind_param('ss', $login, $login);
     $stmt->execute();
     $res = $stmt->get_result();
     $user = $res->fetch_assoc();
 
     if ($user && password_verify($password, $user['password_hash'])) {
       $_SESSION['user'] = [
-        'id' => $user['id'],
-        'ci' => $user['ci'],
+        'id'     => $user['id'],
+        'ci'     => $user['ci'],
+        'email'  => $user['email'],
         'nombre' => $user['nombre'],
-        'rol' => $user['rol'],
+        'rol'    => $user['rol'],
       ];
       header('Location: /inventario_uni/index.php');
       exit;
     } else {
-      $error = 'CI o contraseña incorrectos.';
+      $error = 'Credenciales incorrectas.';
     }
   }
 }
@@ -61,14 +62,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Inventario — Universidad</h1>
     <?php if ($error): ?><div class="error"><?=htmlspecialchars($error)?></div><?php endif; ?>
     <form method="post">
-      <label>CI</label>
-      <input name="ci" autocomplete="username" required>
+      <label>Correo electrónico o CI</label>
+      <input name="login" autocomplete="username" required>
       <label>Contraseña</label>
       <input name="password" type="password" autocomplete="current-password" required>
       <button type="submit">Ingresar</button>
     </form>
     <form action="register.php" method="get">
       <button type="submit" class="register-btn">Registrarse</button>
+      <p><a href="forgot_password.php">¿Olvidaste tu contraseña?</a></p>
     </form>
   </div>
 </body>

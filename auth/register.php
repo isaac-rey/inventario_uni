@@ -9,27 +9,29 @@ $success = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $ci = trim($_POST['ci'] ?? '');
   $nombre = trim($_POST['nombre'] ?? '');
+  $email = trim($_POST['email'] ?? '');
   $password = $_POST['password'] ?? '';
 
-  if ($ci === '' || $nombre === '' || $password === '') {
+  if ($ci === '' || $nombre === '' || $email === '' || $password === '') {
     $error = 'Todos los campos son obligatorios.';
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error = 'El correo no es válido.';
   } else {
-    // Verificar si ya existe CI
-    $stmt = $mysqli->prepare("SELECT id FROM usuarios WHERE ci = ? LIMIT 1");
-    $stmt->bind_param('s', $ci);
+    // Verificar si ya existe CI o Email
+    $stmt = $mysqli->prepare("SELECT id FROM usuarios WHERE ci = ? OR email = ? LIMIT 1");
+    $stmt->bind_param('ss', $ci, $email);
     $stmt->execute();
     $res = $stmt->get_result();
+
     if ($res->fetch_assoc()) {
-      $error = 'El CI ya está registrado.';
+      $error = 'El CI o correo ya están registrados.';
     } else {
       // Hash de la contraseña
       $hash = password_hash($password, PASSWORD_BCRYPT);
+      $rol_id = 2; // por defecto
 
-      // Si no pasas rol, deberías tener un valor por defecto en la tabla (ej: role_id=2)
-      $rol_id = 2;
-
-      $stmt = $mysqli->prepare("INSERT INTO usuarios (ci, nombre, password_hash, role_id) VALUES (?, ?, ?, ?)");
-      $stmt->bind_param('sssi', $ci, $nombre, $hash, $rol_id);
+      $stmt = $mysqli->prepare("INSERT INTO usuarios (ci, nombre, email, password_hash, role_id) VALUES (?, ?, ?, ?, ?)");
+      $stmt->bind_param('ssssi', $ci, $nombre, $email, $hash, $rol_id);
 
       if ($stmt->execute()) {
         $success = 'Usuario registrado correctamente. Ahora puedes iniciar sesión.';
@@ -69,6 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input name="ci" required>
       <label>Nombre</label>
       <input name="nombre" required>
+      <label>Correo electrónico</label>
+      <input name="email" type="email" required>
       <label>Contraseña</label>
       <input name="password" type="password" required>
       <button type="submit">Registrar</button>
