@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     <form action="register.php" method="get">
       <button type="submit" class="register-btn">Registrarse</button>
-      <p><a href="forgot_password.php">¿Olvidaste tu contraseña?</a></p>
+      <p><a href="../config/forgot_password.php">¿Olvidaste tu contraseña?</a></p>
     </form>
   </div>
 </body>
