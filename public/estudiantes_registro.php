@@ -9,27 +9,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $ci       = trim($_POST['ci'] ?? '');
   $nombre   = trim($_POST['nombre'] ?? '');
   $apellido = trim($_POST['apellido'] ?? '');
+  $email    = trim($_POST['email'] ?? '');
   $pass     = $_POST['password'] ?? '';
 
-  if ($ci === '' || $nombre === '' || $apellido === '' || $pass === '') {
+  if ($ci === '' || $nombre === '' || $apellido === '' || $email === '' || $pass === '') {
     $error = 'Todos los campos son obligatorios.';
+  } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $error = 'El email no es válido.';
   } else {
-    // ¿existe ya ese CI?
-    $stmt = $mysqli->prepare("SELECT id FROM estudiantes WHERE ci=? LIMIT 1");
-    $stmt->bind_param('s', $ci);
+    // ¿existe ya ese CI o email?
+    $stmt = $mysqli->prepare("SELECT id FROM estudiantes WHERE ci=? OR email=? LIMIT 1");
+    $stmt->bind_param('ss', $ci, $email);
     $stmt->execute();
     $existe = $stmt->get_result()->fetch_assoc();
 
     if ($existe) {
-      $error = 'Ya existe un estudiante con ese CI.';
+      $error = 'Ya existe un estudiante con ese CI o Email.';
     } else {
       $hash = password_hash($pass, PASSWORD_BCRYPT);
 
       $stmt = $mysqli->prepare("
-        INSERT INTO estudiantes (ci, nombre, apellido, password_hash)
-        VALUES (?,?,?,?)
+        INSERT INTO estudiantes (ci, nombre, apellido, email, password_hash)
+        VALUES (?,?,?,?,?)
       ");
-      $stmt->bind_param('ssss', $ci, $nombre, $apellido, $hash);
+      $stmt->bind_param('sssss', $ci, $nombre, $apellido, $email, $hash);
       $stmt->execute();
 
       $ok = true;
@@ -76,8 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Apellido</label>
         <input name="apellido" required>
 
+        <label>Email</label>
+        <input name="email" type="email" required>
+
         <label>Contraseña</label>
-        <input name="password" type="password" required>
+        <input name="password" type="password" required minlength="8">
 
         <button type="submit">Registrarme</button>
       </form>

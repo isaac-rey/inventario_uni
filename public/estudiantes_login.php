@@ -63,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
     <div class="muted" style="margin-top:12px;">
       ¿No tenés cuenta? <a href="/inventario_uni/public/estudiantes_registro.php">Registrate</a>
+       <p><a href="../config/password_estudiantes.php">¿Olvidaste tu contraseña?</a></p>
     </div>
   </div>
 </body>
