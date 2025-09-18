@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->close();
 
             // Enlace de recuperación
-            $reset_link = "http://10.85.200.10/inventario_uni/config/reset.php?token=" . urlencode($token);
+            $reset_link = "http://192.168.2.208/inventario_uni/config/reset.php?token=" . urlencode($token);
 
             // --- Enviar correo con PHPMailer ---
             $mail = getMailer();
