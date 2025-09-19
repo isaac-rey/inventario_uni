@@ -118,5 +118,44 @@ $hist = $mysqli->query("
       </table>
     </div>
   </div>
+  *//<script>
+function revisarPrestamos() {
+  fetch("check_prestamos.php")
+    .then(resp => resp.text())
+    .then(html => {
+      // Creamos un div oculto para parsear el HTML de check_prestamos
+      const temp = document.createElement("div");
+      temp.innerHTML = html;
+
+      // Buscar la alerta (si existe)
+      const alerta = temp.querySelector(".alerta");
+      if (alerta) {
+        // Si hay alerta, mostrar en pantalla arriba del contenido
+        let contenedor = document.getElementById("alerta-container");
+        if (!contenedor) {
+          contenedor = document.createElement("div");
+          contenedor.id = "alerta-container";
+          document.querySelector(".container").prepend(contenedor);
+        }
+        contenedor.innerHTML = alerta.outerHTML;
+
+        // También lanzar un popup
+        alert(alerta.innerText);
+      } else {
+        // Si no hay alerta, limpiar cualquier aviso anterior
+        const contenedor = document.getElementById("alerta-container");
+        if (contenedor) contenedor.remove();
+      }
+    })
+    .catch(err => console.error("Error revisando préstamos:", err));
+}
+
+// Ejecutar inmediatamente al cargar
+revisarPrestamos();
+
+// Volver a ejecutar cada 1 minuto (60000 ms)
+setInterval(revisarPrestamos, 60000);
+</script>
+
 </body>
 </html>
