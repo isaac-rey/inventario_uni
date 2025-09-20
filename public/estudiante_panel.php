@@ -48,6 +48,8 @@ $historial = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     th,td{padding:10px;border-bottom:1px solid #1f2937;text-align:left}
     th{color:#93c5fd;background:#0b1220}
     .btn{display:inline-block;padding:8px 12px;border-radius:8px;background:#2563eb;color:#fff}
+    .search-form{display:flex;gap:8px;align-items:center;margin-top:12px}
+    .search-input{padding:8px;border-radius:6px;border:1px solid #374151;background:#1f2937;color:#fff}
   </style>
 </head>
 <body>
@@ -60,10 +62,17 @@ $historial = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <div class="grid">
       <div class="card">
         <h3>¡Hola, <?=htmlspecialchars($e['nombre'])?>!</h3>
-        <p class="muted">Podés escanear el QR de un equipo para pedir préstamo o devolverlo.</p>
-        <p style="margin-top:12px">
+        <p class="muted">Podés escanear el QR de un equipo para pedir préstamo o devolverlo, o buscarlo por número de serie.</p>
+        
+        <div style="display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:12px">
           <a class="btn" href="/inventario_uni/public/estudiante_scan.php">📷 Escanear QR de un equipo</a>
-        </p>
+          
+          <!-- Formulario de búsqueda por número de serie -->
+          <form class="search-form" method="get" action="/inventario_uni/public/estudiante_equipo.php">
+            <input class="search-input" type="text" name="serial" placeholder="Ingresar N° de serie" required>
+            <button class="btn" type="submit">🔍 Buscar</button>
+          </form>
+        </div>
       </div>
 
       <div class="card">
