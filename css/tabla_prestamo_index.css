@@ -1,0 +1,270 @@
+/* === ESTILOS PARA TABLAS Y CONTENEDORES === */
+
+/* Contenedor principal */
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Tarjetas para las tablas */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e1e8ed;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
+}
+
+/* Títulos de las secciones */
+.card h2 {
+  color: #2d3748;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  padding: 1.5rem 2rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Pill/Badge con contador */
+.pill {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  min-width: 24px;
+  text-align: center;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+/* Headers de tabla */
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+th {
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+/* Celdas de datos */
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: #4a5568;
+  vertical-align: middle;
+  line-height: 1.4;
+}
+
+/* Filas alternas y hover */
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr:hover {
+  background: #e6fffa;
+  transform: translateY(-1px);
+  transition: all 0.3s ease;
+}
+
+/* Última fila sin borde inferior */
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Enlaces dentro de las tablas */
+td a {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.25rem 0;
+}
+
+td a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+/* Enlaces externos (target="_blank") */
+td a[target="_blank"]:after {
+  content: " ↗";
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Botones de acción */
+.btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+  color: white;
+  text-decoration: none;
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Botón de peligro/devolver */
+.btn.btn-danger {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+}
+
+.btn.btn-danger:hover {
+  box-shadow: 0 4px 15px rgba(229, 62, 62, 0.4);
+}
+
+/* Texto muted */
+.muted {
+  color: #718096;
+  font-style: italic;
+  text-align: center;
+  padding: 2rem !important;
+}
+
+/* Celdas vacías centradas */
+td.muted {
+  text-align: center;
+  font-size: 1rem;
+  color: #a0aec0;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .container {
+    margin: 1rem;
+    padding: 0;
+    gap: 1.5rem;
+  }
+
+  .card h2 {
+    padding: 1rem;
+    font-size: 1.25rem;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  /* Hacer la tabla scrollable horizontalmente */
+  .card {
+    overflow-x: auto;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  th, td {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.85rem;
+  }
+
+  .btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  th, td {
+    padding: 0.5rem 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .card h2 {
+    padding: 0.75rem;
+    font-size: 1.1rem;
+  }
+
+  .btn {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Indicadores de estado */
+.status-active {
+  color: #38a169;
+  font-weight: 600;
+}
+
+.status-returned {
+  color: #718096;
+}
+
+/* Mejoras visuales para CI y datos */
+td:has-text("CI:") {
+  font-size: 0.9rem;
+  color: #718096;
+}
+
+/* Espaciado para información de estudiante */
+td:nth-child(3) {
+  line-height: 1.6;
+}
+
+/* Destacar seriales */
+td:nth-child(2) a {
+  font-family: 'Courier New', monospace;
+  background: #f7fafc;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}

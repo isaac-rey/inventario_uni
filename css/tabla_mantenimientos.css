@@ -1,0 +1,154 @@
+/* === ESTILOS PARA TABLA DE MANTENIMIENTOS === */
+
+/* Contenedor principal */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f7fafc;
+  margin: 0;
+}
+
+/* Contenedor del contenido debajo del navbar */
+.container {
+  padding: 2rem;
+}
+
+
+h1 {
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 2rem;
+}
+
+/* Tabla */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+th {
+  color: #fff;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+td {
+  padding: 1rem 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  color: #4a5568;
+}
+
+tbody tr:nth-child(even) {
+  background: #f8fafc;
+}
+
+tbody tr:hover {
+  background: #e6f7ff;
+  transform: translateY(-1px);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Acciones */
+td a {
+  display: inline-block;
+  margin-bottom: 0.25rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+  color: #667eea;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  background: #edf2f7;
+}
+
+td a:hover {
+  color: #fff;
+  background: #667eea;
+}
+
+td a[onclick*="Eliminar"] {
+  color: #e53e3e;
+  background: #fed7d7;
+}
+
+td a[onclick*="Eliminar"]:hover {
+  color: #fff;
+  background: #c53030;
+}
+
+/* Estado destacado */
+td:nth-child(4) {
+  font-weight: 600;
+  text-align: center;
+}
+
+td:nth-child(4):contains("Pendiente") {
+  color: #ed8936;
+}
+
+td:nth-child(4):contains("En mantenimiento") {
+  color: #667eea;
+}
+
+td:nth-child(4):contains("Solucionado") {
+  color: #48bb78;
+}
+
+/* Responsive - tarjetas en móvil */
+@media (max-width: 768px) {
+  table, thead, tbody, th, td, tr {
+    display: block;
+  }
+
+  thead { display: none; }
+
+  tbody tr {
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+  }
+
+  td {
+    padding: 0.5rem 0;
+    position: relative;
+    text-align: left;
+    font-size: 0.9rem;
+  }
+
+  td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  td a {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Muted / mensaje central */
+.muted {
+  text-align: center;
+  font-style: italic;
+  color: #718096;
+  padding: 2rem 0;
+}
