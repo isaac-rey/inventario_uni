@@ -1,39 +1,29 @@
 <?php
-// Solo incluir init.php si no está ya incluido
+// init.php solo si no está incluido
 if (!function_exists('user')) {
     require_once __DIR__ . '/../init.php';
 }
 
-// Obtener datos del usuario si no están definidos
+date_default_timezone_set('America/Asuncion');
+
 if (!isset($rol)) {
     $rol = user()['rol'];
 }
 
-// Función para determinar si el enlace está activo
 function isActive($currentPage, $targetPage)
 {
     return basename($_SERVER['PHP_SELF']) === $targetPage ? 'active' : '';
 }
 
-// Obtener la página actual para marcar el elemento activo
 $currentPage = basename($_SERVER['PHP_SELF']);
 
-// ----------------------
-// 🔔 Validación hora de cierre
-// ----------------------
-$cierre = new DateTime('19:09'); // hora de cierre de la universidad
-$ahora = new DateTime();
-$minutos_restantes = ($cierre->getTimestamp() - $ahora->getTimestamp()) / 60;
+// Hora de cierre
+$cierre = new DateTime('17:30');
+$cierreStr = $cierre->format('Y-m-d H:i:s');
 
-// Verificar préstamos activos
-$prestamos = $mysqli->query("SELECT COUNT(*) AS total FROM prestamos WHERE estado='activo'")->fetch_assoc();
-$totalActivos = $prestamos['total'] ?? 0;
-
-$alertaNavbar = null;
-if ($minutos_restantes <= 30 && $minutos_restantes > 0 && $totalActivos > 0) {
-    $alertaNavbar = "⚠️ Faltan " . intval($minutos_restantes) . " min para el cierre. $totalActivos equipos prestados.";
-}
-
+// Consultar préstamos activos
+$prestamos = $mysqli->query("SELECT COUNT(*) AS total FROM prestamos WHERE estado='activo'");
+$totalActivos = $prestamos->fetch_assoc()['total'] ?? 0;
 ?>
 
 <!DOCTYPE html>
@@ -45,80 +35,43 @@ if ($minutos_restantes <= 30 && $minutos_restantes > 0 && $totalActivos > 0) {
     <title>Sistema de Inventario</title>
     <link rel="stylesheet" href="../css/navbar.css">
     <style>
-
+        .notificacion-fija {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: #f39c12;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            z-index: 9999;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease;
+            /* transición suave de 1 segundo */
+        }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
     <nav class="navbar">
         <div class="nav-container">
-            <!-- Brand -->
             <div class="nav-brand">
                 <a href="/inventario_uni/" class="brand-link">Inventario</a>
                 <span class="badge"><?= htmlspecialchars($rol) ?></span>
             </div>
-
-            <!-- Botón hamburguesa -->
-            <div class="nav-toggle" id="nav-toggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- Menú -->
+            <div class="nav-toggle" id="nav-toggle"><span></span><span></span><span></span></div>
             <ul class="nav-menu" id="nav-menu">
-                <li class="nav-item">
-                    <a href="/inventario_uni/public/equipos_index.php"
-                        class="nav-link <?= isActive($currentPage, 'equipos_index.php') ?>">
-                        Equipos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/inventario_uni/public/prestamos_index.php"
-                        class="nav-link <?= isActive($currentPage, 'prestamos_index.php') ?>">
-                        Préstamos
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="/inventario_uni/public/estudiantes_listar.php"
-                        class="nav-link <?= isActive($currentPage, 'estudiantes_listar.php') ?>">
-                        Estudiantes
-                    </a>
-                </li>
+                <li class="nav-item"><a href="/inventario_uni/public/equipos_index.php" class="nav-link <?= isActive($currentPage, 'equipos_index.php') ?>">Equipos</a></li>
+                <li class="nav-item"><a href="/inventario_uni/public/prestamos_index.php" class="nav-link <?= isActive($currentPage, 'prestamos_index.php') ?>">Préstamos</a></li>
+                <li class="nav-item"><a href="/inventario_uni/public/estudiantes_listar.php" class="nav-link <?= isActive($currentPage, 'estudiantes_listar.php') ?>">Estudiantes</a></li>
                 <?php if ($rol === 'bibliotecaria'): ?>
-                    <li class="nav-item">
-                        <a href="/inventario_uni/public/reportes.php"
-                        class="nav-link <?= isActive($currentPage, 'reportes.php') ?>">
-                        Reportes
-                    </a>
-                    </li>
+                    <li class="nav-item"><a href="/inventario_uni/public/reportes.php" class="nav-link <?= isActive($currentPage, 'reportes.php') ?>">Reportes</a></li>
                 <?php endif; ?>
-
-                <li class="nav-item">
-                    <a href="/inventario_uni/public/mantenimientos.php"
-                        class="nav-link <?= isActive($currentPage, 'mantenimientos.php') ?>">
-                        Mantenimientos
-                    </a>
-                </li>
-
-                <?php if ($alertaNavbar): ?>
-                    <li class="nav-item alerta-navbar">
-                        <span class="alerta-text"><?= htmlspecialchars($alertaNavbar) ?></span>
-                    </li>
-                <?php endif; ?>
-
-
+                <li class="nav-item"><a href="/inventario_uni/public/mantenimientos.php" class="nav-link <?= isActive($currentPage, 'mantenimientos.php') ?>">Mantenimientos</a></li>
                 <?php if ($rol === 'admin'): ?>
-                    <li class="nav-item">
-                        <a href="/inventario_uni/public/usuarios_index.php"
-                            class="nav-link <?= isActive($currentPage, 'usuarios_index.php') ?>">
-                            Usuarios
-                        </a>
-                    </li>
+                    <li class="nav-item"><a href="/inventario_uni/public/usuarios_index.php" class="nav-link <?= isActive($currentPage, 'usuarios_index.php') ?>">Usuarios</a></li>
                 <?php endif; ?>
-
-                <!-- Usuario dentro del menú -->
                 <li class="nav-item nav-user">
                     <span class="user-name"><?= htmlspecialchars(user()['nombre']) ?></span>
                     <a href="/inventario_uni/auth/logout.php" class="logout-btn">Salir</a>
@@ -127,22 +80,50 @@ if ($minutos_restantes <= 30 && $minutos_restantes > 0 && $totalActivos > 0) {
         </div>
     </nav>
 
+    <div id="notificacion" class="notificacion-fija"></div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.getElementById('nav-toggle');
             const menu = document.getElementById('nav-menu');
-
             toggle.addEventListener('click', () => {
                 toggle.classList.toggle('active');
                 menu.classList.toggle('active');
             });
         });
-        <?php if ($alertaNavbar): ?>
-                <
 
-                alert("<?= htmlspecialchars($alertaNavbar) ?>");
+        const cierre = new Date("<?= $cierreStr ?>");
+        const totalActivos = <?= $totalActivos ?>;
+        const notificacionDiv = document.getElementById('notificacion');
 
-        <?php endif; ?>
+        let ultimaNotificacion = 0;
+
+        function actualizarAlerta() {
+            const ahora = new Date();
+            const diffMs = cierre - ahora;
+            const diffMin = Math.ceil(diffMs / 60000);
+
+            if (diffMin <= 30 && diffMin > 0 && totalActivos > 0) {
+                const ahoraTimestamp = Date.now();
+                if (ahoraTimestamp - ultimaNotificacion > 5 * 60 * 1000) { // cada 5 min
+                    const mensaje = `⚠️ Faltan ${diffMin} min para el cierre. ${totalActivos} equipos prestados.`;
+                    notificacionDiv.textContent = mensaje;
+                    notificacionDiv.style.opacity = 1; // mostrar suavemente
+                    ultimaNotificacion = ahoraTimestamp;
+
+                    // Desvanecer después de 7 segundos
+                    setTimeout(() => {
+                        notificacionDiv.style.opacity = 0; // desaparece suavemente
+                    }, 7000);
+                }
+            } else {
+                notificacionDiv.style.opacity = 0;
+            }
+        }
+
+        // Ejecutar al cargar y luego cada minuto
+        actualizarAlerta();
+        setInterval(actualizarAlerta, 60000);
     </script>
 </body>
 
