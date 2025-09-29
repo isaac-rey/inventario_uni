@@ -86,13 +86,14 @@ if ($minutos_restantes <= 30 && $minutos_restantes > 0 && $totalActivos > 0) {
                         Estudiantes
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="/inventario_uni/public/reportes.php"
+                <?php if ($rol === 'bibliotecaria'): ?>
+                    <li class="nav-item">
+                        <a href="/inventario_uni/public/reportes.php"
                         class="nav-link <?= isActive($currentPage, 'reportes.php') ?>">
                         Reportes
                     </a>
-                </li>
+                    </li>
+                <?php endif; ?>
 
                 <li class="nav-item">
                     <a href="/inventario_uni/public/mantenimientos.php"

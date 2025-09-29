@@ -1,6 +1,6 @@
 <?php
 // auth/register.php
-session_start();
+
 require __DIR__ . '/../config/db.php';
 
 $error = '';
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->bind_param('ssssi', $ci, $nombre, $email, $hash, $rol_id);
 
       if ($stmt->execute()) {
-        $success = 'Usuario registrado correctamente. Ahora puedes iniciar sesión.';
+        header("Location: ../public/usuarios_index.php");
       } else {
         $error = 'Error al registrar usuario.';
       }
@@ -51,22 +51,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <link rel="stylesheet" href="../css/form_login.css">
 </head>
 <body>
+<?php include __DIR__ . '/../public/navbar.php'; ?>
+
   <div class="card">
     <h1>Registro de Usuario</h1>
     <?php if ($error): ?><div class="error"><?=htmlspecialchars($error)?></div><?php endif; ?>
     <?php if ($success): ?><div class="success"><?=htmlspecialchars($success)?></div><?php endif; ?>
     <form method="post">
       <label>CI</label>
-      <input name="ci" required>
+      <input name="ci" type="text" required>
       <label>Nombre</label>
-      <input name="nombre" required>
+      <input name="nombre" type="text" required>
       <label>Correo electrónico</label>
       <input name="email" type="email" required>
       <label>Contraseña</label>
       <input name="password" type="password" required>
       <button type="submit">Registrar</button>
     </form>
-    <div class="muted">¿Ya tienes cuenta? <a href="login.php">Inicia sesión</a></div>
   </div>
 </body>
 </html>

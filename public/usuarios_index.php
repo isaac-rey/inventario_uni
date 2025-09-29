@@ -82,32 +82,15 @@ try {
   <meta charset="utf-8">
   <title>Gestión de Usuarios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0f172a;color:#e2e8f0;margin:0}
-    header{display:flex;justify-content:space-between;align-items:center;padding:16px;background:#111827}
-    a{color:#93c5fd;text-decoration:none}
-    .container{padding:24px}
-    table{width:100%;border-collapse:collapse;margin-top:16px}
-    th,td{padding:12px;text-align:left;border-bottom:1px solid #1f2937}
-    th{background:#1f2937}
-    input,select,button{padding:6px 10px;border-radius:6px;border:none}
-    input,select{background:#111827;color:#e2e8f0}
-    button{background:#2563eb;color:white;cursor:pointer}
-    button:hover{background:#1d4ed8}
-    .ok{background:#16a34a;color:white;padding:8px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-    .deleted{background:#f59e0b;color:white;padding:8px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-    .error{background:#dc2626;color:white;padding:8px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
-    .badge{background:#3b82f6;padding:4px 8px;border-radius:4px;font-size:0.8em}
-  </style>
+  <link rel="stylesheet" href="../css/tabla_usuarios.css">
 </head>
 <body>
-  <header>
-    <div><a href="/inventario_uni/index.php">← Panel</a></div>
-    <div>Inventario — <span class="badge"><?=htmlspecialchars($rol)?></span></div>
-    <div><?=htmlspecialchars(user()['nombre'])?> · <a href="/inventario_uni/auth/logout.php">Salir</a></div>
-  </header>
+  <?php include __DIR__ . '/navbar.php'; ?>
 
   <div class="container">
+     <div class="actions">
+        <a class="btn"href="../auth/register.php">+ Registrar Usuario</a>
+    </div>
     <h2>Gestión de Usuarios</h2>
 
     <?php if (isset($_GET['ok'])): ?>
