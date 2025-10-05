@@ -53,18 +53,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "El equipo ya está prestado.";
       } else {
         // Insertar préstamo
-        $stmt = $mysqli->prepare("INSERT INTO prestamos (equipo_id, estudiante_id, observacion) VALUES (?,?,?)");
-        $stmt->bind_param("iis", $equipo_id, $est['id'], $obs);
-        $stmt->execute();
+        //$stmt = $mysqli->prepare("INSERT INTO prestamos (equipo_id, estudiante_id, observacion) VALUES (?,?,?)");
+        //$stmt->bind_param("iis", $equipo_id, $est['id'], $obs);
+        //$stmt->execute();
+        //************************************************* */
+        // 1. Insertar préstamo (Usamos $stmt_prestamo)
+        $stmt_prestamo = $mysqli->prepare("INSERT INTO prestamos (equipo_id, estudiante_id, observacion) VALUES (?,?,?)");
+        $stmt_prestamo->bind_param("iis", $equipo_id, $est['id'], $obs);
+
+        //************************************************** */
 
         // Marcar equipo como prestado
-        $stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
-        $stmt->bind_param("i", $equipo_id);
-        $stmt->execute();
+        //$stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
+        //$stmt->bind_param("i", $equipo_id);
+        //$stmt->execute();
+        //************************************************* */
+        // 2. Marcar equipo como prestado (Usamos $stmt_equipo)
+        $stmt_equipo = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
+        $stmt_equipo->bind_param("i", $equipo_id);
 
-        $ok = true;
-        header("Location: equipos_index.php");
+        //---------------------insersion de la auditoria----------------------------
+         if ($stmt_prestamo->execute() && 
+            $stmt_equipo->execute()) {
+          $nombre_estudiante = $est['nombre'] . ' ' . $est['apellido'];
+          $equipo_desc = $equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo'];
+
+          auditar("Registró el préstamo del equipo ID {$equipo_id} ({$equipo_desc}) al estudiante {$nombre_estudiante} (CI: {$ci}).");
+        
+        //  $ok = true;
+        //header("Location: equipos_index.php");
         exit;
+         }else{
+          $error = "Ocurrió un error al registrar el préstamo o actualizar el equipo.";
+         }
+        //---------------------------------------------------------------------------
       }
     }
   }

@@ -1,6 +1,7 @@
 <?php
 // public/estudiantes_eliminar.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
 
 $id = intval($_GET['id'] ?? 0);
 if (!$id) {
@@ -25,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $mysqli->prepare("DELETE FROM estudiantes WHERE id=? LIMIT 1");
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
+        //-------------------Auditar la eliminación------------------------
+        $nombre_completo = $estudiante['nombre'] . ' ' . $estudiante['apellido'];
+        auditar("Eliminó al estudiante ID {$id} ({$nombre_completo}).");
+        
         $ok = true;
     } else {
         $error = "No se pudo eliminar el estudiante.";

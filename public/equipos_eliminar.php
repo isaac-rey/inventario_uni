@@ -7,7 +7,8 @@ $id = intval($_GET['id'] ?? 0);
 if (!$id) die("ID no especificado.");
 
 // Traer el equipo
-$stmt = $mysqli->prepare("SELECT e.id, e.area_id FROM equipos e WHERE e.id=? LIMIT 1");
+//$stmt = $mysqli->prepare("SELECT e.id, e.area_id FROM equipos e WHERE e.id=? LIMIT 1");
+$stmt = $mysqli->prepare("SELECT e.id, e.area_id, e.tipo, e.marca, e.modelo, e.serial_interno FROM equipos e WHERE e.id=? LIMIT 1");
 $stmt->bind_param("i", $id);
 $stmt->execute();
 $equipo = $stmt->get_result()->fetch_assoc();
@@ -40,7 +41,13 @@ $stmt->execute();
 // 4️⃣ Borrar el equipo
 $del = $mysqli->prepare("DELETE FROM equipos WHERE id=? LIMIT 1");
 $del->bind_param("i", $id);
-$del->execute();
+
+//------------------insersion de la auditoria------------------
+if ($del->execute()) {
+    $descripcion = trim($equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo']);
+    auditar("Eliminó el equipo ID {$id} (Serial: {$equipo['serial_interno']}): {$descripcion}.");
+}
+//-------------------------------------------------------------
 
 // Volver al listado
 header("Location: equipos_index.php");

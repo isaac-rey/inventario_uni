@@ -69,9 +69,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // sala_id puede ser NULL -> usar 'i' y pasar null con bind_param requiere cuidado:
     // truco: si $sala_id es null, usar null; mysqli lo envía como 0 si no seteamos types-> usamos set de types y values normal.
     $stmt->bind_param("iissssi", $area_id, $sala_id, $tipo, $marca, $modelo, $estado, $id);
-    $stmt->execute();
+
+
+    //--------------------insersion de auditoria-----------------------
+    if ($stmt->execute()){
+      $descripcion = trim("$tipo $marca $modelo");  
+      auditar("Editó el equipo (ID {$id}) {$descripcion}.");
 
     $ok = true;
+    } else {
+      $error = "Error al guardar los cambios: " . $mysqli->error;
+    } 
+    // -------------------------------------------------------------
 
     // Recargar datos actualizados
     $stmt = $mysqli->prepare("

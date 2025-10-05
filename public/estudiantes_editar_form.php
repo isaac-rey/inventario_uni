@@ -1,6 +1,8 @@
 <?php
 // public/estudiantes_editar.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+
+require __DIR__ . '/../init.php';
 
 $id = intval($_GET['id'] ?? 0);
 if (!$id) {
@@ -48,11 +50,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $mysqli->prepare("UPDATE estudiantes SET ci=?, nombre=?, apellido=?, email=? WHERE id=?");
         $stmt->bind_param('ssssi', $ci, $nombre, $apellido, $email, $id);
       }
-      $stmt->execute();
-      $ok = true;
+      //----------------insersion de la auditoria y verificacion--------------------
+      if ($stmt->execute()) {
+        // El usuario actual (admin/titular) editó al estudiante
+        auditar("Editó los datos del estudiante ID {$id} ({$nombre} {$apellido}).");
+        $ok = true;
+      } else {
+        // Opcional: Manejo de error de actualización
+        $error = "Error al actualizar estudiante: " . $mysqli->error;
+      }
+      //--------------------------------------------------------------
     }
   }
 }
+
 ?>
 <!doctype html>
 <html lang="es">

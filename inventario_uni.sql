@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-09-2025 a las 21:09:56
+-- Tiempo de generación: 04-10-2025 a las 18:02:56
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -41,6 +41,30 @@ INSERT INTO `areas` (`id`, `nombre`, `creado_en`) VALUES
 (1, 'Biblioteca', '2025-08-31 16:25:35'),
 (2, 'Secretaría', '2025-08-31 16:25:35'),
 (3, 'Sala Informática', '2025-08-31 16:25:35');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `auditoria`
+--
+
+CREATE TABLE `auditoria` (
+  `id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `accion` text NOT NULL,
+  `ip_usuario` varchar(250) NOT NULL,
+  `user_agent` varchar(250) NOT NULL,
+  `fecha` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `auditoria`
+--
+
+INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `ip_usuario`, `user_agent`, `fecha`) VALUES
+(1, 7, 'Editó el usuario con ID 11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:00:54'),
+(2, 7, 'Elimino el usuario con ID 11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:01:31'),
+(3, 7, 'Registró al nuevo usuario con ID 12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:01:58');
 
 -- --------------------------------------------------------
 
@@ -89,7 +113,8 @@ CREATE TABLE `equipos` (
 --
 
 INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`) VALUES
-(5, 1, 2, 'TV 43', 'tokyo', 'tffe3', NULL, '23b47cd5e388', 'bueno', 0, 0, NULL, '2025-09-29 13:22:56', '2025-09-29 13:39:19', 0);
+(5, 1, 2, 'TV 43', 'tokyo', 'tffe3', NULL, '23b47cd5e388', 'bueno', 0, 0, NULL, '2025-09-29 13:22:56', '2025-09-29 13:39:19', 0),
+(6, 1, 4, 'mause', 'sate', 'jjj', NULL, 'aa07610a7668', 'Disponible', 0, 0, NULL, '2025-10-04 15:31:04', NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -278,7 +303,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `ci`, `email`, `nombre`, `password_hash`, `role_id`, `creado_en`) VALUES
 (5, '123456', 'isaacmiranda290@gmail.com', 'Isaac Miranda', '$2a$12$obdsmKZKP18niFoFF8iG6eV7y6APB2Q3GjQXPdC5dvb5rMKZkwyuu', 2, '2025-09-14 16:01:44'),
 (7, '7400254', 'kevinalegre181@gmail.com', 'kevin', '$2y$10$EfpsXdbiRfwzC1GA6D9NieNfBdXgsZbMwG4SKQsiVslUrjKJjP.ka', 1, '2025-09-19 15:55:41'),
-(10, '5920912', 'perlaj34@gamil.com', 'richar', '$2y$10$ZSCq4gccx6biyaA1DIzR2eoWYX5MtoIjLAsiaqfBP6/uucowyKnBy', 2, '2025-09-29 14:43:29');
+(10, '5920912', 'perlaj34@gamil.com', 'richar', '$2y$10$ZSCq4gccx6biyaA1DIzR2eoWYX5MtoIjLAsiaqfBP6/uucowyKnBy', 2, '2025-09-29 14:43:29'),
+(12, '112', 'nnnnnmmmmma@gmail.com', 'gota', '$2y$10$ZtM3UKx2y6WYAI2ejMH7O.P5cBqKKJZ6CJ4/uB0H87De1lnJv4iQ6', 2, '2025-10-04 16:01:58');
 
 --
 -- Índices para tablas volcadas
@@ -290,6 +316,13 @@ INSERT INTO `usuarios` (`id`, `ci`, `email`, `nombre`, `password_hash`, `role_id
 ALTER TABLE `areas`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nombre` (`nombre`);
+
+--
+-- Indices de la tabla `auditoria`
+--
+ALTER TABLE `auditoria`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `usuario_id` (`usuario_id`);
 
 --
 -- Indices de la tabla `componentes`
@@ -378,6 +411,12 @@ ALTER TABLE `areas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT de la tabla `auditoria`
+--
+ALTER TABLE `auditoria`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `componentes`
 --
 ALTER TABLE `componentes`
@@ -387,7 +426,7 @@ ALTER TABLE `componentes`
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
@@ -435,11 +474,17 @@ ALTER TABLE `salas`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `auditoria`
+--
+ALTER TABLE `auditoria`
+  ADD CONSTRAINT `auditoria_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `componentes`

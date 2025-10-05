@@ -1,6 +1,10 @@
 <?php
 // public/estudiantes_registro.php
-require __DIR__ . '/../config/db.php';
+//
+require __DIR__ . '/../init.php'; 
+//
+
+//require __DIR__ . '/../config/db.php';
 
 
 $ok = false;
@@ -34,11 +38,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES (?,?,?,?,?)
       ");
       $stmt->bind_param('sssss', $ci, $nombre, $apellido, $email, $hash);
-      $stmt->execute();
+     // $stmt->execute();
 
-      $ok = true;
+      //-----------------insersion de la auditoria--------------------
+      if ($stmt->execute()) {
+        $nuevo_estudiante_id = $mysqli->insert_id;
+        auditar("Registró un nuevo estudiante con ID {$nuevo_estudiante_id} y Nombre: {$nombre} {$apellido}");
+
+        $ok = true;
+      } else {
+        // Manejo de error de inserción
+        $error = "Error al registrar el estudiante: " . $mysqli->error;
+      }
+      //--------------------------------------------------------------
     }
-  }
+  } 
 }
 ?>
 <!doctype html>
