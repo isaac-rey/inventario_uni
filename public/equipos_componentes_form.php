@@ -30,9 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $mysqli->prepare("INSERT INTO componentes (equipo_id, tipo, marca, modelo, estado, observacion) VALUES (?,?,?,?,?,?)");
     $stmt->bind_param("isssss", $equipo_id, $tipo, $marca, $modelo, $estado, $obs);
-    $stmt->execute();
+    //$stmt->execute();
 
-    echo "<p class='muted'>Componente agregado correctamente.</p>";
+    //--------------------------------INSERCION DE LA AUDITORIA------------------------------
+    if ($stmt->execute()) {
+        // ✅ INSERCIÓN DE LA AUDITORÍA AQUÍ
+        $equipo_desc = htmlspecialchars($equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo']);
+        $componente_desc = htmlspecialchars($tipo . ' ' . $marca . ' ' . $modelo . ' (' . $estado . ')');
+
+        auditar("Agregó el componente: {$componente_desc} al equipo ID {$equipo_id} ({$equipo_desc}).");
+
+        echo "<p class='muted'>Componente agregado correctamente.</p>";
+    } else {
+        // Manejar error de inserción, si es necesario
+        echo "<p class='muted' style='color: red;'>Error al agregar el componente: " . $mysqli->error . "</p>";
+    }
+    //echo "<p class='muted'>Componente agregado correctamente.</p>";
+    //---------------------------------FIN DE LA INSERCION DE LA AUDITORIA---------------------------
 }
 
 // listar componentes

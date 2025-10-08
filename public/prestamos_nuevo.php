@@ -4,7 +4,9 @@ require __DIR__ . '/../init.php';
 require_login();
 
 $equipo_id = intval($_GET['equipo'] ?? 0);
-if (!$equipo_id) { die("Equipo no especificado."); }
+if (!$equipo_id) {
+  die("Equipo no especificado.");
+}
 
 // Traer equipo
 $stmt = $mysqli->prepare("SELECT e.*, a.nombre AS area, s.nombre AS sala
@@ -15,7 +17,9 @@ $stmt = $mysqli->prepare("SELECT e.*, a.nombre AS area, s.nombre AS sala
 $stmt->bind_param("i", $equipo_id);
 $stmt->execute();
 $equipo = $stmt->get_result()->fetch_assoc();
-if (!$equipo) { die("Equipo no encontrado."); }
+if (!$equipo) {
+  die("Equipo no encontrado.");
+}
 
 if ((int)$equipo['prestado'] === 1) {
   // si ya está prestado, redirigir
@@ -73,19 +77,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt_equipo->bind_param("i", $equipo_id);
 
         //---------------------insersion de la auditoria----------------------------
-         if ($stmt_prestamo->execute() && 
-            $stmt_equipo->execute()) {
+        if (
+          $stmt_prestamo->execute() &&
+          $stmt_equipo->execute()
+        ) {
           $nombre_estudiante = $est['nombre'] . ' ' . $est['apellido'];
           $equipo_desc = $equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo'];
 
           auditar("Registró el préstamo del equipo ID {$equipo_id} ({$equipo_desc}) al estudiante {$nombre_estudiante} (CI: {$ci}).");
-        
-        //  $ok = true;
-        //header("Location: equipos_index.php");
-        exit;
-         }else{
+
+          $ok = true;
+          //header("Location: equipos_index.php");
+          //exit;
+        } else {
           $error = "Ocurrió un error al registrar el préstamo o actualizar el equipo.";
-         }
+        }
         //---------------------------------------------------------------------------
       }
     }
@@ -94,12 +100,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>Nuevo préstamo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/form_prestamos_nuevo.css">
 </head>
+
 <body>
   <?php
   include __DIR__ . '/navbar.php';
@@ -110,16 +118,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <h2>Nuevo préstamo</h2>
 
       <p class="muted">
-        Equipo: <strong><?=htmlspecialchars($equipo['tipo'])?> <?=htmlspecialchars($equipo['marca'])?> <?=htmlspecialchars($equipo['modelo'])?></strong>
-        — Área: <?=htmlspecialchars($equipo['area'])?><?= $equipo['sala'] ? ' / '.htmlspecialchars($equipo['sala']) : '' ?>
+        Equipo: <strong><?= htmlspecialchars($equipo['tipo']) ?> <?= htmlspecialchars($equipo['marca']) ?> <?= htmlspecialchars($equipo['modelo']) ?></strong>
+        — Área: <?= htmlspecialchars($equipo['area']) ?><?= $equipo['sala'] ? ' / ' . htmlspecialchars($equipo['sala']) : '' ?>
       </p>
 
-      <?php if ($error): ?><div class="error"><?=htmlspecialchars($error)?></div><?php endif; ?>
+      <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
 
       <form method="post" autocomplete="off">
         <br>
         <label>CI del estudiante</label>
-        <input name="ci" placeholder="Ej.: 8697131"  type="text" required>
+        <input name="ci" placeholder="Ej.: 8697131" type="text" required>
 
         <label>Observación (opcional)</label>
         <textarea name="observacion" placeholder="Motivo, aula, responsable, etc."></textarea>
@@ -133,4 +141,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
   </div>
 </body>
+
 </html>

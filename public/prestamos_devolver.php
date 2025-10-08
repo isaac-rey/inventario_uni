@@ -21,31 +21,31 @@ $error = '';
 $ok = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $es_tercero = ($_POST['es_tercero'] ?? 'no') === 'si';
-    $nombre_tercero = null;
-    $ci_tercero = null;
+  $es_tercero = ($_POST['es_tercero'] ?? 'no') === 'si';
+  $nombre_tercero = null;
+  $ci_tercero = null;
 
-    if ($es_tercero) {
-        $ci_tercero = trim($_POST['ci_tercero'] ?? '');
+  if ($es_tercero) {
+    $ci_tercero = trim($_POST['ci_tercero'] ?? '');
 
-        if ($ci_tercero === '') {
-            $error = "Debes seleccionar al estudiante que devuelve el equipo.";
-        } else {
-            // Buscar nombre en la base de datos según el CI
-            $stmt = $mysqli->prepare("SELECT nombre FROM estudiantes WHERE ci = ? LIMIT 1");
-            $stmt->bind_param("s", $ci_tercero);
-            $stmt->execute();
-            $res = $stmt->get_result()->fetch_assoc();
-            $nombre_tercero = $res['nombre'] ?? '';
+    if ($ci_tercero === '') {
+      $error = "Debes seleccionar al estudiante que devuelve el equipo.";
+    } else {
+      // Buscar nombre en la base de datos según el CI
+      $stmt = $mysqli->prepare("SELECT nombre FROM estudiantes WHERE ci = ? LIMIT 1");
+      $stmt->bind_param("s", $ci_tercero);
+      $stmt->execute();
+      $res = $stmt->get_result()->fetch_assoc();
+      $nombre_tercero = $res['nombre'] ?? '';
 
-            if ($nombre_tercero === '') {
-                $error = "El estudiante seleccionado no existe en la base de datos.";
-            }
-        }
+      if ($nombre_tercero === '') {
+        $error = "El estudiante seleccionado no existe en la base de datos.";
+      }
     }
+  }
 
-    if ($error === '') {
-        // Actualizar préstamo
+  if ($error === '') {
+    /* Actualizar préstamo
         $stmt = $mysqli->prepare("UPDATE prestamos 
                                   SET estado='devuelto', 
                                       fecha_devolucion=NOW(), 
@@ -56,14 +56,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->execute();
 
         // Liberar equipo
-        $stmt = $mysqli->prepare("UPDATE equipos SET prestado=0, estado='disponible' WHERE id=?");
-        $stmt->bind_param("i", $equipo_id);
-        $stmt->execute();
+        //$stmt = $mysqli->prepare("UPDATE equipos SET prestado=0, estado='disponible' WHERE id=?");
+        //$stmt->bind_param("i", $equipo_id);
+        //$stmt->execute();*/
+    // 1. Actualizar préstamo (ASIGNADO A $stmt_prestamo)
+    //-------------------------------EDICION DEL CODIGO PARA AUDITORIA------------------------------
+    $stmt_prestamo = $mysqli->prepare("UPDATE prestamos 
+SET estado='devuelto', 
+fecha_devolucion=NOW(), 
+ devuelto_por_tercero_nombre=?, 
+devuelto_por_tercero_ci=? 
+ WHERE id=?");
+    // 2. Liberar equipo (ASIGNADO A $stmt_equipo)
+    $stmt_equipo = $mysqli->prepare("UPDATE equipos SET prestado=0, estado='disponible' WHERE id=?");
 
-        $ok = true;
-        header("Location: equipos_index.php?msg=devolucion_ok");
-        exit;
+    // Manejo de errores de preparación (opcional pero recomendado)
+    if ($stmt_prestamo === false || $stmt_equipo === false) {
+      $error = "Error al preparar las sentencias SQL: " . $mysqli->error;
+      goto end_of_post_check;
     }
+    // 3. Bind Parameters
+    $stmt_prestamo->bind_param("ssi", $nombre_tercero, $ci_tercero, $prestamo['id']);
+    $stmt_equipo->bind_param("i", $equipo_id);
+    // 4. Ejecutar y auditar
+    if ($stmt_prestamo->execute() && $stmt_equipo->execute()) {
+      // Construir el mensaje de auditoría
+      $equipo_desc = $prestamo['tipo'] . ' ' . $prestamo['marca'] . ' ' . $prestamo['modelo'];
+      $responsable = htmlspecialchars($prestamo['responsable']);
+      if ($es_tercero) {
+        $devuelto_por = "Tercero: {$nombre_tercero} (CI: {$ci_tercero})";
+      } else {
+        $devuelto_por = "Responsable original: {$responsable}";
+      }
+      // ✅ INSERCIÓN DE AUDITORÍA
+      auditar("Registró la devolución del equipo ID {$equipo_id} ({$equipo_desc}). Responsable: {$responsable}. Devuelto por: {$devuelto_por}.");
+
+      $ok = true;
+      header("Location: equipos_index.php?msg=devolucion_ok");
+      exit;
+    } else {
+      $error = "Error al actualizar la base de datos para la devolución: " . $mysqli->error;
+    }
+  }
+  // 👈 ETIQUETA NECESARIA
+  end_of_post_check:
+  //-------------------------------------------------------------
 }
 ?>
 <!DOCTYPE html>
@@ -149,4 +186,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
   </div>
 </body>
+
 </html>

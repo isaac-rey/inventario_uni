@@ -73,7 +73,9 @@ $totalActivos = $prestamos->fetch_assoc()['total'] ?? 0;
                     <li class="nav-item"><a href="/inventario_uni/public/usuarios_index.php" class="nav-link <?= isActive($currentPage, 'usuarios_index.php') ?>">Usuarios</a></li>
                 <?php endif; ?>
                 <!-- -->
+                <?php if ($rol === 'admin'): ?>
                 <li class="nav-item"><a href="/inventario_uni/public/auditoria.php" class="nav-link <?= isActive($currentPage, 'auditoria.php') ?>">Auditoria</a></li>
+                <?php endif; ?>
                 <!-- -->
                 <li class="nav-item nav-user">
                     <span class="user-name"><?= htmlspecialchars(user()['nombre']) ?></span>
