@@ -82,8 +82,8 @@ if (!empty($params)) {
 <head>
     <meta charset="UTF-8">
     <title>Auditoría - Inventario</title>
-    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+
     <style>
         table {
             width: 100%;
@@ -103,8 +103,8 @@ if (!empty($params)) {
     </style>
 </head>
 
+<?php include __DIR__ . '/navbar.php'; ?>
 <body>
-    <?php include __DIR__ . '/navbar.php'; ?>
 
     <main class="dashboard">
         <h1>Registro de Auditoría</h1>

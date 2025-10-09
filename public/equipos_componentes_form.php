@@ -108,4 +108,3 @@ include __DIR__ . '/navbar.php';
         <button type="submit" class="btn btn-success">Agregar componente</button>
     </form>
 </div>
-</div>

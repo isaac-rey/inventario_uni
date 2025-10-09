@@ -1,78 +1,78 @@
 <?php
 require __DIR__ . '/../config/db.php';
-include __DIR__ . '/navbar.php';
+require __DIR__ . '/../init.php';
+require_login();
 
-$id = intval($_GET['id'] ?? 0);
-$error = null;
+$reporte_id = intval($_GET['reporte_id'] ?? 0);
+ 
+if (!$reporte_id) die("Mantenimiento no especificado.");
+
+// Obtener info del mantenimiento
+$stmt = $mysqli->prepare("SELECT * FROM mantenimientos WHERE reporte_id = ?");
+$stmt->bind_param("i", $reporte_id);
+$stmt->execute();
+$mantenimiento = $stmt->get_result()->fetch_assoc();
+
+if (!$mantenimiento) die("Mantenimiento no encontrado.");
+
 $ok = false;
+$error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $fecha_devolucion = $_POST['fecha_devolucion'];
   $solucionado = intval($_POST['solucionado']);
 
-  if ($solucionado === 1) {
-    $estado = 'disponible';
-    $con_reporte = 0; // limpiamos reporte
-  } else {
-    $estado = 'no_disponible';
-    $con_reporte = 1; // sigue marcado con reporte
-  }
-
-  $stmt = $mysqli->prepare("
-      UPDATE equipos
-      SET en_mantenimiento=0, estado='Disponible', con_reporte=?
-      WHERE id=?");
-  $stmt->bind_param("ii", $con_reporte, $id);
-  $stmt->execute();
-
-  $stmt = $mysqli->prepare("
-    INSERT INTO mantenimientos (equipo_id, fecha_devolucion, solucionado)
-    VALUES (?, ?, ?)");
-  $stmt->bind_param("iss", $id, $fecha_devolucion, $solucionado);
-
-
+  $stmt = $mysqli->prepare("UPDATE mantenimientos SET fecha_devolucion = ?, solucionado = ? WHERE reporte_id = ?");
+  $stmt->bind_param("sii", $fecha_devolucion, $solucionado, $reporte_id);
 
   if ($stmt->execute()) {
+    // actualizar estado del equipo
+    $estado = $solucionado ? 'Disponible' : 'No disponible';
+    $con_reporte = $solucionado ? 0 : 1;
+    $mysqli->query("UPDATE equipos SET en_mantenimiento=0, estado='$estado', con_reporte=$con_reporte WHERE id=" . $mantenimiento['equipo_id']);
     $ok = true;
   } else {
-    $error = "Hubo un problema al actualizar el equipo.";
+    $error = "No se pudo actualizar el mantenimiento.";
   }
 }
 ?>
+<!DOCTYPE html>
+<html lang="es">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Finalizar mantenimiento</title>
   <link rel="stylesheet" href="../css/form_mantenimiento_enviar.css">
 </head>
 
 <body>
-  <div class="card">
-    <h1>Finalizar mantenimiento</h1>
+  <?php include __DIR__ . '/navbar.php'; ?>
+  <div class="container">
+    <div class="card">
+      <h2>Finalizar mantenimiento</h2>
 
-    <?php if ($ok): ?>
-      <div class="ok">El mantenimiento fue registrado correctamente.</div>
-      <div class="muted"><a href="reportes.php">Volver a la lista de reportes</a></div>
-    <?php else: ?>
-      <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+      <?php if ($ok): ?>
+        <div class="ok">✔ Mantenimiento actualizado correctamente.</div>
+        <div class="muted"><a href="reportes.php">Volver a reportes</a></div>
+      <?php else: ?>
+        <?php if ($error) echo '<div class="error">' . htmlspecialchars($error) . '</div>'; ?>
 
-      <form method="post" autocomplete="off">
-        <div>
-          <label for="fecha_devolucion">Fecha de devolución:</label>
-          <input type="date" id="fecha_devolucion" name="fecha_devolucion" required>
-        </div>
+        <form method="post">
+          <label for="fecha_devolucion">Fecha de devolución *</label>
+          <input type="date" name="fecha_devolucion" id="fecha_devolucion" required>
 
-        <div>
           <label for="solucionado">¿Se solucionó?</label>
-          <select id="solucionado" name="solucionado" required>
+          <select name="solucionado" id="solucionado">
             <option value="1">Sí</option>
             <option value="0">No</option>
           </select>
-        </div>
 
-        <button type="submit">Guardar</button>
-      </form>
-      <div class="muted">Si no se solucionó, el equipo seguirá marcado con reporte.</div>
-    <?php endif; ?>
+          <button type="submit">Guardar</button>
+        </form>
+        <div class="muted">Si no se solucionó, el equipo seguirá marcado con reporte.</div>
+      <?php endif; ?>
+    </div>
   </div>
 </body>
+
+</html>

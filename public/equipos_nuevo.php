@@ -30,21 +30,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $mysqli->prepare("INSERT INTO equipos (area_id, sala_id, tipo, marca, modelo, serial_interno, estado) VALUES (?,?,?,?,?,?,?)");
     $stmt->bind_param("iisssss", $area_id, $sala_id, $tipo, $marca, $modelo, $serial, $estado);
     if ($stmt->execute()) {
-      //-----------------------insersion de la auditoria-----------------------
-      $nuevo_equipo_id = $mysqli->insert_id;
-
-      // Creamos un mensaje descriptivo
-      $descripcion = trim("$tipo $marca $modelo");
-
-      auditar("Registró un nuevo equipo (ID {$nuevo_equipo_id}) con Serial {$serial}: {$descripcion}");
-
-      // -----------------------------
-
-      $ok = true;
-      // Redirigir si quieres, o mostrar mensaje:
-      // header("Location: /inventario_uni/public/equipos_index.php"); exit;
+        $ok = true;
+        // Redirigir si quieres, o mostrar mensaje:
+        // header("Location: /inventario_uni/public/equipos_index.php"); exit;
     } else {
-      $error = "Error al guardar el equipo.";
+        $error = "Error al guardar el equipo.";
     }
   }
 }
@@ -67,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card">
       <h1>Nuevo equipo</h1>
 
-
+      
 
       <form method="post">
         <div>

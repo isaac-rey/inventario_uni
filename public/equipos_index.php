@@ -44,9 +44,9 @@ function highlight($text, $search)
   <div class="container">
     <div class="actions">
       <a class="btn" href="/inventario_uni/public/equipos_nuevo.php">+ Nuevo equipo</a>
-      <form method="get" style="display:inline-block;">
+      <form method="get">
         <input type="text" name="q" placeholder="Buscar equipo..." value="<?= htmlspecialchars($search) ?>">
-        <button type="submit">Buscar</button>
+        <button type="submit" class="btn">Buscar</button>
       </form>
     </div>
 
@@ -87,34 +87,26 @@ function highlight($text, $search)
               <td data-label="Acciones">
                 <a href="equipos_editar.php?id=<?= $r['id'] ?>">Editar</a><br>
                 <a href="equipos_eliminar.php?id=<?= $r['id'] ?>" onclick="return confirm('¿Eliminar este equipo?');">Eliminar</a><br>
-                <?php if (!$r['prestado']): ?>
-                  <a href="prestamos_nuevo.php?equipo=<?= $r['id'] ?>">Prestar</a><br>
-                <?php else: ?>
-                  <a href="prestamos_devolver.php?equipo=<?= $r['id'] ?>" onclick="return confirm('¿Marcar devolución de este equipo?');">Devolver</a><br>
-                <?php endif; ?>
-                <a href="#" onclick="openModal('equipos_mantenimiento.php?id=<?= $r['id'] ?>&ajax=1'); return false;">
-                  Ver historial
-                </a><br>
 
-                <!-- Botones de préstamo/devolución -->
-                <?php if (!$r['prestado'] && $r['estado'] === 'disponible' && !$r['en_mantenimiento']): ?>
-                  <a href="prestamos_nuevo.php?equipo=<?= $r['id'] ?>">Prestar</a><br>
-                <?php elseif ($r['prestado']): ?>
+                <?php if ($r['en_mantenimiento']): ?>
+                  <span style="color:blue;">En mantenimiento</span><br>
+
+                  <!-- Botones de préstamo/devolución -->
+                <?php elseif ($r['prestado'] > 0): ?>
                   <a href="prestamos_devolver.php?equipo=<?= $r['id'] ?>" onclick="return confirm('¿Marcar devolución de este equipo?');">Devolver</a><br>
+                <?php else: ?>
+                  <a href="prestamos_nuevo.php?equipo=<?= $r['id'] ?>">Prestar</a><br>
                 <?php endif; ?>
+
+                <a href="#" onclick="openModal('equipos_mantenimiento.php?id=<?= $r['id'] ?>&ajax=1'); return false;">Ver historial</a><br>
 
                 <!-- Reporte -->
                 <?php if (!$r['con_reporte'] && !$r['en_mantenimiento']): ?>
                   <a href="form_reporte_equipo.php?id_equipo=<?= $r['id'] ?>">Reportar fallo</a><br>
-                <?php endif; ?>
 
-                <?php if ($r['con_reporte']): ?>
+                  <!-- Indicador mantenimiento (solo visual, no afecta préstamos) -->
+                <?php elseif ($r['con_reporte']): ?>
                   <span style="color:red;">Con reporte</span><br>
-                <?php endif; ?>
-
-                <!-- Indicador mantenimiento (solo visual, no afecta préstamos) -->
-                <?php if ($r['en_mantenimiento']): ?>
-                  <span style="color:blue;">En mantenimiento</span><br>
                 <?php endif; ?>
               </td>
 
@@ -166,6 +158,7 @@ function highlight($text, $search)
       if (event.target === modal) closeModal();
     }
   </script>
+
 </body>
 
 </html>

@@ -27,7 +27,7 @@ $mantenimientos = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
 
     <?php if (!$mantenimientos): ?>
         <p class="muted">No hay registros de mantenimientos.</p>
-    <?php else: ?>
+    <?php else: ?> 
         <table>
             <thead>
                 <tr>
