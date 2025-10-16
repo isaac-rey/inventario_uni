@@ -25,7 +25,7 @@
 
 /* Botón principal (+ Nuevo equipo) */
 .actions .btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -55,7 +55,8 @@ table {
 
 /* Headers */
 thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
 }
 
 th {
@@ -291,10 +292,14 @@ td:nth-child(7) {
 /* Botones de acción en serial */
 .serial-actions {
   display: flex;
-  flex-direction: row; /* en línea */
-  justify-content: center; /* opcional, centra horizontalmente */
-  gap: 0.5rem; /* espacio entre botones */
-  flex-wrap: wrap; /* si no caben, bajan a otra línea */
+  flex-direction: row;
+  /* en línea */
+  justify-content: center;
+  /* opcional, centra horizontalmente */
+  gap: 0.5rem;
+  /* espacio entre botones */
+  flex-wrap: wrap;
+  /* si no caben, bajan a otra línea */
   width: 100%;
 }
 
@@ -351,12 +356,19 @@ td:nth-child(7) {
 
 /* --- Responsive estilo tarjetas para móviles --- */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
   thead {
-    display: none; /* Ocultamos encabezados en móvil */
+    display: none;
+    /* Ocultamos encabezados en móvil */
   }
 
   tbody tr {
@@ -365,13 +377,13 @@ td:nth-child(7) {
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
     animation: slideIn 0.3s ease-out;
   }
 
   tbody tr:hover {
     transform: none;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   }
 
   td {
@@ -424,6 +436,7 @@ td:nth-child(7) {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

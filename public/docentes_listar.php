@@ -12,9 +12,26 @@ $currentPage = basename(__FILE__);
 <head>
     <link rel="stylesheet" href="../css/tabla_docentes_listar.css">
 </head>
- <?php
-  include __DIR__ . '/navbar.php';
-  ?>
+<style>
+    .actions .btn {
+        background: linear-gradient(90deg, #1e3c72, #2a5298);
+        color: white;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+<?php
+include __DIR__ . '/navbar.php';
+?>
 <div class="container">
     <div class="actions">
         <a class="btn" href="/inventario_uni/public/docentes_registro.php">+ Nuevo docente</a>

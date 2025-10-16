@@ -25,7 +25,7 @@
 
 /* Botón principal (+ Nuevo equipo) */
 .actions .btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -55,7 +55,8 @@ table {
 
 /* Headers */
 thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
 }
 
 th {
@@ -286,9 +287,11 @@ td:nth-child(7) {
 /* === Modal mejorado === */
 .modal-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.7);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -303,7 +306,7 @@ td:nth-child(7) {
   width: 100%;
   padding: 2rem;
   position: relative;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   animation: scaleIn 0.3s ease;
   overflow-y: auto;
   max-height: 90vh;
@@ -311,7 +314,8 @@ td:nth-child(7) {
 
 .close-btn {
   position: absolute;
-  top: 12px; right: 15px;
+  top: 12px;
+  right: 15px;
   font-size: 1.8rem;
   cursor: pointer;
   color: #4a5568;
@@ -378,8 +382,15 @@ td:nth-child(7) {
 
 /* Animación */
 @keyframes scaleIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Responsivo */
@@ -399,37 +410,121 @@ td:nth-child(7) {
 }
 
 /* Badge de estado */
-.badge { padding: 0.25rem 0.5rem; border-radius: 5px; color: #fff; font-size: 0.85rem; }
-.badge.ok { background-color: #48bb78; }
-.badge.warn { background-color: #ed8936; }
-.badge.bad { background-color: #f56565; }
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.badge.ok {
+  background-color: #48bb78;
+}
+
+.badge.warn {
+  background-color: #ed8936;
+}
+
+.badge.bad {
+  background-color: #f56565;
+}
 
 /* Mini QR */
-.qr-mini { width: 40px; height: 40px; background: #eee; display:inline-block; margin-right:5px; cursor:pointer; }
+.qr-mini {
+  width: 40px;
+  height: 40px;
+  background: #eee;
+  display: inline-block;
+  margin-right: 5px;
+  cursor: pointer;
+}
 
 /* Serial section */
-.serial-section { display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; }
-.serial-code { cursor:pointer; font-family:monospace; }
-.serial-actions { display:flex; gap:0.25rem; flex-wrap:wrap; }
-.serial-btn { text-decoration:none; padding:2px 5px; font-size:0.75rem; border-radius:4px; color:#fff; }
-.btn-components { background:#667eea; }
-.btn-public { background:#48bb78; }
-.btn-print { background:#ed8936; }
+.serial-section {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.serial-code {
+  cursor: pointer;
+  font-family: monospace;
+}
+
+.serial-actions {
+  display: flex;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+}
+
+.serial-btn {
+  text-decoration: none;
+  padding: 2px 5px;
+  font-size: 0.75rem;
+  border-radius: 4px;
+  color: #fff;
+}
+
+.btn-components {
+  background: #667eea;
+}
+
+.btn-public {
+  background: #48bb78;
+}
+
+.btn-print {
+  background: #ed8936;
+}
 
 /* Actions */
-.actions { margin-bottom: 1rem; display:flex; flex-wrap:wrap; gap:0.5rem; align-items:center; }
-.actions .btn { text-decoration:none; background:#667eea; color:#fff; padding:0.5rem 1rem; border-radius:6px; }
-.actions form input { padding:0.4rem 0.5rem; border-radius:6px; border:1px solid #ccc; }
-.actions form button { padding:0.4rem 0.8rem; border:none; border-radius:6px; background:#764ba2; color:#fff; cursor:pointer; }
+.actions {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.actions .btn {
+  text-decoration: none;
+  background: #667eea;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+}
+
+.actions form input {
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.actions form button {
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  background: #764ba2;
+  color: #fff;
+  cursor: pointer;
+}
 
 /* --- Responsive estilo tarjetas para móviles --- */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
   thead {
-    display: none; /* Ocultamos encabezados en móvil */
+    display: none;
+    /* Ocultamos encabezados en móvil */
   }
 
   tbody tr {
@@ -438,13 +533,13 @@ td:nth-child(7) {
     border: 1px solid #e2e8f0;
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
     animation: slideIn 0.3s ease-out;
   }
 
   tbody tr:hover {
     transform: none;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   }
 
   td {
@@ -497,6 +592,7 @@ td:nth-child(7) {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

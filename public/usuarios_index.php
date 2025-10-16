@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     //--------insertar auditoria de la accion --------
     auditar("Editó el usuario con ID {$user_id}");
     //----------------------
-    
+
     if ($update_stmt->execute()) {
       header("Location: usuarios_index.php?ok=1");
       exit;
@@ -115,13 +115,16 @@ try {
     <?php endif; ?>
 
     <table>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>CI</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>CI</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
 
       <?php foreach ($usuarios as $usuario): ?>
         <tr>
