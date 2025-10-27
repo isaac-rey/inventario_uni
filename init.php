@@ -32,17 +32,42 @@ function require_role(string $role_name)
 
 
 // Función para auditar acciones de usuarios
-function auditar($accion)
+//function auditar($accion)
+  /******************************************************************** */
+function auditar($accion, $override_user_id = null)
 {
   global $mysqli;
-  $usuario = user();
+  /*$usuario = user();
   //Agrega esta verificación
   if (!$usuario || !isset($usuario['id'])) {
     error_log("AUDITORIA FALLIDA: No se pudo obtener el ID del usuario.");
     return; // Salir de la función si no hay ID de usuario.
   }
 
-  $usuario_id = $usuario['id'];
+  //$usuario_id = $usuario['id'];*/
+
+  $usuario_id = null;
+
+  // Prioridad 1: Usar el ID pasado como override (ideal para forgot_password)
+  if ($override_user_id !== null) {
+    $usuario_id = intval($override_user_id);
+  }
+  // Prioridad 2: Usar el ID del usuario logueado
+  else {
+    $usuario = user();
+    if ($usuario && isset($usuario['id'])) {
+      $usuario_id = $usuario['id'];
+    }
+  }
+  // 2. Manejo de usuario desconocido/no logueado
+  if ($usuario_id === null) {
+    // En lugar de salir, usamos un ID predefinido para acciones de "Sistema" o "Anónimo".
+    // Asumiendo que 0 es un ID reservado para el sistema/invitado. 
+    // Si tu tabla de usuarios no permite 0, usa 1 si 1 es el administrador o elige un ID reservado.
+    $usuario_id = 0; // ID para "Anónimo" o "Sistema"
+    // error_log("AUDITORIA: Se registró una acción sin ID de sesión (ID: 0).");
+  }
+  /*********************************** */
 
   $ip = $_SERVER['REMOTE_ADDR'] ?? null;
   $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? null;

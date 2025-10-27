@@ -1,7 +1,9 @@
 <?php
-session_start();
-require __DIR__ . '/../config/db.php'; // Conexión a la BD
+//session_start();
+//require __DIR__ . '/../config/db.php'; // Conexión a la BD
 require __DIR__ . '/../config/mail.php'; // PHPMailer centralizado
+
+require __DIR__ . '/../init.php';
 
 use PHPMailer\PHPMailer\Exception;
 
@@ -55,6 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $mail->send();
         $success = "Se ha enviado un enlace de recuperación a tu correo.";
+        // ------------------------Auditar el envío de la solicitud de recuperación de contraseña-----------------------------------
+        // Usamos la ID del usuario encontrado ($user['id']) en el mensaje 
+        // porque el usuario que realiza la acción no está logueado.
+        $user_desc = htmlspecialchars($user['nombre'] . ' (CI: ' . $ci . ')');
+        auditar("Solicitud de restablecimiento de contraseña. CI: {$ci}.", $user['id']);
+        //auditar("Solicitud de restablecimiento de contraseña para el usuario ID {$user['id']}: {$user_desc}.");
+        // ------------------------------------------------------------------
       } catch (Exception $e) {
         $error = "Error al enviar el correo: {$mail->ErrorInfo}";
       }

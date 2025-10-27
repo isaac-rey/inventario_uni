@@ -1,54 +1,73 @@
 <?php
 // public/form_reporte_equipo.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
+require_login();
 
 $ok = false;
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nombre_usuario_reportador = trim($_POST['nombre_usuario_reportador'] ?? '');
-    $id_equipo    = intval($_POST['id_equipo'] ?? 0);
-    $fecha_reporte   = $_POST['fecha_reporte'] ?? '';
-    $tipo_fallo  = trim($_POST['tipo_fallo'] ?? '');
-    $descripcion_fallo  = trim($_POST['descripcion_fallo'] ?? '');
+  $nombre_usuario_reportador = trim($_POST['nombre_usuario_reportador'] ?? '');
+  $id_equipo    = intval($_POST['id_equipo'] ?? 0);
+  $fecha_reporte   = $_POST['fecha_reporte'] ?? '';
+  $tipo_fallo  = trim($_POST['tipo_fallo'] ?? '');
+  $descripcion_fallo  = trim($_POST['descripcion_fallo'] ?? '');
 
-    if ($nombre_usuario_reportador === '' || $id_equipo === 0 || $fecha_reporte === '' || $tipo_fallo === '' || $descripcion_fallo === '') {
-        $error = 'Todos los campos son obligatorios.';
-    } else {
-        // Convierte de YYYY-MM-DD a DD-MM-YYYY
-        $fecha_reporte_formateada = date("d-m-Y", strtotime($fecha_reporte));
+  if ($nombre_usuario_reportador === '' || $id_equipo === 0 || $fecha_reporte === '' || $tipo_fallo === '' || $descripcion_fallo === '') {
+    $error = 'Todos los campos son obligatorios.';
+  } else {
+    // Convierte de YYYY-MM-DD a DD-MM-YYYY
+    $fecha_reporte_formateada = date("d-m-Y", strtotime($fecha_reporte));
 
-        $stmt = $mysqli->prepare("
+    $stmt = $mysqli->prepare("
           INSERT INTO reporte_fallos(fecha, tipo_fallo, descripcion_fallo, id_equipo, nombre_usuario_reportante)
           VALUES (?,?,?,?,?)
         ");
-        if ($stmt === false) {
-            $error = "Error en prepare: " . $mysqli->error;
-        } else {
-            $stmt->bind_param("sssis", $fecha_reporte_formateada, $tipo_fallo, $descripcion_fallo, $id_equipo, $nombre_usuario_reportador);
-            if ($stmt->execute()) {
-                $ok = true;
-            } else {
-                $error = "No se pudo registrar el reporte.";
-            }
-        }
+    if ($stmt === false) {
+      $error = "Error en prepare: " . $mysqli->error;
+    } else {
+      $stmt->bind_param("sssis", $fecha_reporte_formateada, $tipo_fallo, $descripcion_fallo, $id_equipo, $nombre_usuario_reportador);
+      if ($stmt->execute()) {
+        $ok = true;
+        //******************************************************** */
+        // 💡 OBTENER EL SERIAL para la auditoría
+        $stmt_serial = $mysqli->prepare("SELECT serial_interno FROM equipos WHERE id=?");
+        $stmt_serial->bind_param("i", $id_equipo);
+        $stmt_serial->execute();
+        $equipo_info = $stmt_serial->get_result()->fetch_assoc();
+        $serial = $equipo_info['serial_interno'] ?? 'Desconocido';
+        $stmt_serial->close();
+
+        //--------------INSERCIÓN DE LA AUDITORÍA-------------------------
+        $accion_msg = "Registró un reporte de fallo (Tipo: {$tipo_fallo}) para el Equipo ID {$id_equipo} (Serial: {$serial}).";
+        // La función auditar() registra el ID del usuario logueado.
+        auditar($accion_msg);
+        // ----------------------------
+        //************************************************************** */
+      } else {
+        $error = "No se pudo registrar el reporte.";
+      }
     }
+  }
 }
 
 // Para cargar el select de equipos siempre
 $equipos = [];
 $res = $mysqli->query("SELECT * FROM equipos");
 if ($res) {
-    $equipos = $res->fetch_all(MYSQLI_ASSOC);
+  $equipos = $res->fetch_all(MYSQLI_ASSOC);
 }
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>Reporte de fallos de equipos</title>
   <link rel="stylesheet" href="../css/estudiantes_registro.css">
 </head>
+
 <body>
   <?php include __DIR__ . '/navbar.php'; ?>
 
@@ -90,4 +109,5 @@ if ($res) {
     <?php endif; ?>
   </div>
 </body>
+
 </html>

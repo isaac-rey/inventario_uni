@@ -27,11 +27,12 @@ table {
   background: #fff;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
 }
 
 thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
 }
 
 th {
@@ -57,7 +58,7 @@ tbody tr:hover {
   background: #e6f7ff;
   transform: translateY(-1px);
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
 /* Acciones */
@@ -108,18 +109,26 @@ td:nth-child(4):contains("Solucionado") {
 
 /* Responsive - tarjetas en móvil */
 @media (max-width: 768px) {
-  table, thead, tbody, th, td, tr {
+
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
 
-  thead { display: none; }
+  thead {
+    display: none;
+  }
 
   tbody tr {
     margin-bottom: 1rem;
     background: white;
     border-radius: 12px;
     padding: 1rem;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
   }
 
   td {

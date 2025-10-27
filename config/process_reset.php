@@ -1,7 +1,8 @@
 <?php
 // public/process_reset.php
 session_start();
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
 
 $token = $_POST['token'] ?? '';
 $pass = $_POST['password'] ?? '';
@@ -37,5 +38,8 @@ $stmt = $mysqli->prepare("UPDATE password_resets SET used = 1 WHERE id = ?");
 $stmt->bind_param('i', $row['id']);
 $stmt->execute();
 $stmt->close();
+
+// ✅ 2. REGISTRAR AUDITORÍA DE CAMBIO DE CONTRASEÑA EXITOSO
+auditar("Contraseña restablecida exitosamente (a través de token de recuperación).", $user_id);
 
 echo "Contraseña actualizada. <a href='../auth/login.php'>Inicia sesión</a>";

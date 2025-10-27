@@ -40,7 +40,7 @@
 
 /* Pill/Badge con contador */
 .pill {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
@@ -57,9 +57,9 @@ table {
   font-size: 0.95rem;
 }
 
-/* Headers de tabla */
 thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  color: #fff;
 }
 
 th {
@@ -194,7 +194,8 @@ td.muted {
     min-width: 600px;
   }
 
-  th, td {
+  th,
+  td {
     padding: 0.75rem 0.5rem;
     font-size: 0.85rem;
   }
@@ -207,7 +208,9 @@ td.muted {
 
 /* Para pantallas muy pequeñas */
 @media (max-width: 480px) {
-  th, td {
+
+  th,
+  td {
     padding: 0.5rem 0.25rem;
     font-size: 0.8rem;
   }
@@ -229,6 +232,7 @@ td.muted {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);

@@ -42,32 +42,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                               SET tipo=?, marca=?, modelo=?, estado=?, observacion=?
                               WHERE id=? AND equipo_id=? LIMIT 1");
     $stmt->bind_param("sssssii", $tipo, $marca, $modelo, $estado, $obs, $comp_id, $equipo_id);
-    //$stmt->execute();
-    //$ok = true;
+    $stmt->execute();
+    $ok = true;
 
-    /* recargar datos
+    //-----------------INSERCIÓN DE LA AUDITORÍA---------------------
+    $accion_msg = "Editó el componente ID {$comp_id} (Tipo: {$tipo}, Estado: {$estado}) del Equipo ID {$equipo_id}.";
+    auditar($accion_msg);
+    // ------------------------------------------------------------
+
+    // recargar datos
     $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
     $stmt->bind_param("ii", $comp_id, $equipo_id);
     $stmt->execute();
-    $comp = $stmt->get_result()->fetch_assoc();*/
-     if ($stmt->execute()) {
-        // ✅ INSERCIÓN DE LA AUDITORÍA AQUÍ
-        $equipo_desc = htmlspecialchars($equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo']);
-        $componente_desc = htmlspecialchars($tipo . ' ' . $marca . ' ' . $modelo);
-        
-        auditar("Editó el componente ID {$comp_id} ({$componente_desc}, Estado: {$estado}) del equipo ID {$equipo_id} ({$equipo_desc}).");
-        
-        $ok = true;
-    } else {
-        $error = "Error al actualizar el componente: " . $mysqli->error;
-    }
-
-    if ($ok) {
-        $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
-        $stmt->bind_param("ii", $comp_id, $equipo_id);
-        $stmt->execute();
-        $comp = $stmt->get_result()->fetch_assoc();
-    }
+    $comp = $stmt->get_result()->fetch_assoc();
   }
 }
 ?>

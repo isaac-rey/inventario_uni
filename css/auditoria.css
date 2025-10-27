@@ -49,7 +49,6 @@
   min-width: 24px;
   text-align: center;
 }
-
 .actions .btn {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -76,7 +75,6 @@ table {
 /* Headers de tabla */
 thead {
   background: linear-gradient(90deg, #1e3c72, #2a5298);
-  color: #fff;
 }
 
 th {
@@ -138,7 +136,7 @@ td a[target="_blank"]:after {
 
 /* Botones de acción */
 button[name="update"] {
-  background: linear-gradient(90deg, #1e3c72, #2a5298);
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
@@ -150,8 +148,7 @@ button[name="update"] {
   border: none;
   cursor: pointer;
 }
-
-button[name="delete"] {
+button[name="delete"]{
   background: linear-gradient(135deg, #ea6666 0%, #a24b4b 100%);
   color: white;
   text-decoration: none;
@@ -164,22 +161,22 @@ button[name="delete"] {
   border: none;
   cursor: pointer;
 }
-
 /* Campos de entrada */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
-select {
-  width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: #fff;
-  color: #2d3748;
-  font-family: inherit;
+input[type="date"], select {
+
+    width: 100%;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #fff;
+    color: #2d3748;
+    font-family: inherit;
 }
 
 /* Texto muted */
@@ -222,8 +219,7 @@ td.muted {
     min-width: 600px;
   }
 
-  th,
-  td {
+  th, td {
     padding: 0.75rem 0.5rem;
     font-size: 0.85rem;
   }
@@ -236,9 +232,7 @@ td.muted {
 
 /* Para pantallas muy pequeñas */
 @media (max-width: 480px) {
-
-  th,
-  td {
+  th, td {
     padding: 0.5rem 0.25rem;
     font-size: 0.8rem;
   }
@@ -260,7 +254,6 @@ td.muted {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
