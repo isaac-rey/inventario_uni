@@ -67,10 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 
 <body>
-    <?php include __DIR__ . '/navbar.php'; ?>
+<?php include __DIR__ . '/navbar.php'; ?>
 
-    <div class="card">
-        <h1>Enviar equipo a mantenimiento</h1>
+<div class="card">
+    <h1>Enviar equipo a mantenimiento</h1>
+
+    <?php if ($ok): ?>
+        <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>
+        <div class="muted"><a href="reportes.php">← Volver a reportes</a></div>
+    <?php else: ?>
+        <?php if ($error) echo '<div class="error">'.htmlspecialchars($error).'</div>'; ?>
+
+        <p class="muted">
+            <strong>Equipo:</strong> <?= htmlspecialchars($reporte['marca'] . ' ' . $reporte['modelo']) ?> <br>
+            <strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
+        </p>
 
         <?php if ($ok): ?>
             <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>

@@ -46,7 +46,6 @@ if (!$stmt) {
 
 try {
     $stmt->bind_param("i", $id);
-
     if (!$stmt->execute()) {
         // Si la ejecución falla (ej: problema de permisos)
         echo json_encode(['error' => 'Error al ejecutar la consulta: ' . $stmt->error]);
