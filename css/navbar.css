@@ -9,6 +9,11 @@ body {
     background: #f5f5f5;
 }
 
+/* Prevenir scroll cuando el menú está abierto */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Navbar */
 .navbar {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -17,7 +22,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
-    padding: 0.75rem 0;
 }
 
 .nav-container {
@@ -26,7 +30,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
+    padding: 1rem 1.5rem;
 }
 
 /* Brand */
@@ -34,6 +38,8 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    z-index: 1001;
+    position: relative;
 }
 
 .brand-link {
@@ -128,6 +134,9 @@ body {
     flex-direction: column;
     cursor: pointer;
     gap: 5px;
+    z-index: 1001;
+    padding: 5px;
+    position: relative;
 }
 
 .nav-toggle span {
@@ -166,7 +175,6 @@ body {
     50% { background-color: #ffeeba; }
 }
 
-
 /* Responsive */
 @media (max-width: 768px) {
     .nav-toggle {
@@ -174,33 +182,84 @@ body {
     }
 
     .nav-container {
-        flex-direction: row;
-        justify-content: space-between;
+        padding: 1rem;
     }
 
+    .brand-link {
+        font-size: 1.25rem;
+    }
+
+    /* Menú móvil */
     .nav-menu {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         right: 0;
+        bottom: 0;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         flex-direction: column;
-        align-items: center;
-        gap: 0.5rem;
-        max-height: 0;
-        overflow: hidden;
+        justify-content: center;
+        align-items: stretch;
+        gap: 0;
+        padding: 6rem 2rem 2rem;
+        transform: translateX(-100%);
         opacity: 0;
         transition: all 0.3s ease;
+        z-index: 1000;
+        overflow-y: auto;
     }
 
     .nav-menu.active {
-        max-height: 500px;
+        transform: translateX(0);
         opacity: 1;
-        padding: 1rem 0;
     }
 
+    /* Items del menú móvil */
+    .nav-item {
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .nav-link {
+        display: block;
+        padding: 1.25rem 1rem;
+        font-size: 1.1rem;
+        border-radius: 0;
+        border-bottom: none;
+    }
+
+    .nav-link.active {
+        background: rgba(255, 255, 255, 0.2);
+        border-left: 4px solid white;
+    }
+
+    /* Usuario en móvil */
     .nav-user {
         flex-direction: column;
+        margin: 2rem 0 0 0;
+        padding-top: 2rem;
+        border-top: 2px solid rgba(255, 255, 255, 0.2);
+        width: 100%;
+        gap: 1rem;
+    }
+
+    .user-name {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .logout-btn {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.2);
+        font-size: 1rem;
+    }
+
+    .alerta-navbar {
         margin: 1rem 0 0 0;
+        width: 100%;
+        text-align: center;
     }
 }

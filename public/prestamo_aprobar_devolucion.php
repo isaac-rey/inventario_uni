@@ -6,63 +6,52 @@ header('Content-Type: application/json');
 $data = json_decode(file_get_contents('php://input'), true);
 $id = intval($data['id'] ?? 0);
 
-if ($id <= 0) {
-    echo json_encode(['error' => 'ID inválido']);
+if (!$id) {
+    echo json_encode(['error' => 'ID no válido']);
     exit;
 }
 
-// Buscar devolución pendiente
-$stmt = $mysqli->prepare("
-    SELECT d.*, p.equipo_id
-    FROM devoluciones d
-    JOIN prestamos p ON p.id = d.prestamo_id
-    WHERE p.id=? AND d.estado='pendiente' LIMIT 1
-");
+// Buscar préstamo pendiente de devolución
+$stmt = $mysqli->prepare("SELECT equipo_id FROM prestamos WHERE id=? AND estado='pendiente_devolucion'");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$devolucion = $stmt->get_result()->fetch_assoc();
+$prestamo = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-if (!$devolucion) {
-    echo json_encode(['error' => 'No se encontró la devolución pendiente.']);
+if (!$prestamo) {
+    echo json_encode(['error' => 'Préstamo no encontrado o no pendiente de devolución']);
     exit;
 }
 
-$prestamo_id = intval($devolucion['prestamo_id']);
-$equipo_id = intval($devolucion['equipo_id']);
+$equipo_id = intval($prestamo['equipo_id']);
 
 $mysqli->begin_transaction();
 
 try {
-    // Marcar devolución como aprobada
-    $stmt = $mysqli->prepare("UPDATE devoluciones SET estado='aprobada' WHERE id=?");
-    $stmt->bind_param("i", $devolucion['id']);
+    // Cambiar estado del préstamo
+    $stmt = $mysqli->prepare("UPDATE prestamos SET estado='devuelto', fecha_devolucion=NOW() WHERE id=?");
+    $stmt->bind_param("i", $id);
     $stmt->execute();
     $stmt->close();
 
-    // Marcar préstamo como devuelto
-    $stmt = $mysqli->prepare("
-        UPDATE prestamos
-        SET estado='devuelto', fecha_devolucion=NOW()
-        WHERE id=? LIMIT 1
-    ");
-    $stmt->bind_param("i", $prestamo_id);
-    $stmt->execute();
-    $stmt->close();
-
-    // Actualizar equipo a disponible
-    $stmt = $mysqli->prepare("
-        UPDATE equipos SET prestado=0, estado='bueno', actualizado_en=NOW()
-        WHERE id=? LIMIT 1
-    ");
+    // Marcar equipo como disponible
+    $stmt = $mysqli->prepare("UPDATE equipos SET prestado=0, estado='bueno' WHERE id=?");
     $stmt->bind_param("i", $equipo_id);
     $stmt->execute();
     $stmt->close();
 
+    // -------- AUDITORÍA --------
+    // Si tenés el usuario logueado disponible (por require_login), usamos auditar():
+    $accion = "Aprobó la devolución del préstamo ID {$id} para el equipo ID {$equipo_id}. El activo vuelve al inventario.";
+    auditar($accion);
+    // ----------------------------
+
     $mysqli->commit();
-    echo json_encode(['ok' => '✅ Devolución aprobada correctamente.']);
+
+    echo json_encode(['ok' => 'Devolución aprobada correctamente.']);
 } catch (Exception $e) {
     $mysqli->rollback();
     echo json_encode(['error' => 'Error al aprobar devolución: ' . $e->getMessage()]);
 }
+
 exit;

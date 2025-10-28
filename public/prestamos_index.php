@@ -12,6 +12,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
 <head>
     <meta charset="utf-8">
     <title>Préstamos — Inventario</title>
+    <link rel="stylesheet" href="../css/tabla_prestamo_index.css">
     <style>
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
@@ -29,7 +30,8 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             padding: 0 15px;
             display: flex;
             flex-direction: column;
-            gap: 25px; /* Espaciado entre tarjetas */
+            gap: 25px;
+            /* Espaciado entre tarjetas */
         }
 
         /* Tarjetas para las tablas */
@@ -39,7 +41,8 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             border: 1px solid #e1e8ed;
             overflow: hidden;
-            padding: 0; /* Quitado el padding del card, se mueve a h2 y td/th */
+            padding: 0;
+            /* Quitado el padding del card, se mueve a h2 y td/th */
         }
 
         /* Títulos de las secciones */
@@ -70,7 +73,8 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 0; /* Ya no lleva margen superior si el card no tiene padding */
+            margin-top: 0;
+            /* Ya no lleva margen superior si el card no tiene padding */
         }
 
         thead {
@@ -128,19 +132,21 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         button[style*="#dc2626"] {
             background: #dc2626 !important;
         }
+
         button[style*="#dc2626"]:hover {
             background: #b91c1c !important;
         }
-        
+
         /* Contenedor de Acciones (Flexbox) */
         td.acciones {
-            white-space: nowrap; 
+            white-space: nowrap;
         }
 
         .action-buttons {
-            display: flex; 
-            gap: 8px; /* Espacio entre los botones */
-            align-items: center; 
+            display: flex;
+            gap: 8px;
+            /* Espacio entre los botones */
+            align-items: center;
         }
 
         /* Estilos para la sección de filtros */
@@ -151,6 +157,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             flex-wrap: wrap;
             align-items: center;
         }
+
         #filtroPrestamos label {
             font-weight: 500;
             color: #4a5568;
@@ -164,11 +171,13 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             }
 
             .card {
-                overflow-x: auto; /* Permite scroll horizontal en móviles */
+                overflow-x: auto;
+                /* Permite scroll horizontal en móviles */
             }
 
             table {
-                min-width: 750px; /* Asegura que la tabla no sea demasiado pequeña */
+                min-width: 750px;
+                /* Asegura que la tabla no sea demasiado pequeña */
             }
         }
     </style>
@@ -203,7 +212,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
 
         <div class="card">
             <h2>Historial de devoluciones</h2>
-            
+            <br>
             <form id="filtroPrestamos">
                 <label>Desde: <input type="date" name="fecha_inicio" value="<?= htmlspecialchars($fecha_inicio) ?>"></label>
                 <label>Hasta: <input type="date" name="fecha_fin" value="<?= htmlspecialchars($fecha_fin) ?>"></label>
@@ -216,10 +225,10 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                 </label>
             </form>
             <div style="padding: 0 20px 20px 20px;">
-                 <div id="tablaHistorial">Cargando...</div>
+                <div id="tablaHistorial">Cargando...</div>
                 <div id="paginacionHistorial" style="margin-top:15px;"></div>
             </div>
-           
+
         </div>
 
     </div>
@@ -241,47 +250,41 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                     contador.textContent = data.prestamos.length;
                     data.prestamos.forEach(p => {
                         let historial = '';
-                        if (p.est_id) {
-                            historial = `${p.nombre} ${p.apellido} (CI: ${p.ci}) (Estudiante)`;
-                        } else {
-                            if (p.historial_cesiones.length > 0) {
-                                p.historial_cesiones.forEach(h => {
-                                    historial += `${h.nombre} ${h.apellido} (CI: ${h.ci}) (Docente)<br>`;
-                                });
-                            }
+                        if (p.est_id) historial = `${p.nombre} ${p.apellido} (CI: ${p.ci}) (Estudiante)`;
+                        else {
+                            if (p.historial_cesiones.length > 0) p.historial_cesiones.forEach(h => {
+                                historial += `${h.nombre} ${h.apellido} (CI: ${h.ci}) (Docente)<br>`;
+                            });
                             historial += `${p.nombre} ${p.apellido} (CI: ${p.ci}) (Docente)`;
                         }
-
                         let estado = '';
-                        if (p.estado === 'pendiente') {
-                            estado = '<span style="color:orange;font-weight:bold">Préstamo pendiente</span>';
-                        } else if (p.estado === 'pendiente_devolucion') {
-                            estado = '<span style="color:#eab308;font-weight:bold">Devolución pendiente</span>';
-                        } else if (p.estado === 'activo') {
-                            estado = '<span style="color:green;font-weight:bold">Activo</span>';
-                        } else {
-                            estado = '<span style="color:#dc2626;font-weight:bold">Cancelado/Otro</span>';
-                        }
-
+                        if (p.estado === 'pendiente') estado = '<span style="color:orange;font-weight:bold">Préstamo pendiente</span>';
+                        else if (p.estado === 'pendiente_devolucion') estado = '<span style="color:#eab308;font-weight:bold">Devolución pendiente</span>';
+                        else estado = '<span style="color:green;font-weight:bold">Activo</span>';
                         let accion = '';
+
                         if (p.estado === 'pendiente') {
-                            // SECCIÓN ACTUALIZADA CON FLEXBOX
                             accion = `
                                 <div class="action-buttons">
-                                    <button onclick="aprobar(${p.id},'prestamo')">Aprobar préstamo</button>
-                                    <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Cancelar Solicitud</button>
-                                </div>
-                            `;
+                                    <button onclick="aprobar(${p.id},'prestamo')">Aprobar</button>
+                                    <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Rechazar</button>
+                                </div>`;
                         } else if (p.estado === 'pendiente_devolucion') {
                             accion = `
                                 <div class="action-buttons">
-                                    <button onclick="aprobar(${p.id},'devolucion')">Aprobar devolución</button>
+                                    <button onclick="aprobar(${p.id},'devolucion')">Aprobar</button>
                                     <button style="background:#dc2626" onclick="rechazar(${p.id})">Rechazar</button>
-                                </div>
-                            `;
+                                </div>`;
                         }
+                        else if (p.estado === 'activo') {
+    accion = `
+        <div class="action-buttons">
+            <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Cancelar préstamo</button>
+        </div>`;
+}
 
-                        tbody.innerHTML += `
+
+                        tbody.innerHTML += `<tr>
                             <tr>
                                 <td>${p.tipo} ${p.marca} ${p.modelo}</td>
                                 <td>${p.serial_interno}</td>
@@ -339,25 +342,25 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             }).then(res => {
                 if (res.isConfirmed) {
                     fetch('prestamo_cancelar_ajax.php', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            id,
-                            motivo: res.value
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                id,
+                                motivo: res.value
+                            })
                         })
-                    })
-                    .then(r => r.json())
-                    .then(data => {
-                        if (data.ok) Swal.fire('Hecho', data.ok, 'success');
-                        else Swal.fire('Error', data.error, 'error');
-                        actualizarPrestamos();
-                    });
+                        .then(r => r.json())
+                        .then(data => {
+                            if (data.ok) Swal.fire('Hecho', data.ok, 'success');
+                            else Swal.fire('Error', data.error, 'error');
+                            actualizarPrestamos();
+                        });
                 }
             });
         }
-        
+
         function rechazar(id) {
             Swal.fire({
                 title: '¿Rechazar solicitud de devolución?',
