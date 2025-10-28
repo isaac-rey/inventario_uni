@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2025 a las 03:58:23
+-- Tiempo de generación: 28-10-2025 a las 16:08:59
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -51,6 +51,7 @@ CREATE TABLE `auditoria` (
   `id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `accion` text NOT NULL,
+  `tipo_accion` varchar(50) DEFAULT 'general',
   `ip_usuario` varchar(250) NOT NULL,
   `user_agent` varchar(250) NOT NULL,
   `fecha` datetime NOT NULL
@@ -60,35 +61,41 @@ CREATE TABLE `auditoria` (
 -- Volcado de datos para la tabla `auditoria`
 --
 
-INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `ip_usuario`, `user_agent`, `fecha`) VALUES
-(1, 7, 'Registró una nueva sala con ID 1 y Nombre: Biblioteca', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:53:41'),
-(2, 7, 'Registró una nueva sala con ID 2 y Nombre: Laboratorio', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:57:59'),
-(3, 7, 'Agregó el componente: Zapatilla   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:02'),
-(4, 7, 'Agregó el componente: Fuente   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:14'),
-(5, 7, 'Agregó el componente: HDMI   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:23'),
-(6, 7, 'Agregó el componente: Control remoto   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:29'),
-(7, 7, 'Registró un nuevo estudiante con ID 1 y Nombre: Joaquín Ayala', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 16:17:19'),
-(8, 7, 'Rechazó la solicitud de devolución del préstamo ID 4 para el equipo ID 1. Motivo: ', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:46'),
-(9, 7, 'Cancelación de préstamo activo - Préstamo ID 4. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:52'),
-(10, 7, 'Registró un nuevo Docente ID 2: César Algo (CI: 123456).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:40:47'),
-(11, 7, 'Registró un nuevo Docente ID 3: Nathalia Rotela (CI: 5695298).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:42:19'),
-(12, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:44:02'),
-(13, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 8 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:52:23'),
-(14, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 9 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:55:13'),
-(15, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:56:14'),
-(16, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:57:42'),
-(17, 7, 'Aprobó y registró el préstamo del equipo ID 5 (Tele  ) al docente \'César Algo\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:59:58'),
-(18, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'santiago caballero\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:02:40'),
-(19, 7, 'Registró un nuevo Docente ID 4: Joaquin Profe (CI: 12345678).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:23'),
-(20, 7, 'Editó los datos del estudiante ID 1 (Joaquín Ayala).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:46'),
-(21, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:55:27'),
-(22, 7, 'Rechazó la solicitud de devolución del préstamo ID 13 para el equipo ID 1. Motivo: ', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:07:01'),
-(23, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:11:02'),
-(24, 7, 'Ha rechazado la solicitud de préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:13:53'),
-(25, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:14:35'),
-(26, 7, 'Aprobó el préstamo del equipo ID 2 (Monitor AOC ) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:49:41'),
-(27, 7, 'Ha cancelado de préstamo activo del equipo ID 2 (Monitor AOC) al docente \'César Algo\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:33'),
-(28, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'César Algo\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:39');
+INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `tipo_accion`, `ip_usuario`, `user_agent`, `fecha`) VALUES
+(1, 7, 'Registró una nueva sala con ID 1 y Nombre: Biblioteca', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:53:41'),
+(2, 7, 'Registró una nueva sala con ID 2 y Nombre: Laboratorio', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:57:59'),
+(3, 7, 'Agregó el componente: Zapatilla   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:02'),
+(4, 7, 'Agregó el componente: Fuente   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:14'),
+(5, 7, 'Agregó el componente: HDMI   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:23'),
+(6, 7, 'Agregó el componente: Control remoto   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:29'),
+(7, 7, 'Registró un nuevo estudiante con ID 1 y Nombre: Joaquín Ayala', 'general', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 16:17:19'),
+(8, 7, 'Rechazó la solicitud de devolución del préstamo ID 4 para el equipo ID 1. Motivo: ', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:46'),
+(9, 7, 'Cancelación de préstamo activo - Préstamo ID 4. Motivo: .', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:52'),
+(10, 7, 'Registró un nuevo Docente ID 2: César Algo (CI: 123456).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:40:47'),
+(11, 7, 'Registró un nuevo Docente ID 3: Nathalia Rotela (CI: 5695298).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:42:19'),
+(12, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:44:02'),
+(13, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 8 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:52:23'),
+(14, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 9 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:55:13'),
+(15, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'. Motivo: .', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:56:14'),
+(16, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:57:42'),
+(17, 7, 'Aprobó y registró el préstamo del equipo ID 5 (Tele  ) al docente \'César Algo\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:59:58'),
+(18, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'santiago caballero\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:02:40'),
+(19, 7, 'Registró un nuevo Docente ID 4: Joaquin Profe (CI: 12345678).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:23'),
+(20, 7, 'Editó los datos del estudiante ID 1 (Joaquín Ayala).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:46'),
+(21, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:55:27'),
+(22, 7, 'Rechazó la solicitud de devolución del préstamo ID 13 para el equipo ID 1. Motivo: ', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:07:01'),
+(23, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:11:02'),
+(24, 7, 'Ha rechazado la solicitud de préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:13:53'),
+(25, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:14:35'),
+(26, 7, 'Aprobó el préstamo del equipo ID 2 (Monitor AOC ) al docente \'Nathalia Rotela\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:49:41'),
+(27, 7, 'Ha cancelado de préstamo activo del equipo ID 2 (Monitor AOC) al docente \'César Algo\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:33'),
+(28, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'César Algo\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:39'),
+(29, 7, 'Registró un nuevo Docente ID 5: Tomás Estigarribia (CI: 1234567).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 01:44:09'),
+(30, 7, 'Eliminó el Docente ID 5: Tomás Estigarribia (CI: 1234567).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 01:47:31'),
+(31, 7, 'Registró un nuevo estudiante con ID 2 y Nombre: Nathi Rotela.', 'registro_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 01:48:03'),
+(32, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 11:54:20'),
+(33, 7, 'Aprobó el préstamo del equipo ID 5 (Tele  ) al docente \'Nathalia Rotela\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 12:03:28'),
+(34, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 12:05:16');
 
 -- --------------------------------------------------------
 
@@ -229,7 +236,7 @@ INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `n
 (2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-10-28 02:50:33', 0),
 (3, 2, 1, 'Teclado', 'SATE', '', NULL, 'c410cf62a4b1', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:09', NULL, 0),
 (4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:26', NULL, 0),
-(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'bueno', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-28 00:02:40', 0);
+(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'bueno', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-28 15:05:16', 0);
 
 -- --------------------------------------------------------
 
@@ -252,7 +259,8 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`id`, `ci`, `nombre`, `apellido`, `email`, `password_hash`, `creado_en`) VALUES
-(1, '5534142', 'Joaquín', 'Ayala', 'isrraesp19@gmail.com', '$2y$10$t0wXgPnizOJQ21N7STH1YODG0LCyGBqVMjVQTJH2Ru6iU0UGhZvH6', '2025-10-27 19:17:19');
+(1, '5534142', 'Joaquín', 'Ayala', 'isrraesp19@gmail.com', '$2y$10$t0wXgPnizOJQ21N7STH1YODG0LCyGBqVMjVQTJH2Ru6iU0UGhZvH6', '2025-10-27 19:17:19'),
+(2, '5695298', 'Nathi', 'Rotela', 'nathaliarotela5@gmail.com', '$2y$10$97nA8c48j7bEIvNUtjIFwOYP0R/vwJFcvUgDwxPXZX8KXwsrwKsxa', '2025-10-28 04:48:03');
 
 -- --------------------------------------------------------
 
@@ -375,7 +383,8 @@ INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usua
 (13, 1, NULL, 3, 3, '2025-10-27 21:55:27', NULL, 'cancelado', '\nRechazado: ', '2025-10-28 00:55:18', NULL, NULL, NULL),
 (14, 1, NULL, 3, 3, '2025-10-27 23:13:43', NULL, 'cancelado', '', '2025-10-28 02:13:43', NULL, NULL, NULL),
 (15, 1, NULL, 2, 2, '2025-10-27 23:14:35', NULL, 'cancelado', '', '2025-10-28 02:14:30', NULL, NULL, NULL),
-(16, 2, NULL, 2, 2, '2025-10-27 23:49:41', NULL, 'cancelado', '', '2025-10-28 02:49:31', NULL, NULL, NULL);
+(16, 2, NULL, 2, 2, '2025-10-27 23:49:41', NULL, 'cancelado', '', '2025-10-28 02:49:31', NULL, NULL, NULL),
+(17, 5, NULL, 3, 3, '2025-10-28 12:03:28', NULL, 'cancelado', '', '2025-10-28 15:03:09', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -608,7 +617,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `cesiones`
@@ -632,7 +641,7 @@ ALTER TABLE `devoluciones`
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
@@ -644,7 +653,7 @@ ALTER TABLE `equipos`
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_cesiones`
@@ -674,7 +683,7 @@ ALTER TABLE `password_resets_estudiantes`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte_fallos`
