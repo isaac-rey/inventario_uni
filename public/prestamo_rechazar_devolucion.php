@@ -12,37 +12,57 @@ if ($id <= 0) {
     exit;
 }
 
-// Buscar devolución pendiente
-$stmt = $mysqli->prepare("
-    SELECT d.id, d.prestamo_id
-    FROM devoluciones d
-    JOIN prestamos p ON p.id = d.prestamo_id
-    WHERE p.id=? AND d.estado='pendiente' LIMIT 1
-");
+// Buscar préstamo con devolución pendiente
+$stmt = $mysqli->prepare("SELECT equipo_id FROM prestamos WHERE id=? AND estado='pendiente_devolucion' LIMIT 1");
 $stmt->bind_param("i", $id);
 $stmt->execute();
-$dev = $stmt->get_result()->fetch_assoc();
+$prestamo = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-if (!$dev) {
-    echo json_encode(['error' => 'No se encontró la solicitud pendiente.']);
+if (!$prestamo) {
+    echo json_encode(['error' => 'No se encontró una devolución pendiente para este préstamo.']);
     exit;
 }
 
+$equipo_id = intval($prestamo['equipo_id']);
+
+$mysqli->begin_transaction();
+
 try {
-    $stmt = $mysqli->prepare("UPDATE devoluciones SET estado='rechazada', observacion=CONCAT(IFNULL(observacion,''), '\nMotivo rechazo: ', ?) WHERE id=?");
-    $stmt->bind_param("si", $motivo, $dev['id']);
+    // Rechazar la devolución (volvemos a estado 'activo')
+    $stmt = $mysqli->prepare("
+        UPDATE prestamos
+        SET estado='activo',
+            observacion = CONCAT(IFNULL(observacion,''), '\nRechazado: ', ?)
+        WHERE id=? LIMIT 1
+    ");
+    $stmt->bind_param("si", $motivo, $id);
     $stmt->execute();
     $stmt->close();
 
-    //------------INSERCIÓN DE LA AUDITORÍA---------------------
-    $accion_msg = "Rechazó la solicitud de Devolución ID {$dev['id']} (Préstamo ID {$dev['prestamo_id']}). Motivo: {$motivo}.";
-    // El ID del usuario que realiza la acción se toma de la sesión (user())
-    auditar($accion_msg);
-    // --------------------------------------------
+    // === AUDITORÍA ===
+    $accion_msg = "{$tipo_accion} del equipo ID {$prestamo['equipo_id']}";
 
-    echo json_encode(['ok' => '❌ Solicitud de devolución rechazada.']);
+    if ($nombre_equipo) {
+        $accion_msg .= " ({$nombre_equipo})";
+    }
+
+    if ($tipo_usuario && $nombre_usuario) {
+        $accion_msg .= " al {$tipo_usuario} '{$nombre_usuario}'";
+    }
+
+    if ($motivo !== '') {
+        $accion_msg .= ". Motivo: {$motivo}.";
+    }
+
+    auditar($accion_msg);
+
+    $mysqli->commit();
+
+    echo json_encode(['ok' => 'Solicitud de devolución rechazada correctamente.']);
 } catch (Exception $e) {
+    $mysqli->rollback();
     echo json_encode(['error' => 'Error al rechazar devolución: ' . $e->getMessage()]);
 }
+
 exit;

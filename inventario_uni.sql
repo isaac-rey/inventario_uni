@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-10-2025 a las 22:20:35
+-- Tiempo de generación: 28-10-2025 a las 03:58:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -38,9 +38,8 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `nombre`, `creado_en`) VALUES
-(1, 'Biblioteca', '2025-08-31 16:25:35'),
-(2, 'Secretaría', '2025-08-31 16:25:35'),
-(3, 'Sala Informática', '2025-08-31 16:25:35');
+(1, 'ALDEA', '2025-10-27 17:37:51'),
+(2, 'UP', '2025-10-27 17:39:34');
 
 -- --------------------------------------------------------
 
@@ -62,15 +61,34 @@ CREATE TABLE `auditoria` (
 --
 
 INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `ip_usuario`, `user_agent`, `fecha`) VALUES
-(1, 7, 'Editó el usuario con ID 11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:00:54'),
-(2, 7, 'Elimino el usuario con ID 11', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:01:31'),
-(3, 7, 'Registró al nuevo usuario con ID 12', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36', '2025-10-04 13:01:58'),
-(9, 7, 'Editó los datos del estudiante ID 6 (prueba2 la prueba).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 00:44:09'),
-(10, 7, 'Reportó un fallo para el equipo ID 5 (TV 43 tokyo tffe3). Fallo: hv. Descripción: hc...', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 00:45:15'),
-(11, 7, 'Registró el préstamo del equipo ID 6 (Proyector Epson algo) al estudiante Nathi Rotela (CI: 5695298).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 01:36:02'),
-(12, 7, 'Registró la devolución del equipo ID 6 (Proyector Epson algo). Responsable: Nathi. Devuelto por: Tercero: Pedro (CI: 87654321).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 01:38:27'),
-(13, 7, 'Registró el préstamo del equipo ID 7 (Proyector 2 Tokyo algo) al estudiante hola como estas (CI: 4567894).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 15:56:37'),
-(14, 7, 'Registró la devolución del equipo ID 7 (Proyector 2 Tokyo algo). Responsable: hola. Devuelto por: Tercero: gilberto (CI: 789654123).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-09 15:57:11');
+(1, 7, 'Registró una nueva sala con ID 1 y Nombre: Biblioteca', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:53:41'),
+(2, 7, 'Registró una nueva sala con ID 2 y Nombre: Laboratorio', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 14:57:59'),
+(3, 7, 'Agregó el componente: Zapatilla   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:02'),
+(4, 7, 'Agregó el componente: Fuente   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:14'),
+(5, 7, 'Agregó el componente: HDMI   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:23'),
+(6, 7, 'Agregó el componente: Control remoto   (bueno) al equipo ID 1 (Proyector Epson C0-W01).', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 15:07:29'),
+(7, 7, 'Registró un nuevo estudiante con ID 1 y Nombre: Joaquín Ayala', '::1', 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36', '2025-10-27 16:17:19'),
+(8, 7, 'Rechazó la solicitud de devolución del préstamo ID 4 para el equipo ID 1. Motivo: ', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:46'),
+(9, 7, 'Cancelación de préstamo activo - Préstamo ID 4. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:09:52'),
+(10, 7, 'Registró un nuevo Docente ID 2: César Algo (CI: 123456).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:40:47'),
+(11, 7, 'Registró un nuevo Docente ID 3: Nathalia Rotela (CI: 5695298).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:42:19'),
+(12, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 18:44:02'),
+(13, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 8 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:52:23'),
+(14, 7, 'Rechazo de solicitud de préstamo - Préstamo ID 9 del equipo ID 5 (Equipo sin descripción) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:55:13'),
+(15, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'. Motivo: .', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:56:14'),
+(16, 7, 'Rechazo de solicitud de préstamo del equipo ID 5 (Tele) al docente \'César Algo\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:57:42'),
+(17, 7, 'Aprobó y registró el préstamo del equipo ID 5 (Tele  ) al docente \'César Algo\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 20:59:58'),
+(18, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'santiago caballero\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:02:40'),
+(19, 7, 'Registró un nuevo Docente ID 4: Joaquin Profe (CI: 12345678).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:23'),
+(20, 7, 'Editó los datos del estudiante ID 1 (Joaquín Ayala).', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:34:46'),
+(21, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 21:55:27'),
+(22, 7, 'Rechazó la solicitud de devolución del préstamo ID 13 para el equipo ID 1. Motivo: ', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:07:01'),
+(23, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:11:02'),
+(24, 7, 'Ha rechazado la solicitud de préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:13:53'),
+(25, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W01) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:14:35'),
+(26, 7, 'Aprobó el préstamo del equipo ID 2 (Monitor AOC ) al docente \'Nathalia Rotela\'.', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:49:41'),
+(27, 7, 'Ha cancelado de préstamo activo del equipo ID 2 (Monitor AOC) al docente \'César Algo\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:33'),
+(28, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W01) al docente \'César Algo\'', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-27 23:50:39');
 
 -- --------------------------------------------------------
 
@@ -94,10 +112,10 @@ CREATE TABLE `cesiones` (
 --
 
 INSERT INTO `cesiones` (`id`, `prestamo_id`, `cedente_id`, `a_docente_id`, `fecha_solicitud`, `fecha_confirmacion`, `estado`, `observacion`) VALUES
-(1, 32, 2, 3, '2025-10-06 23:07:26', '2025-10-07 04:07:43', 'aceptada', NULL),
-(3, 32, 3, 2, '2025-10-06 23:26:08', '2025-10-07 04:26:18', 'aceptada', NULL),
-(4, 32, 2, 3, '2025-10-06 23:31:40', '2025-10-07 04:32:02', 'aceptada', NULL),
-(34, 80, 2, 3, '2025-10-09 15:54:19', '2025-10-09 20:54:22', 'aceptada', NULL);
+(1, 12, 2, 1, '2025-10-27 21:00:48', '2025-10-28 01:02:00', 'aceptada', NULL),
+(2, 13, 3, 2, '2025-10-27 22:08:50', NULL, 'pendiente', NULL),
+(3, 15, 3, 2, '2025-10-27 23:14:59', '2025-10-28 03:15:04', 'aceptada', NULL),
+(4, 16, 3, 2, '2025-10-27 23:50:03', '2025-10-28 03:50:23', 'aceptada', NULL);
 
 -- --------------------------------------------------------
 
@@ -116,6 +134,41 @@ CREATE TABLE `componentes` (
   `observacion` text DEFAULT NULL,
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `componentes`
+--
+
+INSERT INTO `componentes` (`id`, `equipo_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `estado`, `observacion`, `creado_en`) VALUES
+(1, 1, 'Zapatilla', '', '', NULL, 'bueno', '', '2025-10-27 18:07:02'),
+(2, 1, 'Fuente', '', '', NULL, 'bueno', '', '2025-10-27 18:07:14'),
+(3, 1, 'HDMI', '', '', NULL, 'bueno', '', '2025-10-27 18:07:23'),
+(4, 1, 'Control remoto', '', '', NULL, 'bueno', '', '2025-10-27 18:07:29');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `devoluciones`
+--
+
+CREATE TABLE `devoluciones` (
+  `id` int(11) NOT NULL,
+  `prestamo_id` int(11) NOT NULL,
+  `equipo_id` int(11) NOT NULL,
+  `estudiante_id` int(11) NOT NULL,
+  `observacion` text DEFAULT NULL,
+  `estado` enum('pendiente','aprobada','rechazada') NOT NULL DEFAULT 'pendiente',
+  `creada_en` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `devoluciones`
+--
+
+INSERT INTO `devoluciones` (`id`, `prestamo_id`, `equipo_id`, `estudiante_id`, `observacion`, `estado`, `creada_en`) VALUES
+(1, 3, 1, 1, '\nMotivo rechazo: ', 'rechazada', '2025-10-27 20:35:20'),
+(2, 3, 1, 1, '\nMotivo rechazo: ', 'rechazada', '2025-10-27 20:35:39'),
+(3, 3, 1, 1, '', 'aprobada', '2025-10-27 20:36:09');
 
 -- --------------------------------------------------------
 
@@ -138,8 +191,10 @@ CREATE TABLE `docentes` (
 --
 
 INSERT INTO `docentes` (`id`, `ci`, `nombre`, `apellido`, `email`, `password_hash`, `creado_en`) VALUES
-(2, '5695298', 'Nathalia', 'Prueba', 'nathirotela5@gmail.com', '$2y$10$k/hptHSGqW1wJ2CjG98H6uw3GJ3NwEmG7NPTqg724RhM8aV4mjOWy', '2025-10-07 00:25:34'),
-(3, '123456', 'César', 'Algo', 'nathaliarotela5@gmail.com', '$2y$10$Oue8xWHlZgGZ6KugKEAwB.B7ZuTAPZFvhbdKfbmmfxin/3oL8uVL.', '2025-10-09 18:38:54');
+(1, '2901786', 'santiago', 'caballero', 'caballerosantiago@gmail.com', '$2y$10$p.vhB4ytCvO5LALLbmJKdu3rqvg6d9ZHHnT5UOQkGpnL9.Ws.iUjO', '2025-10-27 20:30:22'),
+(2, '123456', 'César', 'Algo', 'cesaralgo@gmail.com', '$2y$10$zn4t8THCF18JbcCeHKHcdedZiVsrcvVa7igkROFx.x8JWH/SAMb4O', '2025-10-27 21:40:47'),
+(3, '5695298', 'Nathalia', 'Rotela', 'nathirotela5@gmail.com', '$2y$10$ucwpGwxmV1NzLmUV3Gevyuh/rgzgjoX.yJ1Y2WF8Pyv6lOFjFdLhO', '2025-10-27 21:42:19'),
+(4, '12345678', 'Joaquin', 'Profe', 'profejoaquin@gmail.com', '$2y$10$jPCRYlWnMSMJ18b4BrCmUeP.d77FhtcSxWyYEHSHKqR4DfY6fVILO', '2025-10-28 00:34:23');
 
 -- --------------------------------------------------------
 
@@ -170,9 +225,11 @@ CREATE TABLE `equipos` (
 --
 
 INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`) VALUES
-(5, 1, 2, 'TV 43', 'tokyo', 'tffe3', NULL, '23b47cd5e388', 'bueno', 0, 0, NULL, '2025-09-29 13:22:56', '2025-10-09 05:21:47', 0),
-(6, 1, 1, 'Proyector', 'Epson', 'algo', NULL, 'bdea30c2582c', 'bueno', 0, 0, NULL, '2025-10-08 02:50:38', '2025-10-09 18:54:47', 0),
-(7, 3, 4, 'Proyector 2', 'Tokyo', 'algo', NULL, '58ad8b18cd04', 'disponible', 0, 0, NULL, '2025-10-08 22:39:36', '2025-10-09 18:57:11', 0);
+(1, 2, 1, 'Proyector', 'Epson', 'C0-W01', NULL, '1fd38f17793a', 'bueno', 0, 0, NULL, '2025-10-27 18:06:38', '2025-10-28 02:50:39', 0),
+(2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-10-28 02:50:33', 0),
+(3, 2, 1, 'Teclado', 'SATE', '', NULL, 'c410cf62a4b1', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:09', NULL, 0),
+(4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:26', NULL, 0),
+(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'bueno', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-28 00:02:40', 0);
 
 -- --------------------------------------------------------
 
@@ -195,13 +252,7 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`id`, `ci`, `nombre`, `apellido`, `email`, `password_hash`, `creado_en`) VALUES
-(5, '4567894', 'hola', 'como estas', 'cualquiercosa@gmail.com', '$2y$10$fR2sLhhixQq/iOjzW4L68eGsbZ4IM/SLEwwxk/qCBQdibG1mcLB/C', '2025-09-29 13:20:38'),
-(6, '7894561', 'prueba2', 'la prueba', 'prueba@gmail.com', '$2y$10$WapLtCIvGwlwrAYHPA8COeZiCRCU6LlF93acNLjwEQ7MpHjmaGhs.', '2025-09-29 13:32:03'),
-(7, '789654123', 'gilberto', 'hola', 'hdjfikjsahdfkjha@gmail.com', '$2y$10$Zw2SMQJDYhm4O1DbOseuve7LLY4x3k/M49te/mEO.MdiPzw51s3Re', '2025-09-29 14:17:50'),
-(8, '2345678', 'Luis', 'Riquelme', 'alexandergodeater@gmail.com', '$2y$10$D1cTd.BwtTFaoLDqIPaXyeWmxhQDMSwU1NaGP11VBvoKyMvOEvp4O', '2025-09-30 19:13:32'),
-(9, '87654321', 'Pedro', 'Gonzalez', 'pedro@gmail.com', '$2y$10$AJxjd/5G42pNDiRqYfPE0.qD7//fWKSxvu5ePBaEmn1HrLfJYS6MS', '2025-09-30 21:49:40'),
-(10, '5695298', 'Nathi', 'Rotela', 'nathirotela5@gmail.com', '$2y$10$VOIEQ4f8xKPAxS2opWVLCeuMEJBmDmW/FkzRLaPuo7TJt6Aziz0jS', '2025-10-07 03:05:31'),
-(11, '123456', 'Alguien', 'De Pueba', 'nathaliartela5@gmail.com', '$2y$10$TQrPPVKULbAzV1gNPa785uQ.E0RunbMcKtGcI4iyvDLwX9EgT5tT2', '2025-10-07 03:42:12');
+(1, '5534142', 'Joaquín', 'Ayala', 'isrraesp19@gmail.com', '$2y$10$t0wXgPnizOJQ21N7STH1YODG0LCyGBqVMjVQTJH2Ru6iU0UGhZvH6', '2025-10-27 19:17:19');
 
 -- --------------------------------------------------------
 
@@ -223,16 +274,9 @@ CREATE TABLE `historial_cesiones` (
 --
 
 INSERT INTO `historial_cesiones` (`id`, `prestamo_id`, `de_docente_id`, `a_docente_id`, `observacion`, `fecha`) VALUES
-(4, 63, 2, 3, NULL, '2025-10-08 00:44:22'),
-(5, 64, 2, 3, NULL, '2025-10-08 00:49:28'),
-(6, 63, 3, 2, NULL, '2025-10-08 00:53:42'),
-(7, 63, 2, 3, NULL, '2025-10-08 00:54:30'),
-(15, 73, 2, 3, NULL, '2025-10-09 02:19:59'),
-(16, 74, 3, 2, NULL, '2025-10-09 13:57:53'),
-(17, 75, 3, 2, NULL, '2025-10-09 14:51:39'),
-(18, 77, 3, 2, NULL, '2025-10-09 15:10:29'),
-(19, 79, 3, 2, NULL, '2025-10-09 15:36:26'),
-(20, 80, 2, 3, NULL, '2025-10-09 15:54:22');
+(1, 12, 2, 1, NULL, '2025-10-27 21:02:00'),
+(2, 15, 3, 2, NULL, '2025-10-27 23:15:04'),
+(3, 16, 3, 2, NULL, '2025-10-27 23:50:23');
 
 -- --------------------------------------------------------
 
@@ -254,13 +298,6 @@ CREATE TABLE `mantenimientos` (
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `mantenimientos`
---
-
-INSERT INTO `mantenimientos` (`id`, `equipo_id`, `usuario_id`, `reporte_id`, `destino`, `motivo`, `fecha_envio`, `fecha_devolucion`, `solucionado`, `observaciones`, `creado_en`) VALUES
-(12, 7, 7, 7, 'algun lugar', 'sbdskh', '2025-10-09 00:00:00', '2025-10-08 00:00:00', 1, NULL, '2025-10-08 22:45:27');
-
 -- --------------------------------------------------------
 
 --
@@ -273,26 +310,31 @@ CREATE TABLE `password_resets` (
   `token` varchar(128) NOT NULL,
   `expires_at` datetime NOT NULL,
   `used` tinyint(1) DEFAULT 0,
-  `created_at` datetime DEFAULT current_timestamp()
+  `created_at` datetime DEFAULT current_timestamp(),
+  `table_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `password_resets`
 --
 
-INSERT INTO `password_resets` (`id`, `user_id`, `token`, `expires_at`, `used`, `created_at`) VALUES
-(1, 5, '53f030eec6cede55ee5dd872f3bb762ff7cf33e0a9d5f8bf10a98833113e0fc9', '2025-09-14 18:32:58', 0, '2025-09-14 13:02:58'),
-(2, 5, 'd1f7170edfbdd455fd0aa76dfb73a6be00498ff89d5abb387ffb9d69a5eccf15', '2025-09-14 18:45:54', 0, '2025-09-14 13:15:54'),
-(3, 5, '75e3edaf10329b5974f052474bd8789324dd3a8a9fbfaa849bbf71441844a14b', '2025-09-15 22:36:46', 0, '2025-09-15 17:06:46'),
-(4, 5, '99d1acacca092867d963f68ad18e9f0fb92e2e26cf8ef3a1195ac73be7f8b029', '2025-09-15 22:37:20', 0, '2025-09-15 17:07:20'),
-(5, 5, 'd2b5ad2e7caa60cbcd0601dd65177db9654773257d4b4ba3038ebe4c179695ad', '2025-09-15 22:49:03', 0, '2025-09-15 17:19:03'),
-(6, 5, 'f508175d9330cbe5cf753d52378c7bf5cbaf960002c830ea01831a1b684a7729', '2025-09-15 23:01:04', 0, '2025-09-15 17:31:04'),
-(7, 5, '0bf21aa776032f264e476671a23d976a83e2d922c19d090e931351879836189b', '2025-09-15 23:04:37', 0, '2025-09-15 17:34:37'),
-(8, 5, '5762ae3f704f96592271b366c73be7e1909a9145724325b20900925b6f159fb3', '2025-09-15 23:15:55', 0, '2025-09-15 17:45:55'),
-(9, 5, 'cd69ad26c21cdbf7d1069347447ae04297201b1e777cc224079582e36e860905', '2025-09-15 23:16:02', 0, '2025-09-15 17:46:02'),
-(14, 5, '77d60ec8e6e7a7104bf7d6a42b667a23cb9435d8defd85ffd0a394a74ba76a45', '2025-09-15 23:25:56', 0, '2025-09-15 17:55:56'),
-(15, 5, '326b95673b3fd2d87180f4f0e58164f21015a8dd14f059b15ce2269b04f1466c', '2025-09-15 23:26:21', 0, '2025-09-15 17:56:21'),
-(26, 7, '1651419053d5a8b5a846fa50fa3af9c92f97caff812d70759843e50ab782514f', '2025-09-29 17:01:20', 1, '2025-09-29 11:31:20');
+INSERT INTO `password_resets` (`id`, `user_id`, `token`, `expires_at`, `used`, `created_at`, `table_name`) VALUES
+(1, 1, '44cb5e7fbe8b743e88d8fd23ce474c796a0fe964d62dcc1ce23289e02974022b', '2025-10-27 20:50:35', 1, '2025-10-27 16:20:35', 'estudiantes'),
+(2, 1, '0802ee066b5776f2ede6ba1a454fad05f45d2de347048490afbdb90b44c4ebb6', '2025-10-27 21:58:35', 1, '2025-10-27 17:28:35', 'docentes');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `password_resets_estudiantes`
+--
+
+CREATE TABLE `password_resets_estudiantes` (
+  `id` int(11) NOT NULL,
+  `estudiante_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `expires_at` datetime NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -321,24 +363,19 @@ CREATE TABLE `prestamos` (
 --
 
 INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usuario_actual_id`, `fecha_entrega`, `fecha_devolucion`, `estado`, `observacion`, `creado_en`, `motivo_cancelacion`, `devuelto_por_tercero_nombre`, `devuelto_por_tercero_ci`) VALUES
-(13, 5, 5, NULL, 2, '2025-09-29 10:25:22', '2025-09-29 10:25:40', 'devuelto', 'Sala de informática', '2025-09-29 13:25:22', NULL, NULL, NULL),
-(14, 5, 5, NULL, 2, '2025-09-29 10:28:22', '2025-09-29 10:39:19', 'devuelto', '', '2025-09-29 13:28:22', NULL, NULL, NULL),
-(15, 5, 8, NULL, 2, '2025-09-30 16:20:14', '2025-09-30 17:48:54', 'devuelto', 'Sala Informatica', '2025-09-30 19:20:14', NULL, NULL, NULL),
-(16, 5, 8, NULL, 2, '2025-09-30 17:52:50', '2025-09-30 17:58:12', 'devuelto', '', '2025-09-30 20:52:50', NULL, NULL, NULL),
-(17, 5, 8, NULL, 2, '2025-09-30 17:58:34', '2025-09-30 17:59:32', 'devuelto', '', '2025-09-30 20:58:34', NULL, NULL, NULL),
-(18, 5, 8, NULL, 2, '2025-09-30 17:59:55', '2025-09-30 18:01:55', 'devuelto', 'Sala Informatica', '2025-09-30 20:59:55', NULL, NULL, NULL),
-(19, 5, 8, NULL, 2, '2025-09-30 18:05:10', '2025-09-30 18:13:26', 'devuelto', 'Sala Informatica', '2025-09-30 21:05:10', NULL, NULL, NULL),
-(20, 5, 8, NULL, 2, '2025-09-30 18:13:42', '2025-09-30 18:20:02', 'devuelto', '', '2025-09-30 21:13:42', NULL, NULL, NULL),
-(21, 5, 8, NULL, 2, '2025-09-30 18:20:25', '2025-09-30 18:20:30', 'devuelto', 'Sala 205', '2025-09-30 21:20:25', NULL, NULL, NULL),
-(22, 5, 8, NULL, 2, '2025-09-30 18:22:07', '2025-09-30 18:51:36', 'devuelto', '', '2025-09-30 21:22:07', NULL, NULL, NULL),
-(23, 5, 9, NULL, 2, '2025-09-30 18:51:47', '2025-09-30 19:50:28', 'devuelto', '', '2025-09-30 21:51:47', NULL, NULL, NULL),
-(24, 5, 9, 2, 2, '2025-09-30 19:54:12', '2025-09-30 20:11:05', 'devuelto', '', '2025-09-30 22:54:12', NULL, NULL, NULL),
-(25, 5, 9, 2, 2, '2025-09-30 20:11:23', '2025-10-02 17:01:55', 'devuelto', '', '2025-09-30 23:11:23', NULL, NULL, NULL),
-(26, 5, 8, NULL, 2, '2025-10-02 17:07:18', '2025-10-02 17:50:29', 'devuelto', 'Sala de Profesores', '2025-10-02 20:07:18', NULL, NULL, NULL),
-(32, 5, NULL, 3, 3, '2025-10-06 22:32:27', '2025-10-06 23:36:00', 'devuelto', '', '2025-10-07 01:32:27', NULL, NULL, NULL),
-(71, 6, 10, NULL, NULL, '2025-10-09 01:36:02', '2025-10-09 01:38:27', 'devuelto', 'Queria hacer una última prueba', '2025-10-09 04:36:02', NULL, 'Pedro', '87654321'),
-(80, 6, NULL, 3, 3, '2025-10-09 15:49:18', '2025-10-09 15:54:47', 'devuelto', 'prueba fuego', '2025-10-09 18:46:08', NULL, NULL, NULL),
-(81, 7, 5, NULL, NULL, '2025-10-09 15:56:37', '2025-10-09 15:57:11', 'devuelto', 'Para utilizar', '2025-10-09 18:56:37', NULL, 'gilberto', '789654123');
+(1, 1, 1, NULL, NULL, '2025-10-27 16:18:14', NULL, 'cancelado', '', '2025-10-27 19:18:14', NULL, NULL, NULL),
+(2, 1, 1, NULL, NULL, '2025-10-27 17:32:39', NULL, 'cancelado', '', '2025-10-27 20:32:39', NULL, NULL, NULL),
+(3, 1, 1, NULL, 1, '2025-10-27 17:33:23', '2025-10-27 17:36:11', 'devuelto', '', '2025-10-27 20:33:19', NULL, NULL, NULL),
+(4, 1, 1, NULL, 1, '2025-10-27 17:54:32', NULL, 'cancelado', 'sala de informatica, con profe santiago\nRechazado: ', '2025-10-27 20:54:26', NULL, NULL, NULL),
+(8, 5, NULL, 2, 2, '2025-10-27 18:43:47', NULL, 'cancelado', '', '2025-10-27 21:43:47', NULL, NULL, NULL),
+(9, 5, NULL, 2, 2, '2025-10-27 20:55:07', NULL, 'cancelado', '', '2025-10-27 23:55:07', NULL, NULL, NULL),
+(10, 5, NULL, 2, 2, '2025-10-27 20:56:10', NULL, 'cancelado', '', '2025-10-27 23:56:10', NULL, NULL, NULL),
+(11, 5, NULL, 2, 2, '2025-10-27 20:57:36', NULL, 'cancelado', '', '2025-10-27 23:57:36', NULL, NULL, NULL),
+(12, 5, NULL, 1, 1, '2025-10-27 20:59:58', NULL, 'cancelado', '', '2025-10-27 23:59:53', NULL, NULL, NULL),
+(13, 1, NULL, 3, 3, '2025-10-27 21:55:27', NULL, 'cancelado', '\nRechazado: ', '2025-10-28 00:55:18', NULL, NULL, NULL),
+(14, 1, NULL, 3, 3, '2025-10-27 23:13:43', NULL, 'cancelado', '', '2025-10-28 02:13:43', NULL, NULL, NULL),
+(15, 1, NULL, 2, 2, '2025-10-27 23:14:35', NULL, 'cancelado', '', '2025-10-28 02:14:30', NULL, NULL, NULL),
+(16, 2, NULL, 2, 2, '2025-10-27 23:49:41', NULL, 'cancelado', '', '2025-10-28 02:49:31', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -354,13 +391,6 @@ CREATE TABLE `reporte_fallos` (
   `id_equipo` int(11) NOT NULL,
   `nombre_usuario_reportante` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `reporte_fallos`
---
-
-INSERT INTO `reporte_fallos` (`id`, `fecha`, `tipo_fallo`, `descripcion_fallo`, `id_equipo`, `nombre_usuario_reportante`) VALUES
-(7, '0000-00-00', 'hsfhs', 'Está muy mal', 7, 'kevin');
 
 -- --------------------------------------------------------
 
@@ -400,11 +430,8 @@ CREATE TABLE `salas` (
 --
 
 INSERT INTO `salas` (`id`, `area_id`, `nombre`, `descripcion`, `creado_en`) VALUES
-(1, 1, 'Estantería A', NULL, '2025-08-31 16:25:36'),
-(2, 1, 'Depósito Biblioteca', NULL, '2025-08-31 16:25:36'),
-(3, 2, 'Mesa Principal', NULL, '2025-08-31 16:25:36'),
-(4, 3, 'Laboratorio 1', NULL, '2025-08-31 16:25:36'),
-(5, 3, 'Laboratorio 2', NULL, '2025-08-31 16:25:36');
+(1, 2, 'Biblioteca', '', '2025-10-27 17:53:41'),
+(2, 2, 'Laboratorio', '', '2025-10-27 17:57:59');
 
 -- --------------------------------------------------------
 
@@ -428,7 +455,7 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `ci`, `email`, `nombre`, `password_hash`, `role_id`, `creado_en`) VALUES
 (5, '123456', 'isaacmiranda290@gmail.com', 'Isaac Miranda', '$2a$12$obdsmKZKP18niFoFF8iG6eV7y6APB2Q3GjQXPdC5dvb5rMKZkwyuu', 2, '2025-09-14 19:01:44'),
-(7, '7400254', 'kevinalegre181@gmail.com', 'kevin', '$2y$10$EfpsXdbiRfwzC1GA6D9NieNfBdXgsZbMwG4SKQsiVslUrjKJjP.ka', 1, '2025-09-19 18:55:41'),
+(7, '7400254', 'kevinalegre181@gmail.com', 'kevin', '$2y$10$uQL8gx.A7r.TgSjhHp9V1OernamyNR4kRtDKVZLX/WaenuS1eYRne', 1, '2025-09-19 18:55:41'),
 (10, '5920912', 'perlaj34@gamil.com', 'richar', '$2y$10$ZSCq4gccx6biyaA1DIzR2eoWYX5MtoIjLAsiaqfBP6/uucowyKnBy', 2, '2025-09-29 17:43:29');
 
 --
@@ -464,6 +491,15 @@ ALTER TABLE `cesiones`
 ALTER TABLE `componentes`
   ADD PRIMARY KEY (`id`),
   ADD KEY `idx_equipo_tipo` (`equipo_id`,`tipo`);
+
+--
+-- Indices de la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_devoluciones_prestamo` (`prestamo_id`),
+  ADD KEY `fk_devoluciones_equipo` (`equipo_id`),
+  ADD KEY `fk_devoluciones_estudiante` (`estudiante_id`);
 
 --
 -- Indices de la tabla `docentes`
@@ -512,6 +548,14 @@ ALTER TABLE `password_resets`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indices de la tabla `password_resets_estudiantes`
+--
+ALTER TABLE `password_resets_estudiantes`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `estudiante_id` (`estudiante_id`),
+  ADD KEY `token` (`token`);
+
+--
 -- Indices de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
@@ -558,19 +602,19 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `areas`
 --
 ALTER TABLE `areas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `cesiones`
 --
 ALTER TABLE `cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `componentes`
@@ -579,52 +623,64 @@ ALTER TABLE `componentes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
+-- AUTO_INCREMENT de la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_cesiones`
 --
 ALTER TABLE `historial_cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `mantenimientos`
 --
 ALTER TABLE `mantenimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `password_resets_estudiantes`
+--
+ALTER TABLE `password_resets_estudiantes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte_fallos`
 --
 ALTER TABLE `reporte_fallos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -636,7 +692,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -663,6 +719,14 @@ ALTER TABLE `componentes`
   ADD CONSTRAINT `fk_componentes_equipo` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Filtros para la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  ADD CONSTRAINT `fk_devoluciones_equipo` FOREIGN KEY (`equipo_id`) REFERENCES `equipos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_devoluciones_estudiante` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiantes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_devoluciones_prestamo` FOREIGN KEY (`prestamo_id`) REFERENCES `prestamos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Filtros para la tabla `equipos`
 --
 ALTER TABLE `equipos`
@@ -677,10 +741,10 @@ ALTER TABLE `mantenimientos`
   ADD CONSTRAINT `fk_mantenimientos_reporte` FOREIGN KEY (`reporte_id`) REFERENCES `reporte_fallos` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `password_resets`
+-- Filtros para la tabla `password_resets_estudiantes`
 --
-ALTER TABLE `password_resets`
-  ADD CONSTRAINT `password_resets_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
+ALTER TABLE `password_resets_estudiantes`
+  ADD CONSTRAINT `password_resets_estudiantes_ibfk_1` FOREIGN KEY (`estudiante_id`) REFERENCES `estudiantes` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `prestamos`

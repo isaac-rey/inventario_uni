@@ -2,35 +2,33 @@
 require __DIR__ . '/../init.php';
 require_login();
 
-header('Content-Type: application/json');
+// Traer todos los préstamos activos/pendientes
+$act = $mysqli->query("
+SELECT p.id, p.equipo_id, p.fecha_entrega, p.observacion, p.estado,
+       e.tipo, e.marca, e.modelo, e.serial_interno,
+       COALESCE(est.nombre,d.nombre) AS nombre,
+       COALESCE(est.apellido,d.apellido) AS apellido,
+       COALESCE(est.ci,d.ci) AS ci,
+       est.id AS est_id, d.id AS doc_id
+FROM prestamos p
+JOIN equipos e ON e.id=p.equipo_id
+LEFT JOIN estudiantes est ON est.id=p.estudiante_id
+LEFT JOIN docentes d ON d.id=p.docente_id
+WHERE p.estado IN ('activo','pendiente','pendiente_devolucion')
+ORDER BY p.fecha_entrega DESC
+")->fetch_all(MYSQLI_ASSOC);
 
-$prestamos = [];
-
-$q = $mysqli->query("
-    SELECT p.id, p.estado, p.fecha_entrega, p.observacion,
-           e.tipo, e.marca, e.modelo, e.serial_interno,
-           est.id AS est_id, est.nombre, est.apellido, est.ci
-    FROM prestamos p
-    JOIN equipos e ON e.id = p.equipo_id
-    LEFT JOIN estudiantes est ON est.id = p.estudiante_id
-    WHERE p.estado IN ('activo','pendiente')
-    ORDER BY p.fecha_entrega DESC
-");
-
-while ($r = $q->fetch_assoc()) {
-    // Verificar si existe una devolución pendiente
-    $stmt = $mysqli->prepare("SELECT id FROM devoluciones WHERE prestamo_id=? AND estado='pendiente' LIMIT 1");
-    $stmt->bind_param("i", $r['id']);
-    $stmt->execute();
-    $stmt->store_result();
-    if ($stmt->num_rows > 0) {
-        $r['estado'] = 'pendiente_devolucion';
-    }
-    $stmt->close();
-
-    $r['historial_cesiones'] = [];
-    $prestamos[] = $r;
+// Historial de cesiones docentes
+foreach($act as &$p){
+    if($p['doc_id']){
+        $stmt=$mysqli->prepare("SELECT hc.*, d.nombre,d.apellido,d.ci FROM historial_cesiones hc JOIN docentes d ON d.id=hc.de_docente_id WHERE hc.prestamo_id=? ORDER BY hc.fecha ASC");
+        $stmt->bind_param("i",$p['id']);
+        $stmt->execute();
+        $p['historial_cesiones']=$stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    } else $p['historial_cesiones']=[];
 }
+unset($p);
 
-echo json_encode(['prestamos' => $prestamos]);
-exit;
+header('Content-Type: application/json');
+echo json_encode(['prestamos'=>$act]);
