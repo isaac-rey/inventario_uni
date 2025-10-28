@@ -1,6 +1,8 @@
 <?php
 // public/estudiantes_registro.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
+require_login(); // Asumiendo que solo usuarios logueados pueden crear docentes.
 
 $ok = false;
 $error = '';
@@ -34,8 +36,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ");
       $stmt->bind_param('sssss', $ci, $nombre, $apellido, $email, $hash);
       $stmt->execute();
+      //--------parte de auditoria----------------
+      // Obtener el ID del registro recién insertado
+      $new_docente_id = $mysqli->insert_id;
+      //-----------------------------------------------
 
       $ok = true;
+      
+      //---------INSERCIÓN DE LA AUDITORÍA-------------
+      $docente_nombre = htmlspecialchars($nombre . ' ' . $apellido);
+      $docente_ci = htmlspecialchars($ci);
+
+      $accion_msg = "Registró un nuevo Docente ID {$new_docente_id}: {$docente_nombre} (CI: {$docente_ci}).";
+      // El ID del usuario que realiza la acción se toma de la sesión (user())
+      auditar($accion_msg);
+      // ---------------------------------------------
     }
   }
 }

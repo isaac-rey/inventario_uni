@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../init.php';
 require_login();
 
@@ -8,7 +8,15 @@ $reporte_id = intval($_GET['reporte_id'] ?? 0);
 if (!$reporte_id) die("Mantenimiento no especificado.");
 
 // Obtener info del mantenimiento
-$stmt = $mysqli->prepare("SELECT * FROM mantenimientos WHERE reporte_id = ?");
+//$stmt = $mysqli->prepare("SELECT * FROM mantenimientos WHERE reporte_id = ?");
+//--------------------------------
+$stmt = $mysqli->prepare("
+    SELECT m.*, e.serial_interno
+    FROM mantenimientos m
+    JOIN equipos e ON e.id = m.equipo_id
+    WHERE m.reporte_id = ?
+");
+//--------------------------------
 $stmt->bind_param("i", $reporte_id);
 $stmt->execute();
 $mantenimiento = $stmt->get_result()->fetch_assoc();
@@ -31,6 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $con_reporte = $solucionado ? 0 : 1;
     $mysqli->query("UPDATE equipos SET en_mantenimiento=0, estado='$estado', con_reporte=$con_reporte WHERE id=" . $mantenimiento['equipo_id']);
     $ok = true;
+
+//--------------------INSERCIÓN DE LA AUDITORÍA---------------------
+    $resultado = $solucionado ? 'SOLUCIONADO y devuelto' : 'DEVUELTO SIN SOLUCIONAR';
+    $accion_msg = "Finalizó el mantenimiento del Equipo ID {$mantenimiento['equipo_id']} (Serial: {$mantenimiento['serial_interno']}). Resultado: {$resultado}.";
+    auditar($accion_msg);
+    // ---------------------------------------------------------------
+
   } else {
     $error = "No se pudo actualizar el mantenimiento.";
   }

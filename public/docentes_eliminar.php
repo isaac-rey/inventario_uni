@@ -1,6 +1,7 @@
 <?php
 // public/estudiantes_eliminar.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
 
 $id = intval($_GET['id'] ?? 0);
 if (!$id) {
@@ -26,6 +27,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param("i", $id);
     if ($stmt->execute()) {
         $ok = true;
+        //---------INSERCIÓN DE LA AUDITORÍA-------------
+        $docente_nombre = htmlspecialchars($docente['nombre'] . ' ' . $docente['apellido']);
+        $docente_ci = htmlspecialchars($docente['ci']);
+        
+        $accion_msg = "Eliminó el Docente ID {$id}: {$docente_nombre} (CI: {$docente_ci}).";
+        // El ID del usuario logueado que realiza la acción se toma de la sesión (user())
+        auditar($accion_msg);
+        // ----------------------------------------------
     } else {
         $error = "No se pudo eliminar el docente.";
     }

@@ -88,7 +88,7 @@ devuelto_por_tercero_ci=?
       } else {
         $devuelto_por = "Responsable original: {$responsable}";
       }
-      // ✅ INSERCIÓN DE AUDITORÍA
+      //--------------------INSERCIÓN DE AUDITORÍA--------------
       auditar("Registró la devolución del equipo ID {$equipo_id} ({$equipo_desc}). Responsable: {$responsable}. Devuelto por: {$devuelto_por}.");
 
       $ok = true;

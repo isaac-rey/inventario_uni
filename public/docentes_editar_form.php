@@ -1,6 +1,7 @@
 <?php
 // public/docentes_editar.php
-require __DIR__ . '/../config/db.php';
+//require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
 
 $id = intval($_GET['id'] ?? 0);
 if (!$id) {
@@ -44,12 +45,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hash = password_hash($pass, PASSWORD_BCRYPT);
         $stmt = $mysqli->prepare("UPDATE docentes SET ci=?, nombre=?, apellido=?, email=?, password_hash=? WHERE id=?");
         $stmt->bind_param('sssssi', $ci, $nombre, $apellido, $email, $hash, $id);
+        //-------agregado de auditoria----------
+        $accion_extra = " y la contraseña";
+        //-------------------------------------
       } else {
         $stmt = $mysqli->prepare("UPDATE docentes SET ci=?, nombre=?, apellido=?, email=? WHERE id=?");
         $stmt->bind_param('ssssi', $ci, $nombre, $apellido, $email, $id);
+        //-------agregado de auditoria----------
+        $accion_extra = "";
+        //-------------------------------------
       }
       $stmt->execute();
       $ok = true;
+      //---------INSERCIÓN DE LA AUDITORÍA-------------
+      $accion_msg = "Editó datos de Docente ID {$id} ({$nombre} {$apellido}){$accion_extra}.";
+      // El ID del usuario que realiza la acción se toma de la sesión (user())
+      auditar($accion_msg);
+      // --------------------------------
     }
   }
 }

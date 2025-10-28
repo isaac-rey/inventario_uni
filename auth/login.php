@@ -1,7 +1,9 @@
 <?php
 // auth/login.php
-session_start();
+//session_start();
 require __DIR__ . '/../config/db.php';
+require __DIR__ . '/../init.php';
+
 
 $error = '';
 
@@ -32,6 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'nombre' => $user['nombre'],
         'rol'    => $user['rol'],
       ];
+//---------------------Auditar el login---------------------------
+// ✅ 2. REGISTRAR AUDITORÍA DE INICIO DE SESIÓN EXITOSO
+      // (Debemos registrar la auditoría DESPUÉS de establecer la sesión, 
+      // ya que 'auditar' utiliza $_SESSION['user']['id'])
+      $user_desc = htmlspecialchars($user['nombre'] . ' (Rol: ' . $user['rol'] . ')');
+      // La función 'auditar' utiliza la ID del usuario logueado
+      auditar("Inicio de sesión exitoso. Usuario: {$user_desc}.");
+// ---------------------------------------------------------------
+
       header('Location: /inventario_uni/index.php');
       exit;
     } else {

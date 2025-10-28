@@ -42,6 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if ($stmt2->execute()) {
             $ok = true;
+
+            //-------------------INSERCIÓN DE LA AUDITORÍA-----------------------
+            $equipo_desc = htmlspecialchars($reporte['tipo'] . ' ' . $reporte['marca'] . ' (Serial: ' . $reporte['serial_interno'] . ')');
+            $accion_msg = "Envió el Equipo ID {$reporte['equipo_id']} ({$equipo_desc}) a mantenimiento. Destino: {$destino}. Motivo: {$motivo}.";
+            // El ID del usuario que realiza la acción se toma de la sesión (user())
+            auditar($accion_msg);
+            // --------------------------------
+
         } else {
             $error = "No se pudo registrar el mantenimiento: " . $mysqli->error;
         }
@@ -51,11 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!doctype html>
 <html lang="es">
+
 <head>
     <meta charset="utf-8">
     <title>Enviar a mantenimiento</title>
     <link rel="stylesheet" href="../css/form_mantenimiento_enviar.css">
 </head>
+
 <body>
 <?php include __DIR__ . '/navbar.php'; ?>
 
@@ -73,19 +83,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
         </p>
 
-        <form method="post">
-            <label for="destino">Destino *</label>
-            <input id="destino" type="text" name="destino" required>
+        <?php if ($ok): ?>
+            <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>
+            <div class="muted"><a href="reportes.php">← Volver a reportes</a></div>
+        <?php else: ?>
+            <?php if ($error) echo '<div class="error">' . htmlspecialchars($error) . '</div>'; ?>
 
-            <label for="motivo">Motivo *</label>
-            <textarea id="motivo" name="motivo" required rows="4"></textarea>
+            <p class="muted">
+                <strong>Equipo:</strong> <?= htmlspecialchars($reporte['marca'] . ' ' . $reporte['modelo']) ?> <br>
+                <strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
+            </p>
 
-            <button type="submit">Guardar</button>
-        </form>
-        <div class="muted">
-            <a href="mantenimientos.php">← Volver a mantenimientos</a>
-        </div>
-    <?php endif; ?>
-</div>
+            <form method="post">
+                <label for="destino">Destino *</label>
+                <input id="destino" type="text" name="destino" required>
+
+                <label for="motivo">Motivo *</label>
+                <textarea id="motivo" name="motivo" required rows="4"></textarea>
+
+                <button type="submit">Guardar</button>
+            </form>
+            <div class="muted">
+                <a href="mantenimientos.php">← Volver a mantenimientos</a>
+            </div>
+        <?php endif; ?>
+    </div>
 </body>
+
 </html>

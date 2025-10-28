@@ -39,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
          // Necesitamos el ID del usuario que se acaba de registrar para auditar correctamente, lo sacamos del mysqli
             $new_user_id = $mysqli->insert_id; 
+            //-------------------------------------
             auditar("Registró al nuevo usuario con ID {$new_user_id}"); 
             // ---------------------------------
         header("Location: ../public/usuarios_index.php");

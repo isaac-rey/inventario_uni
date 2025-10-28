@@ -45,6 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute();
     $ok = true;
 
+    //-----------------INSERCIÓN DE LA AUDITORÍA---------------------
+    $accion_msg = "Editó el componente ID {$comp_id} (Tipo: {$tipo}, Estado: {$estado}) del Equipo ID {$equipo_id}.";
+    auditar($accion_msg);
+    // ------------------------------------------------------------
+
     // recargar datos
     $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
     $stmt->bind_param("ii", $comp_id, $equipo_id);

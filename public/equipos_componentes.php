@@ -32,6 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("isssss", $equipo_id, $tipo, $marca, $modelo, $estado, $obs);
   $stmt->execute();
 
+
+
   echo "<p class='muted'>Componente agregado correctamente.</p>";
 }
 
