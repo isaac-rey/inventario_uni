@@ -42,10 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       //-----------------insersion de la auditoria--------------------
       if ($stmt->execute()) {
-        $nuevo_estudiante_id = $mysqli->insert_id;
-        auditar("Registró un nuevo estudiante con ID {$nuevo_estudiante_id} y Nombre: {$nombre} {$apellido}");
+ $nuevo_estudiante_id = $mysqli->insert_id;
+        
+        // --- CAMBIO CLAVE AQUÍ ---
+        $accion_descripcion = "Registró un nuevo estudiante con ID {$nuevo_estudiante_id} y Nombre: {$nombre} {$apellido}.";
+        // Añadimos el nuevo parámetro: 'registro_estudiante'
+auditar($accion_descripcion, 'registro_estudiante'); 
 
-        $ok = true;
+$ok = true;
       } else {
         // Manejo de error de inserción
         $error = "Error al registrar el estudiante: " . $mysqli->error;

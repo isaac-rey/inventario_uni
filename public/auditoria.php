@@ -14,6 +14,7 @@ if ($rol !== 'admin') {
 $search = trim($_GET['q'] ?? '');
 $fecha_inicio = trim($_GET['fecha_inicio'] ?? '');
 $fecha_fin = trim($_GET['fecha_fin'] ?? '');
+$tipo_accion = trim($_GET['tipo'] ?? ''); // <--- NUEVA LÍNEA
 
 $params = [];
 $types = '';
@@ -42,13 +43,20 @@ if (!empty($fecha_fin)) {
     $types .= 's';
 }
 
+// 4. NUEVO FILTRO POR TIPO DE ACCIÓN
+if (!empty($tipo_accion)) {
+    $where_clauses[] = "a.tipo_accion = ?"; // ¡Igualdad exacta!
+    $params[] = $tipo_accion;
+    $types .= 's';
+}
+
 $where = '';
 if (!empty($where_clauses)) {
     $where = " WHERE " . implode(" AND ", $where_clauses);
 }
 
 //---------------------------------------------------------------------
-$sql = "SELECT a.id, a.accion, a.fecha, u.nombre
+$sql = "SELECT a.id, a.accion, a.fecha, u.nombre, a.tipo_accion
         FROM auditoria a
         JOIN usuarios u ON a.usuario_id = u.id 
         " . $where . "
@@ -68,6 +76,9 @@ if (!empty($params)) {
 } else {
     $result = $mysqli->query($sql);
 }
+
+// Inicializar el contador de filas
+$contador = 0; // <--- AÑADIR ESTA LÍNEA
 ?>
 <!doctype html>
 <html lang="es">
@@ -88,8 +99,19 @@ if (!empty($params)) {
         <!--Formulario de búsqueda----------------------------->
         <div class="actions">
             <form method="get" style="display:inline-flex; align-items: center; gap: 10px;">
-                <input type="text" name="q" placeholder="Buscar acción o usuario..." value="<?= htmlspecialchars($search) ?>">
+                <input type="text" name="q" placeholder="Buscar..." value="<?= htmlspecialchars($search) ?>">
 
+                <label for="tipo">Tipo:</label>
+                <select name="tipo" id="tipo">
+                    <option value="">-- Todos --</option>
+                    <option value="préstamo" <?= ($_GET['tipo'] ?? '') == 'préstamo' ? 'selected' : '' ?>>Préstamos</option>
+                    <option value="devolución" <?= ($_GET['tipo'] ?? '') == 'devolución' ? 'selected' : '' ?>>Devoluciones</option>
+                    <option value="mantenimiento" <?= ($_GET['tipo'] ?? '') == 'mantenimiento' ? 'selected' : '' ?>>Mantenimiento</option>
+
+                    <option value="registro_estudiante" <?= ($_GET['tipo'] ?? '') == 'registro_estudiante' ? 'selected' : '' ?>>Registro de estudiantes</option>
+
+                    <option value="sesión" <?= ($_GET['tipo'] ?? '') == 'sesión' ? 'selected' : '' ?>>Inicios de Sesión</option>
+                </select>
                 <label for="fecha_inicio">Desde:</label>
                 <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?= htmlspecialchars($fecha_inicio) ?>">
 
@@ -99,27 +121,44 @@ if (!empty($params)) {
                 <button type="submit">Filtrar</button>
             </form>
         </div>
-        <!-------------------------------------------------->
 
+        <div class="report-actions" style="margin-bottom: 20px;">
+
+            <?php
+            // Obtenemos TODOS los parámetros GET actuales
+            $query_string = http_build_query($_GET);
+            ?>
+
+            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="button">
+                Descargar Excel (CSV)
+            </a>
+            <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="button">
+                Descargar PDF
+            </a>
+        </div>
         <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Acción</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
+    </div>
+    <!-------------------------------------------------->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nro</th>
+                <th>Usuario</th>
+                <th>Acción realizada</th>
+                <th>Fecha</th>
             </tr>
-            <?php while ($row = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?= htmlspecialchars($row['id']) ?></td>
-                    <td><?= htmlspecialchars($row['nombre']) ?></td>
-                    <td><?= htmlspecialchars($row['accion']) ?></td>
-                    <td><?= htmlspecialchars($row['fecha']) ?></td>
-                </tr>
-            <?php endwhile; ?>
-        </table>
+        </thead>
+        </tr>
+        <?php while ($row = $result->fetch_assoc()): ?>
+            <?php $contador++; ?> <tr>
+                <td><?= $contador ?></td>
+                <td><?= htmlspecialchars($row['nombre']) ?></td>
+                <td><?= htmlspecialchars($row['accion']) ?></td>
+                <td><?= htmlspecialchars($row['fecha']) ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
     </div>
 </body>
 
