@@ -65,7 +65,7 @@ $currentPage = basename(__FILE__);
     <?php if ($ok): ?>
       <div class="ok">¡Sala registrada exitosamente!</div>
       <div class="muted">
-        <a href="/inventario_uni/public/salas.php">Ver listado de salas</a> | 
+        <a href="/inventario_uni/public/salas_index.php">Ver listado de salas</a> | 
         <a href="/inventario_uni/public/salas_registro.php">Registrar otra sala</a>
       </div>
     <?php else: ?>

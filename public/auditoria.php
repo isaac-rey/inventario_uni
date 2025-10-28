@@ -129,8 +129,8 @@ $contador = 0; // <--- AÑADIR ESTA LÍNEA
             $query_string = http_build_query($_GET);
             ?>
 
-            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="button">
-                Descargar Excel (CSV)
+            <a href="generar_reporte.php?formato=xlsx&<?= $query_string ?>" class="button">
+                Descargar Reporte (Excel XLSX)
             </a>
             <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="button">
                 Descargar PDF
