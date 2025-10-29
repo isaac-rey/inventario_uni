@@ -1,0 +1,69 @@
+/* ------------------------------------------------------------------- */
+/* ESTILOS PARA BOTONES DE REPORTE (COMPACTO Y HOVER MEJORADO) */
+/* ------------------------------------------------------------------- */
+
+.report-actions {
+    display: flex; 
+    gap: 10px;
+}
+
+/* Estilo base para todos los botones de descarga */
+.report-actions .button {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 14px;
+    font-size: 0.9em;
+    text-decoration: none;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: white; /* Aseguramos que el texto por defecto sea blanco */
+}
+
+/* Icono dentro del botón */
+.report-actions .button .icon {
+    font-size: 1.0em;
+    margin-right: 6px;
+    line-height: 1; 
+}
+
+/* --- COLORES --- */
+
+/* Estilo específico para XLSX (Verde) */
+.button-excel {
+    background-color: #27ae60;
+    /* color: white; <-- Eliminado de aquí, movido al .button base */
+}
+.button-excel:hover {
+    background-color: #1e8449; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+    color: white !important; /* CORRECCIÓN CLAVE: Fuerza el color blanco */
+}
+
+/* Estilo específico para PDF (Rojo) */
+.button-pdf {
+    background-color: #c0392b;
+    /* color: white; <-- Eliminado de aquí, movido al .button base */
+}
+.button-pdf:hover {
+    background-color: #943126;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+    color: white !important; /* CORRECCIÓN CLAVE: Fuerza el color blanco */
+}
+
+/* Estilo para CSV (Gris) */
+.button-csv {
+    background-color: #7f8c8d;
+    color: #333; /* El CSV es la excepción, texto oscuro por defecto */
+}
+.button-csv:hover {
+    background-color: #6f7575;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-1px);
+    color: white !important; /* CORRECCIÓN CLAVE: Fuerza el texto a blanco en hover */
+}

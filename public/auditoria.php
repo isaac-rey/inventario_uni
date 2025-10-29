@@ -88,6 +88,7 @@ $contador = 0; // <--- AÑADIR ESTA LÍNEA
     <title>Auditoría - Inventario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/reportes.css">
 </head>
 
 <body>
@@ -127,17 +128,21 @@ $contador = 0; // <--- AÑADIR ESTA LÍNEA
         </div>
 
         <div class="report-actions" style="margin-bottom: 20px;">
-
             <?php
             // Obtenemos TODOS los parámetros GET actuales
             $query_string = http_build_query($_GET);
             ?>
-
-            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="button">
-                Descargar Excel (CSV)
+            
+            <a href="generar_reporte.php?formato=xlsx&<?= $query_string ?>" class="button button-excel">
+                <span class="icon"></span> Descargar Excel (XLSX)
             </a>
-            <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="button">
-                Descargar PDF
+
+            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="button button-csv">
+                <span class="icon"></span> Descargar Excel (CSV)
+            </a>
+            
+            <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="button button-pdf">
+                <span class="icon"></span> Descargar PDF
             </a>
         </div>
         <table>
