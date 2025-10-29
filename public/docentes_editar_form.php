@@ -58,9 +58,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute();
       $ok = true;
       //---------INSERCIÓN DE LA AUDITORÍA-------------
-      $accion_msg = "Editó datos de Docente ID {$id} ({$nombre} {$apellido}){$accion_extra}.";
+      $accion_msg = "Editó datos de docente ID {$id} '{$nombre} {$apellido}' (C.I: {$ci}){$accion_extra}.";
       // El ID del usuario que realiza la acción se toma de la sesión (user())
-      auditar($accion_msg);
+      // CLAVE: Añadir el tipo de acción 'accion_docentes'
+auditar($accion_msg, 'acción_docentes');
       // --------------------------------
     }
   }

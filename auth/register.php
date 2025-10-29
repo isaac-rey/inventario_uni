@@ -37,11 +37,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if ($stmt->execute()) {
 
-         // Necesitamos el ID del usuario que se acaba de registrar para auditar correctamente, lo sacamos del mysqli
-            $new_user_id = $mysqli->insert_id; 
-            //-------------------------------------
-            auditar("Registró al nuevo usuario con ID {$new_user_id}"); 
-            // ---------------------------------
+        // Necesitamos el ID del usuario que se acaba de registrar para auditar correctamente, lo sacamos del mysqli
+        $new_user_id = $mysqli->insert_id;
+
+        // ------------------ AUDITORÍA DE REGISTRO DE USUARIO ------------------
+        // 1. Obtener el nombre del rol (asumiendo que el ID 2 es 'usuario')
+        $stmt_rol = $mysqli->prepare("SELECT nombre FROM roles WHERE id = ?");
+        $stmt_rol->bind_param("i", $rol_id);
+        $stmt_rol->execute();
+        $rol_nombre = $stmt_rol->get_result()->fetch_assoc()['nombre'] ?? 'Desconocido';
+        $stmt_rol->close();
+
+        // 2. Construir el mensaje de auditoría
+        $accion_msg = "Registró al nuevo usuario '{$nombre}' (CI: {$ci}) con el rol: '.";
+
+        // 3. Llamar a auditar con el tipo de acción 'accion_usuario'
+        auditar($accion_msg, 'acción_usuario');
+        // ----------------------------------------------------------------------
+
         header("Location: ../public/usuarios_index.php");
       } else {
         $error = 'Error al registrar usuario.';
@@ -52,19 +65,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>Registro — Inventario Universidad</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/form_login.css">
 </head>
+
 <body>
-<?php include __DIR__ . '/../public/navbar.php'; ?>
+  <?php include __DIR__ . '/../public/navbar.php'; ?>
 
   <div class="card">
     <h1>Registro de Usuario</h1>
-    <?php if ($error): ?><div class="error"><?=htmlspecialchars($error)?></div><?php endif; ?>
-    <?php if ($success): ?><div class="success"><?=htmlspecialchars($success)?></div><?php endif; ?>
+    <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+    <?php if ($success): ?><div class="success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
     <form method="post">
       <label>CI</label>
       <input name="ci" type="text" required>
@@ -78,4 +93,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
   </div>
 </body>
+
 </html>

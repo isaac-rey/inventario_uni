@@ -3,11 +3,11 @@
 require __DIR__ . '/../init.php';
 require_login();
 
-$comp_id  = intval($_GET['id'] ?? 0);
+$comp_id = intval($_GET['id'] ?? 0);
 $equipo_id = intval($_GET['equipo'] ?? 0);
 if (!$comp_id || !$equipo_id) { die("Parámetros insuficientes."); }
 
-// Traer componente + validar que pertenezca al equipo
+// Traer componente (datos originales)
 $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
 $stmt->bind_param("ii", $comp_id, $equipo_id);
 $stmt->execute();
@@ -16,10 +16,10 @@ if (!$comp) { die("Componente no encontrado."); }
 
 // Traer equipo (para mostrar encabezado)
 $stmt = $mysqli->prepare("SELECT e.*, a.nombre AS area, s.nombre AS sala
-                          FROM equipos e
-                          JOIN areas a ON a.id=e.area_id
-                          LEFT JOIN salas s ON s.id=e.sala_id
-                          WHERE e.id=? LIMIT 1");
+FROM equipos e
+JOIN areas a ON a.id=e.area_id
+ LEFT JOIN salas s ON s.id=e.sala_id
+ WHERE e.id=? LIMIT 1");
 $stmt->bind_param("i", $equipo_id);
 $stmt->execute();
 $equipo = $stmt->get_result()->fetch_assoc();
@@ -29,33 +29,65 @@ $error = '';
 $ok = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $tipo   = trim($_POST['tipo']);
-  $marca  = trim($_POST['marca']);
-  $modelo = trim($_POST['modelo']);
-  $estado = $_POST['estado'];
-  $obs    = trim($_POST['observacion']);
+ $tipo_nuevo  = trim($_POST['tipo']);
+ $marca_nuevo = trim($_POST['marca']);
+ $modelo_nuevo = trim($_POST['modelo']);
+ $estado_nuevo = $_POST['estado'];
+ $obs_nuevo = trim($_POST['observacion']);
 
-  if ($tipo === '') {
-    $error = "El campo tipo es obligatorio.";
-  } else {
-    $stmt = $mysqli->prepare("UPDATE componentes
-                              SET tipo=?, marca=?, modelo=?, estado=?, observacion=?
-                              WHERE id=? AND equipo_id=? LIMIT 1");
-    $stmt->bind_param("sssssii", $tipo, $marca, $modelo, $estado, $obs, $comp_id, $equipo_id);
-    $stmt->execute();
-    $ok = true;
+ if ($tipo_nuevo === '') {
+ $error = "El campo tipo es obligatorio.";
+ } else {
+    
+    // --- LÓGICA DE DETECCIÓN DE CAMBIOS Y AUDITORÍA ---
+    $cambios = [];
+    
+    if ($comp['tipo'] !== $tipo_nuevo) {
+        $cambios[] = "Tipo ('{$comp['tipo']}' -> '{$tipo_nuevo}')";
+    }
+    if ($comp['marca'] !== $marca_nuevo) {
+        $cambios[] = "Marca ('{$comp['marca']}' -> '{$marca_nuevo}')";
+    }
+    if ($comp['modelo'] !== $modelo_nuevo) {
+        $cambios[] = "Modelo ('{$comp['modelo']}' -> '{$modelo_nuevo}')";
+    }
+    if ($comp['estado'] !== $estado_nuevo) {
+        $cambios[] = "Estado ('{$comp['estado']}' -> '{$estado_nuevo}')";
+    }
+    if ($comp['observacion'] !== $obs_nuevo) {
+        $cambios[] = "Observación (Modificada)";
+    }
+    
+    $comp_desc_actual = htmlspecialchars($tipo_nuevo . ' ' . $marca_nuevo . ' ' . $modelo_nuevo);
 
-    //-----------------INSERCIÓN DE LA AUDITORÍA---------------------
-    $accion_msg = "Editó el componente ID {$comp_id} (Tipo: {$tipo}, Estado: {$estado}) del Equipo ID {$equipo_id}.";
-    auditar($accion_msg);
-    // ------------------------------------------------------------
+ $stmt = $mysqli->prepare("UPDATE componentes
+SET tipo=?, marca=?, modelo=?, estado=?, observacion=?
+WHERE id=? AND equipo_id=? LIMIT 1");
+ $stmt->bind_param("sssssii", $tipo_nuevo, $marca_nuevo, $modelo_nuevo, $estado_nuevo, $obs_nuevo, $comp_id, $equipo_id);
+ 
+ if ($stmt->execute()) {
+        $ok = true;
+        
+        if (!empty($cambios)) {
+            $cambios_str = implode(', ', $cambios);
+            $accion_msg = "Editó el componente ID {$comp_id} ({$comp_desc_actual}). Cambios: {$cambios_str}. Del equipo ID {$equipo_id}.";
+        } else {
+            $accion_msg = "Intentó editar el componente ID {$comp_id} ({$comp_desc_actual}) pero no hubo cambios. Del equipo ID {$equipo_id}.";
+        }
 
-    // recargar datos
-    $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
-    $stmt->bind_param("ii", $comp_id, $equipo_id);
-    $stmt->execute();
-    $comp = $stmt->get_result()->fetch_assoc();
-  }
+// CLAVE: Usamos el tipo de acción 'edicion_componente'
+ auditar($accion_msg, 'acción_componente');
+} else {
+        $error = "Error al guardar los cambios: " . $mysqli->error;
+    }
+ // ------------------------------------------------------------
+
+ // recargar datos para el formulario
+ $stmt = $mysqli->prepare("SELECT * FROM componentes WHERE id=? AND equipo_id=? LIMIT 1");
+ $stmt->bind_param("ii", $comp_id, $equipo_id);
+ $stmt->execute();
+ $comp = $stmt->get_result()->fetch_assoc();
+ }
 }
 ?>
 <!doctype html>
@@ -95,7 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label>Estado</label>
         <select name="estado">
           <?php
-            $estados = ['bueno','en_uso','dañado','fuera_servicio'];
+            $estados = ['bueno','En uso','dañado','fuera_servicio'];
             foreach ($estados as $e) {
               $sel = $comp['estado']===$e ? 'selected' : '';
               echo "<option value=\"$e\" $sel>$e</option>";

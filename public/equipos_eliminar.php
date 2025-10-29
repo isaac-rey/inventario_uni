@@ -45,7 +45,11 @@ $del->bind_param("i", $id);
 //------------------insersion de la auditoria------------------
 if ($del->execute()) {
     $descripcion = trim($equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo']);
-    auditar("Eliminó el equipo ID {$id} (Serial: {$equipo['serial_interno']}): {$descripcion}.");
+
+    $accion_msg = "Eliminó el equipo ID {$id} (Serial: {$equipo['serial_interno']}): '{$descripcion}'.";
+
+    // CLAVE: Usamos el tipo de acción 'acción_equipo'
+    auditar($accion_msg, 'acción_equipo');
 }
 //-------------------------------------------------------------
 

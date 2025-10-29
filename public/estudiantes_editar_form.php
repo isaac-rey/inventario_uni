@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       //----------------insersion de la auditoria y verificacion--------------------
       if ($stmt->execute()) {
         // El usuario actual (admin/titular) editó al estudiante
-        auditar("Editó los datos del estudiante ID {$id} ({$nombre} {$apellido}).");
+        auditar("Editó los datos del estudiante ID {$id} '{$nombre} {$apellido}' (C.I: $ci).", 'acción_estudiante');
         $ok = true;
       } else {
         // Opcional: Manejo de error de actualización

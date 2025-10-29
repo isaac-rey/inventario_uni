@@ -68,12 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //************************************************** */
 
         // Marcar equipo como prestado
-        //$stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
+        //$stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='En uso' WHERE id=? LIMIT 1");
         //$stmt->bind_param("i", $equipo_id);
         //$stmt->execute();
         //************************************************* */
         // 2. Marcar equipo como prestado (Usamos $stmt_equipo)
-        $stmt_equipo = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
+        $stmt_equipo = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='En uso' WHERE id=? LIMIT 1");
         $stmt_equipo->bind_param("i", $equipo_id);
 
         //---------------------insersion de la auditoria----------------------------

@@ -42,25 +42,25 @@ if (!empty($prestamo['docente_id'])) {
     $tipo_usuario = 'docente';
     $id_usuario_prestamo = $prestamo['docente_id'];
     
-    $stmt = $mysqli->prepare("SELECT nombre, apellido FROM docentes WHERE id=? LIMIT 1");
+    $stmt = $mysqli->prepare("SELECT ci, nombre, apellido FROM docentes WHERE id=? LIMIT 1");
     $stmt->bind_param("i", $id_usuario_prestamo);
     $stmt->execute();
     $usuario = $stmt->get_result()->fetch_assoc();
     $stmt->close();
     
-    $nombre_usuario = $usuario ? $usuario['nombre'].' '.$usuario['apellido'] : 'Desconocido';
+    $nombre_usuario = $usuario ? $usuario['nombre'].' '.$usuario['apellido'].' (C.I: '. $usuario['ci'].')' : 'Desconocido';
     
 } elseif (!empty($prestamo['estudiante_id'])) {
     $tipo_usuario = 'estudiante';
     $id_usuario_prestamo = $prestamo['estudiante_id'];
     
-    $stmt = $mysqli->prepare("SELECT nombre, apellido FROM estudiantes WHERE id=? LIMIT 1");
+    $stmt = $mysqli->prepare("SELECT ci, nombre, apellido FROM estudiantes WHERE id=? LIMIT 1");
     $stmt->bind_param("i", $id_usuario_prestamo);
     $stmt->execute();
     $usuario = $stmt->get_result()->fetch_assoc();
     $stmt->close();
     
-    $nombre_usuario = $usuario ? $usuario['nombre'].' '.$usuario['apellido'] : 'Desconocido';
+    $nombre_usuario = $usuario ? $usuario['nombre'].' '.$usuario['apellido'].' (C.I: '. $usuario['ci'].')' : 'Desconocido';
 }
 
 // Aprobar préstamo y asignar usuario actual
@@ -70,14 +70,15 @@ $stmt->execute();
 $stmt->close();
 
 // Marcar equipo como prestado
-$stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=?");
+$stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='En uso' WHERE id=?");
 $stmt->bind_param("i", $prestamo['equipo_id']);
 $stmt->execute();
 $stmt->close();
 
 //------------------- AUDITORÍA --------------------
-$accion_msg = "Aprobó el préstamo del equipo ID {$prestamo['equipo_id']} ({$nombre_equipo}) al {$tipo_usuario} '{$nombre_usuario}'.";
-auditar($accion_msg);
+$accion_msg = "Aprobó el préstamo del equipo ID {$prestamo['equipo_id']} ({$nombre_equipo}) al {$tipo_usuario} {$nombre_usuario}.";
+// CLAVE: Se añade el tipo de acción 'préstamo'
+auditar($accion_msg, 'préstamo');
 // -------------------------------------------------
 
 echo json_encode(['ok' => "Préstamo aprobado correctamente."]);

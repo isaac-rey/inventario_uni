@@ -73,13 +73,32 @@ $formato = $_GET['formato'] ?? 'csv';
 
 // Diccionario de nombres descriptivos para el archivo
 $nombre_tipo = [
+    // Préstamos y Mantenimiento
+    'sesión' => 'Sesiones',
     'préstamo' => 'Prestamos',
     'devolución' => 'Devoluciones',
-    'mantenimiento' => 'Mantenimiento',
-    'registro_estudiante' => 'Registro_Estudiantes',
-    'registro_docente' => 'Registro_Docentes', // Asume que tienes este también
-    'sesión' => 'Sesiones'
+    'reporte' => 'Reportes_De_Equipos',
+    'mantenimiento' => 'Mantenimientos',
+
+    // CRUD de Equipos
+    'acción_equipo' => 'Equipos',
+
+    // CRUD de Componentes
+    'acción_componente' => 'Componentes',
+
+    // CRUD de Salas
+    'acción_sala' => 'Salas',
+
+    // CRUD de Usuarios
+    'acción_usuario' => 'Usuarios',
+
+    // CRUD de Estudiantes
+    'acción_estudiante' => 'Estudiantes',
+
+    // CRUD de Docentes (Asumiendo que también lo auditas)
+    'acción_docentes' => 'Docentes',
 ];
+// -----------------------------------------------------------
 
 // Generar la parte del nombre
 $nombre_base = 'auditoria';

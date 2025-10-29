@@ -34,14 +34,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'nombre' => $user['nombre'],
         'rol'    => $user['rol'],
       ];
-//---------------------Auditar el login---------------------------
-// ✅ 2. REGISTRAR AUDITORÍA DE INICIO DE SESIÓN EXITOSO
+      //---------------------Auditar el login---------------------------
+      // ✅ 2. REGISTRAR AUDITORÍA DE INICIO DE SESIÓN EXITOSO
       // (Debemos registrar la auditoría DESPUÉS de establecer la sesión, 
       // ya que 'auditar' utiliza $_SESSION['user']['id'])
       $user_desc = htmlspecialchars($user['nombre'] . ' (Rol: ' . $user['rol'] . ')');
       // La función 'auditar' utiliza la ID del usuario logueado
-      auditar("Inicio de sesión exitoso. Usuario: {$user_desc}.");
-// ---------------------------------------------------------------
+      // Se registra el inicio de sesión exitoso con el tipo 'sesión'
+      auditar("Inicio de sesión exitoso. Usuario: {$user_desc}.", 'sesión');
+      // ---------------------------------------------------------------
 
       header('Location: /inventario_uni/index.php');
       exit;
@@ -53,16 +54,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 <!doctype html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <title>Login — Inventario Universidad</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="../css/form_login.css">
 </head>
+
 <body>
   <div class="card">
     <h1>Inventario — Universidad</h1>
-    <?php if ($error): ?><div class="error"><?=htmlspecialchars($error)?></div><?php endif; ?>
+    <?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
     <form method="post">
       <label>Correo electrónico o CI</label>
       <input type="text" name="login" autocomplete="username" required>
@@ -71,9 +74,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <button type="submit">Ingresar</button>
     </form>
     <form action="register.php" method="get">
-      
+
       <p><a href="../config/forgot_password.php">¿Olvidaste tu contraseña?</a></p>
     </form>
   </div>
 </body>
+
 </html>

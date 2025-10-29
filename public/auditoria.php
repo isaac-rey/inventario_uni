@@ -104,13 +104,17 @@ $contador = 0; // <--- AÑADIR ESTA LÍNEA
                 <label for="tipo">Tipo:</label>
                 <select name="tipo" id="tipo">
                     <option value="">-- Todos --</option>
+                    <option value="sesión" <?= ($_GET['tipo'] ?? '') == 'sesión' ? 'selected' : '' ?>>Inicios de sesión</option>
+                    <option value="acción_equipo" <?= ($_GET['tipo'] ?? '') == 'acción_equipo' ? 'selected' : '' ?>>Equipos</option>
+                    <option value="acción_componente" <?= ($_GET['tipo'] ?? '') == 'acción_componente' ? 'selected' : '' ?>>Componentes</option>
                     <option value="préstamo" <?= ($_GET['tipo'] ?? '') == 'préstamo' ? 'selected' : '' ?>>Préstamos</option>
                     <option value="devolución" <?= ($_GET['tipo'] ?? '') == 'devolución' ? 'selected' : '' ?>>Devoluciones</option>
-                    <option value="mantenimiento" <?= ($_GET['tipo'] ?? '') == 'mantenimiento' ? 'selected' : '' ?>>Mantenimiento</option>
-
-                    <option value="registro_estudiante" <?= ($_GET['tipo'] ?? '') == 'registro_estudiante' ? 'selected' : '' ?>>Registro de estudiantes</option>
-
-                    <option value="sesión" <?= ($_GET['tipo'] ?? '') == 'sesión' ? 'selected' : '' ?>>Inicios de Sesión</option>
+                    <option value="reporte" <?= ($_GET['tipo'] ?? '') == 'reporte' ? 'selected' : '' ?>>Reportes de equipos</option>
+                    <option value="mantenimiento" <?= ($_GET['tipo'] ?? '') == 'mantenimiento' ? 'selected' : '' ?>>Mantenimientos</option>
+                    <option value="acción_usuario" <?= ($_GET['tipo'] ?? '') == 'acción_usuario' ? 'selected' : '' ?>>Usuarios</option>
+                    <option value="acción_docentes" <?= ($_GET['tipo'] ?? '') == 'acción_docentes' ? 'selected' : '' ?>>Docentes</option>
+                    <option value="acción_estudiante" <?= ($_GET['tipo'] ?? '') == 'acción_estudiante' ? 'selected' : '' ?>>Estudiantes</option>
+                    <option value="acción_sala" <?= ($_GET['tipo'] ?? '') == 'acción_sala' ? 'selected' : '' ?>>Salas</option>
                 </select>
                 <label for="fecha_inicio">Desde:</label>
                 <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?= htmlspecialchars($fecha_inicio) ?>">

@@ -30,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
 
   if (isset($_POST['delete'])) {
     // -------- ELIMINAR USUARIO --------
+    $nombre = $_POST['nombre'];
+    $ci = $_POST['ci'];
     $delete_sql = "DELETE FROM usuarios WHERE id = ?";
     $delete_stmt = $mysqli->prepare($delete_sql);
     $delete_stmt->bind_param("i", $user_id);
 
     //--------insertar auditoria de la accion --------
-    auditar("Elimino el usuario con ID {$user_id}");
-
+    auditar("Eliminó al usuario '{$nombre}' (C.I: {$ci}) con ID {$user_id}", 'acción_usuario'); // <-- Modificado con tipo
     //----------------------
 
     if ($delete_stmt->execute()) {
@@ -47,25 +48,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     }
   } else {
     // -------- ACTUALIZAR USUARIO --------
-    $nombre = $_POST['nombre'];
-    $ci = $_POST['ci'];
-    $role_id = $_POST['role_id']; // Cambiado de $roles_id a $role_id
+ $nombre_nuevo = $_POST['nombre'];
+ $ci_nuevo = $_POST['ci'];
+ $role_id_nuevo = $_POST['role_id'];
+// 1. OBTENER DATOS ACTUALES DEL USUARIO ANTES DE LA EDICIÓN
+    $stmt_prev = $mysqli->prepare("
+        SELECT u.nombre, u.ci, u.$rol_field, r.nombre AS rol_nombre_prev 
+        FROM usuarios u
+        JOIN roles r ON r.id = u.$rol_field
+        WHERE u.id = ?
+    ");
+    $stmt_prev->bind_param("i", $user_id);
+    $stmt_prev->execute();
+    $usuario_prev = $stmt_prev->get_result()->fetch_assoc();
+    $stmt_prev->close();
 
-    $update_sql = "UPDATE usuarios SET nombre = ?, ci = ?, $rol_field = ? WHERE id = ?";
-    $update_stmt = $mysqli->prepare($update_sql);
-    $update_stmt->bind_param("ssii", $nombre, $ci, $role_id, $user_id);
+    $cambios = [];
+    $rol_cambiado = false;
 
-    //--------insertar auditoria de la accion --------
-    auditar("Editó el usuario con ID {$user_id}");
-    //----------------------
-
-    if ($update_stmt->execute()) {
-      header("Location: usuarios_index.php?ok=1");
-      exit;
-    } else {
-      $error = "Error al actualizar usuario: " . $mysqli->error;
+    // 2. DETECTAR CAMBIOS
+    if ($usuario_prev['nombre'] !== $nombre_nuevo) {
+        $cambios[] = "Nombre ('{$usuario_prev['nombre']}' -> '{$nombre_nuevo}')";
     }
-  }
+    if ($usuario_prev['ci'] !== $ci_nuevo) {
+        $cambios[] = "C.I. ('{$usuario_prev['ci']}' -> '{$ci_nuevo}')";
+    }
+    if ($usuario_prev[$rol_field] != $role_id_nuevo) {
+        $rol_cambiado = true;
+        
+        // Obtener el nombre del nuevo rol
+        $stmt_rol = $mysqli->prepare("SELECT nombre FROM roles WHERE id = ?");
+        $stmt_rol->bind_param("i", $role_id_nuevo);
+        $stmt_rol->execute();
+        $rol_nombre_nuevo = $stmt_rol->get_result()->fetch_assoc()['nombre'] ?? 'Desconocido';
+        $stmt_rol->close();
+
+        $cambios[] = "Rol ('{$usuario_prev['rol_nombre_prev']}' -> '{$rol_nombre_nuevo}')";
+    }
+    
+    // Si no hubo cambios en los datos, forzamos un mensaje simple o evitamos la auditoría.
+    if (empty($cambios)) {
+        $accion_msg = "Intentó editar al usuario ID {$user_id} '{$nombre_nuevo}' pero no se detectaron cambios.";
+    } elseif ($rol_cambiado && count($cambios) === 1) {
+        // Opción A: Solo cambió el rol
+        $accion_msg = "Editó al usuario ID {$user_id} '{$nombre_nuevo}' y le cambió el rol a '{$rol_nombre_nuevo}'.";
+    } else {
+        // Opción B: Cambió otros campos (o varios, incluido el rol)
+        $cambios_str = implode(', ', $cambios);
+        $accion_msg = "Editó al usuario ID {$user_id} '{$nombre_nuevo}'. Campos modificados: {$cambios_str}.";
+    }
+
+
+ // 3. Ejecutar la actualización (se ejecuta siempre si no hay error de lógica anterior)
+ $update_sql = "UPDATE usuarios SET nombre = ?, ci = ?, $rol_field = ? WHERE id = ?";
+ $update_stmt = $mysqli->prepare($update_sql);
+ $update_stmt->bind_param("ssii", $nombre_nuevo, $ci_nuevo, $role_id_nuevo, $user_id);
+
+ // 4. Insertar auditoria (se hace antes de la redirección)
+ auditar($accion_msg, 'edicion_usuario'); // Usamos el tipo 'edicion_usuario'
+
+ if ($update_stmt->execute()) {
+ header("Location: usuarios_index.php?ok=1");
+ exit;
+ } else {
+ $error = "Error al actualizar usuario: " . $mysqli->error;
+ }
+ }
 }
 
 // Cargar usuarios después de procesar acción

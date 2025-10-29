@@ -39,6 +39,13 @@ function highlight($text, $search)
 </head>
 
 <body>
+  <style>
+    .badge.danger {
+      background-color: #c03934ff;
+      /* rojo fuerte */
+      color: #fff;
+    }
+  </style>
   <?php include __DIR__ . '/navbar.php'; ?>
 
   <div class="container">
@@ -66,30 +73,42 @@ function highlight($text, $search)
           <tr>
             <td colspan="7" class="muted">Sin equipos cargados aún.</td>
           </tr>
-          <?php else: foreach ($rows as $r): ?>
+          <?php else: foreach ($rows as $r):
+            $r['en_mantenimiento'] = (int)$r['en_mantenimiento'];
+            $r['con_reporte'] = (int)$r['con_reporte'];
+          ?>
+
             <tr>
               <td data-label="Tipo"><?= highlight($r['tipo'], $search) ?></td>
               <td data-label="Marca / Modelo"><?= highlight(trim(($r['marca'] ?? '') . ' ' . ($r['modelo'] ?? '')), $search) ?></td>
               <td data-label="Área / Sala"><?= htmlspecialchars($r['area']) ?><?= $r['sala'] ? ' / ' . htmlspecialchars($r['sala']) : '' ?></td>
               <td data-label="Estado">
-                <?php if ($r['en_mantenimiento']): ?>
-                  <span class="badge warn">En mantenimiento</span>
-                <?php else: ?>
-                  <?php
+                <?php
+                // Prioridad del estado visual:
+                if ($r['en_mantenimiento'] > 0) {
+                  echo '<span class="badge warn">En mantenimiento</span>';
+                } elseif ($r['con_fallos'] > 0) {
+                  echo '<span class="badge danger">Con fallos</span>';
+                } elseif ($r['con_reporte'] > 0) {
+                  echo '<span class="badge warn">Con reporte</span>';
+                } else {
                   $cls = 'ok';
                   if ($r['estado'] === 'dañado' || $r['estado'] === 'fuera_servicio') $cls = 'bad';
-                  elseif ($r['estado'] === 'en_uso') $cls = 'warn';
-                  ?>
-                  <span class="badge <?= $cls ?>"><?= htmlspecialchars($r['estado']) ?></span>
-                <?php endif; ?>
+                  elseif ($r['estado'] === 'En Uso') $cls = 'warn';
+                  echo '<span class="badge ' . $cls . '">' . htmlspecialchars($r['estado']) . '</span>';
+                }
+                ?>
               </td>
+
+
 
               <td data-label="Acciones">
                 <a href="equipos_editar.php?id=<?= $r['id'] ?>">Editar</a><br>
                 <a href="equipos_eliminar.php?id=<?= $r['id'] ?>" onclick="return confirm('¿Eliminar este equipo?');">Eliminar</a><br>
 
-                <?php if ($r['en_mantenimiento']): ?>
-                  <span style="color:blue;">En mantenimiento</span><br>
+                <?php if ($r['en_mantenimiento'] && $r['con_reporte'] && $r['con_fallos']): ?>
+                    <a href="mantenimiento_volver.php?id_equipo=<?= $r['id'] ?>">Finalizar mantenimiento</a><br>
+                  
 
                   <!-- Botones de préstamo/devolución -->
                 <?php elseif ($r['prestado'] > 0): ?>
@@ -101,13 +120,15 @@ function highlight($text, $search)
                 <a href="#" onclick="openModal('equipos_mantenimiento.php?id=<?= $r['id'] ?>&ajax=1'); return false;">Ver historial</a><br>
 
                 <!-- Reporte -->
-                <?php if (!$r['con_reporte'] && !$r['en_mantenimiento']): ?>
-                  <a href="form_reporte_equipo.php?id_equipo=<?= $r['id'] ?>">Reportar fallo</a><br>
-
-                  <!-- Indicador mantenimiento (solo visual, no afecta préstamos) -->
-                <?php elseif ($r['con_reporte']): ?>
-                  <span style="color:red;">Con reporte</span><br>
-                <?php endif; ?>
+                <?php
+                if ($r['con_reporte'] == 0 && $r['con_fallos'] == 0 && !$r['en_mantenimiento']) {
+                  // ✅ Equipo sin reportes ni fallos → puede reportarse
+                  echo '<a href="form_reporte_equipo.php?id_equipo=' . $r['id'] . '">Reportar fallo</a><br>';
+                } elseif ($r['con_fallos'] == 1 && !$r['en_mantenimiento']) {
+                  // ⚠️ Equipo con fallos → permitir enviarlo a mantenimiento directamente
+                  echo '<a href="mantenimiento_enviar.php?id_equipo=' . $r['id'] . '">Enviar a mantenimiento</a><br>';
+                }
+                ?>
               </td>
 
               <td data-label="Serial interno">

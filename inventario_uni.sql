@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-10-2025 a las 16:08:59
+-- Tiempo de generación: 29-10-2025 a las 04:31:49
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -95,7 +95,127 @@ INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `tipo_accion`, `ip_usuari
 (31, 7, 'Registró un nuevo estudiante con ID 2 y Nombre: Nathi Rotela.', 'registro_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 01:48:03'),
 (32, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 11:54:20'),
 (33, 7, 'Aprobó el préstamo del equipo ID 5 (Tele  ) al docente \'Nathalia Rotela\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 12:03:28'),
-(34, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 12:05:16');
+(34, 7, 'Ha cancelado de préstamo activo del equipo ID 5 (Tele) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 12:05:16'),
+(35, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 13:28:12'),
+(36, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 13:42:48'),
+(37, 7, 'Registró el equipo ID #7: hyyd fhd htf con Serial: 93ce33f6844d.', 'acción_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 13:49:48'),
+(38, 7, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente \'Nathalia Rotela\'.', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 13:55:35'),
+(39, 7, 'Aprobó la devolución del préstamo ID 18 para el equipo ID 4. El activo vuelve al inventario.', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 13:56:10'),
+(40, 7, 'Reportó un fallo para el equipo ID 6 (Prueba nft dthd). Fallo: Le pasó algo. Descripción: Fallooooo...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:12:03'),
+(41, 7, 'Envió el Equipo ID 6 (Prueba nft (Serial: 0d465d361a89)) a mantenimiento. Destino: algun lugar. Motivo: si.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:13:14'),
+(42, 7, 'Finalizó el mantenimiento del Equipo ID 6 (Serial: 0d465d361a89). Resultado: SOLUCIONADO y devuelto.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:14:09'),
+(43, 7, 'Registró al nuevo usuario con ID 11', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:15:02'),
+(44, 7, 'Editó el usuario con ID 11', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:15:51'),
+(45, 7, 'Editó al usuario ID 11 y le asigó el rol de: \'bibliotecaria\'.', 'accion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:29:18'),
+(46, 7, 'Editó al usuario con nombre: Nathalia (CI: 5695298) y le asigó el rol de: \'admin\'.', 'accion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:31:00'),
+(47, 7, 'Eliminó al usuario \'Nathalia\' (C.I: 5695298) con ID 11', 'acción_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:36:26'),
+(48, 7, 'Eliminó el Docente ID 4: Joaquin Profe (CI: 12345678).', 'acción_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:42:32'),
+(49, 7, 'Registró un nuevo Docente ID 6: Joaquin Ayala (CI: 12345678).', 'acción_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:43:06'),
+(50, 7, 'Editó datos de docente ID 6 (Joaquin Profe).', 'acción_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:43:47'),
+(51, 7, 'Editó datos de docente ID 1 (Santiago Caballero (C.I: 2901786)).', 'acción_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:44:57'),
+(52, 7, 'Registró al nuevo usuario \'Nathalia\' (CI: 5695298) con el rol: \'.', 'acción_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:49:14'),
+(53, 7, 'Editó al usuario con nombre \'Nathalia\' (CI: 5695298) y le asigó el rol de: \'admin\'.', 'acción_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:49:30'),
+(54, 12, 'Inicio de sesión exitoso. Usuario: Nathalia (Rol: admin).', 'sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:49:52'),
+(55, 12, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente \'César Algo\'.', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:50:40'),
+(56, 12, 'Aprobó la devolución del préstamo ID 19 para el equipo ID 4. El activo vuelve al inventario.', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:50:56'),
+(57, 12, 'Aprobó el préstamo del equipo ID 5 (Tele  ) al docente \'César Algo\'.', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:52:17'),
+(58, 12, 'Aprobó la devolución del préstamo ID 20 para el equipo ID 5. El activo vuelve al inventario.', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:52:31'),
+(59, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:53:53'),
+(60, 7, 'Editó al usuario con nombre \'Nathi\' (CI: 5695298) y le asigó el rol de: \'admin\'.', 'acción_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:54:02'),
+(61, 12, 'Inicio de sesión exitoso. Usuario: Nathi (Rol: admin).', 'sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 14:54:22'),
+(62, 12, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente \'César Algo (C.I: 123456)\'.', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:12:22'),
+(63, 12, 'Ha cancelado de préstamo activo del equipo ID 4 (Mouse SATE) al docente \'César Algo\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:21:37'),
+(64, 12, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente César Algo (C.I: 123456).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:21:54'),
+(65, 12, 'Aprobó la devolución del préstamo del equipo ID 4 (), devuelto por el docente: \'César Algo\' (CI: 123456). El activo vuelve al inventario.', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:22:13'),
+(66, 12, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente César Algo (C.I: 123456).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:24:45'),
+(67, 12, 'Aprobó la devolución del préstamo del equipo ID 4 (Mouse ), devuelto por el docente: \'César Algo\' (CI: 123456).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:25:06'),
+(68, 12, 'Aprobó el préstamo del equipo ID 4 (Mouse SATE ) al docente César Algo (C.I: 123456).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:27:15'),
+(69, 12, 'Aprobó la devolución del préstamo del equipo ID 4 (Mouse SATE ), devuelto por el docente: \'César Algo\' (CI: 123456).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:27:28'),
+(70, 12, 'Registró un nuevo estudiante con ID 3: Nombre: Alguien si (C.I: 12345678910).', 'acción_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:34:11'),
+(71, 12, 'Editó los datos del estudiante ID 3 \'Alguien si\' (C.I: 12345678910).', 'acción_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:35:02'),
+(72, 12, 'Editó los datos del estudiante ID 3 \'Alguien Si\' (C.I: 12345678910).', 'acción_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:35:38'),
+(73, 12, 'Eliminó al estudiante ID 3 (Alguien Si (C.I: 12345678910)).', 'acción_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 15:35:55'),
+(74, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin).', 'sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 17:25:54'),
+(75, 7, 'Editó al usuario ID 12 (\'\'). Campos modificados: **Nombre (\'Nathi\' -> \'\'), CI (\'5695298\' -> \'\'), Rol (\'admin\' -> \'Desconocido\')**.', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:07:42'),
+(76, 7, 'Editó al usuario ID 12 (\'Nathi\'). Campos modificados: **CI (\'5695298\' -> \'56952989\')**.', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:08:45'),
+(77, 7, 'Editó al usuario ID 12 \'Nathi\'. Campos modificados: CI (\'56952989\' -> \'5695298\').', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:10:01'),
+(78, 7, 'Editó al usuario ID 12 \'Nathi\'. Campos modificados: C.I. (\'5695298\' -> \'569529810\').', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:11:44'),
+(79, 7, 'Editó al usuario ID 12 \'Nathi\' y le cambió el rol a \'bibliotecaria\'.', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:12:09'),
+(80, 7, 'Editó al usuario ID 12 \'Nathi\'. Campos modificados: C.I. (\'569529810\' -> \'5695298\'), Rol (\'bibliotecaria\' -> \'admin\').', 'edicion_usuario', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 18:12:26'),
+(81, 7, 'Registró la Sala ID 3: **Salón Auditorio** en el Área: **UP** (ID 2).', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:26:16'),
+(82, 7, 'Registró la sala ID 4: \'si\' en el área: \'UP\' (ID 2).', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:31:07'),
+(83, 7, 'Editó el equipo (ID 6) Prueba siuuuuu dthd.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:31:52'),
+(84, 7, 'Editó el equipo ID 6 (**Prueba siuuuuu dthd**). Campos modificados: **Marca (\'siuuuuu\' -> \'nouuuuu\')**.', 'accion_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:41:17'),
+(85, 7, 'Editó el equipo ID 6 (**Prueba nouuuuu dthd**). Campos modificados: **Marca (\'nouuuuu\' -> \'Anibal malo\')**.', 'accion_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:41:56'),
+(86, 7, 'Editó el equipo ID 6 (Prueba Anibal malo dthd). Campos modificados: Modelo (\'dthd\' -> \'re malo\').', 'accion_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:43:02'),
+(87, 7, 'Eliminó el equipo ID 7 (Serial: 93ce33f6844d): hyyd fhd htf.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:43:33'),
+(88, 7, 'Eliminó el equipo ID 6 (Serial: 0d465d361a89): \'Prueba Anibal malo re malo\'.', 'acción_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:48:08'),
+(89, 7, 'Editó el equipo ID 1 (Proyector Epson C0-W01). Campos modificados: Modelo (\'C0-W01\' -> \'C0-W012\').', 'accion_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:52:28'),
+(90, 7, 'Eliminó el equipo ID 3 (Serial: c410cf62a4b1): \'Teclado SATE\'.', 'acción_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:52:39'),
+(91, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: slgo. Descripción: dfb...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:53:25'),
+(92, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: ai. Motivo: bgd.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:53:36'),
+(93, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:54:01'),
+(94, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: dhb. Descripción: dfbdfb...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:54:38'),
+(95, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: htrhet. Motivo: hdnhey.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:55:01'),
+(96, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: DEVUELTO SIN SOLUCIONAR.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:55:20'),
+(97, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W012) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:57:24'),
+(98, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 19:58:00'),
+(99, 7, 'Registró el equipo ID 8: gvguu vjgvj  con Serial: c14283f2f360.', 'accion_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:00:13'),
+(100, 7, 'Aprobó el préstamo del equipo ID 8 (gvguu vjgvj ) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:00:57'),
+(101, 7, 'Aprobó la devolución del préstamo del equipo ID 8 (gvguu vjgvj ), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:01:18'),
+(102, 7, 'Aprobó el préstamo del equipo ID 8 (gvguu vjgvj ) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:02:53'),
+(103, 7, 'Aprobó la devolución del préstamo del equipo ID 8 (gvguu vjgvj ), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:03:12'),
+(104, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: prueba. Descripción: gdb...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:16:20'),
+(105, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: a otro lugar. Motivo: si.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:16:42'),
+(106, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:17:34'),
+(107, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: gcjgcvj. Descripción: hbvjhv...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:17:51'),
+(108, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: bfndb. Motivo: bdfrbd.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:33:30'),
+(109, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:33:49'),
+(110, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: hdthnde. Descripción: ghfyj...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:34:06'),
+(111, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: nfcn. Motivo: dfgtf.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:34:20'),
+(112, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: DEVUELTO SIN SOLUCIONAR.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 20:34:31'),
+(113, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: 15516. Descripción: rdhd...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 21:38:44'),
+(114, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: ftugj. Motivo: ftgtju.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 21:50:00'),
+(115, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: DEVUELTO SIN SOLUCIONAR.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 21:50:32'),
+(116, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: hvjcj. Descripción: fviyfj...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:02:59'),
+(117, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: bdgb. Motivo: tebgd.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:05:06'),
+(118, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: DEVUELTO SIN SOLUCIONAR.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:16:35'),
+(119, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: gtucgju. Descripción: gyui...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:34:50'),
+(120, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: gvjv. Motivo: hbyybh.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:35:20'),
+(121, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:35:35'),
+(122, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: vggj. Descripción: tfitju...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:36:20'),
+(123, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: hdtc. Motivo: cgnvc.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:36:39'),
+(124, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: DEVUELTO SIN SOLUCIONAR.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 22:36:54'),
+(125, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:08:38'),
+(126, 7, 'Reportó un fallo para el equipo ID 8 (gvguu vjgvj ). Fallo: falloooo. Descripción: si...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:09:29'),
+(127, 7, 'Envió el Equipo ID 8 (gvguu vjgvj (Serial: c14283f2f360)) a mantenimiento. Destino: algun lugar. Motivo: porque si.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:10:47'),
+(128, 7, 'Reportó un fallo para el equipo ID 5 (Tele  ). Fallo: cgnd. Descripción: ncgn...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:11:07'),
+(129, 7, 'Envió el Equipo ID 5 (Tele  (Serial: c597582e367c)) a mantenimiento. Destino: hndxx. Motivo: cgnj.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:11:21'),
+(130, 7, 'Finalizó el mantenimiento del Equipo ID 8 (Serial: c14283f2f360). Resultado: DEVUELTO SIN SOLUCIONAR', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:11:38'),
+(131, 7, 'Finalizó el mantenimiento del Equipo ID 5 (Serial: c597582e367c). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:11:55'),
+(132, 7, 'Envió el Equipo ID 8 (gvguu vjgvj (Serial: c14283f2f360)) a mantenimiento. Destino: gvuuguut. Motivo: fxdhdxfn.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:12:15'),
+(133, 7, 'Finalizó el mantenimiento del Equipo ID 8 (Serial: c14283f2f360). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:12:54'),
+(134, 7, 'Registró la sala ID 5: \'Prueba\' en el área: \'UP\' (ID 2).', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:23:58'),
+(135, 7, 'Editó la sala ID 4 (no) del área \'UP\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:28:55'),
+(136, 7, 'Editó la sala ID 4 (nooooo) del área \'UP\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:30:08'),
+(137, 7, 'Editó la sala ID 4 (si) del área \'UP\'.', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:30:52'),
+(138, 7, 'Editó la sala ID 5 (Prueba) del área \'UP\'.', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:32:12'),
+(139, 7, 'Eliminó la sala ID 4: \'si\' del área \'UP\'.', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:33:15'),
+(140, 7, 'Eliminó la sala ID 5: \'Prueba\' del área \'UP\'.', 'acción_sala', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:34:48'),
+(141, 7, 'Registró el equipo ID 9: bgdtt hbd dth con Serial: 13607aa0e833.', 'acción_equipo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-28 23:58:44'),
+(142, 7, 'Agregó el componente: \'prueba sf dbg (bueno)\' al equipo ID 1 \'(Proyector Epson C0-W012\').', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:09:07'),
+(143, 7, 'Agregó el componente: \'dcddddd  \' al equipo ID 1 (Proyector Epson C0-W012).', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:10:46'),
+(144, 7, 'Editó el componente ID 6 (  ) del equipo ID 1.', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:11:06'),
+(145, 7, 'Editó el componente ID 6 (**aseeeeiii dfdgdg ffd**). Cambios: Marca (\'\' -> \'dfdgdg\'), Modelo (\'\' -> \'ffd\'). Del equipo ID 1.', 'edicion_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:17:14'),
+(146, 7, 'Editó el componente ID 6 (a dfdgdg ffd). Cambios: Tipo (\'aseeeeiii\' -> \'a\'). Del equipo ID 1.', 'edicion_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:18:33'),
+(147, 7, 'Eliminó el componente ID 6 (a dfdgdg ffd) del equipo ID 1.', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:18:53'),
+(148, 7, 'Eliminó el componente ID 5 (prueba sf dbg) del equipo ID 1.', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:19:08'),
+(149, 7, 'Editó el componente ID 4 (Control remotos  ). Cambios: Tipo (\'Control remoto\' -> \'Control remotos\'). Del equipo ID 1.', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:20:45'),
+(150, 7, 'Editó el componente ID 4 (Control remoto  ). Cambios: Tipo (\'Control remotos\' -> \'Control remoto\'). Del equipo ID 1.', 'acción_componente', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:21:29'),
+(151, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W012) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:25:37'),
+(152, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:28:52'),
+(153, 7, 'Aprobó el préstamo del equipo ID 2 (Monitor AOC ) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:29:35'),
+(154, 7, 'Ha cancelado de préstamo activo del equipo ID 2 (Monitor AOC) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:29:57');
 
 -- --------------------------------------------------------
 
@@ -198,10 +318,10 @@ CREATE TABLE `docentes` (
 --
 
 INSERT INTO `docentes` (`id`, `ci`, `nombre`, `apellido`, `email`, `password_hash`, `creado_en`) VALUES
-(1, '2901786', 'santiago', 'caballero', 'caballerosantiago@gmail.com', '$2y$10$p.vhB4ytCvO5LALLbmJKdu3rqvg6d9ZHHnT5UOQkGpnL9.Ws.iUjO', '2025-10-27 20:30:22'),
+(1, '2901786', 'Santiago', 'Caballero', 'caballerosantiago@gmail.com', '$2y$10$p.vhB4ytCvO5LALLbmJKdu3rqvg6d9ZHHnT5UOQkGpnL9.Ws.iUjO', '2025-10-28 17:44:57'),
 (2, '123456', 'César', 'Algo', 'cesaralgo@gmail.com', '$2y$10$zn4t8THCF18JbcCeHKHcdedZiVsrcvVa7igkROFx.x8JWH/SAMb4O', '2025-10-27 21:40:47'),
 (3, '5695298', 'Nathalia', 'Rotela', 'nathirotela5@gmail.com', '$2y$10$ucwpGwxmV1NzLmUV3Gevyuh/rgzgjoX.yJ1Y2WF8Pyv6lOFjFdLhO', '2025-10-27 21:42:19'),
-(4, '12345678', 'Joaquin', 'Profe', 'profejoaquin@gmail.com', '$2y$10$jPCRYlWnMSMJ18b4BrCmUeP.d77FhtcSxWyYEHSHKqR4DfY6fVILO', '2025-10-28 00:34:23');
+(6, '12345678', 'Joaquin', 'Profe', 'joaquin@gmail.com', '$2y$10$UJaqLgentLmvdXjuVkILS.OgJBbAPgWVkc9F76MtCd6N96HC9EGP.', '2025-10-28 17:43:47');
 
 -- --------------------------------------------------------
 
@@ -224,19 +344,21 @@ CREATE TABLE `equipos` (
   `detalles` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`detalles`)),
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp(),
   `actualizado_en` timestamp NULL DEFAULT NULL ON UPDATE current_timestamp(),
-  `en_mantenimiento` tinyint(1) DEFAULT 0
+  `en_mantenimiento` tinyint(1) DEFAULT 0,
+  `con_fallos` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `equipos`
 --
 
-INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`) VALUES
-(1, 2, 1, 'Proyector', 'Epson', 'C0-W01', NULL, '1fd38f17793a', 'bueno', 0, 0, NULL, '2025-10-27 18:06:38', '2025-10-28 02:50:39', 0),
-(2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-10-28 02:50:33', 0),
-(3, 2, 1, 'Teclado', 'SATE', '', NULL, 'c410cf62a4b1', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:09', NULL, 0),
-(4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'Disponible', 0, 0, NULL, '2025-10-27 18:08:26', NULL, 0),
-(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'bueno', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-28 15:05:16', 0);
+INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`, `con_fallos`) VALUES
+(1, 2, 1, 'Proyector', 'Epson', 'C0-W012', NULL, '1fd38f17793a', 'Disponible', 0, 0, NULL, '2025-10-27 18:06:38', '2025-10-29 03:28:52', 0, 0),
+(2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-10-29 03:29:57', 0, 0),
+(4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'bueno', 0, 0, NULL, '2025-10-27 18:08:26', '2025-10-28 18:27:28', 0, 0),
+(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'Disponible', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-29 02:11:55', 0, 0),
+(8, 2, 3, 'gvguu', 'vjgvj', '', NULL, 'c14283f2f360', 'Disponible', 0, 0, NULL, '2025-10-28 23:00:13', '2025-10-29 02:12:54', 0, 0),
+(9, 2, 3, 'bgdtt', 'hbd', 'dth', NULL, '13607aa0e833', 'Disponible', 0, 0, NULL, '2025-10-29 02:58:44', NULL, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -296,7 +418,7 @@ CREATE TABLE `mantenimientos` (
   `id` int(11) NOT NULL,
   `equipo_id` int(11) NOT NULL,
   `usuario_id` int(11) DEFAULT NULL,
-  `reporte_id` int(11) NOT NULL,
+  `reporte_id` int(11) DEFAULT NULL,
   `destino` varchar(255) DEFAULT NULL,
   `motivo` text DEFAULT NULL,
   `fecha_envio` datetime NOT NULL,
@@ -305,6 +427,25 @@ CREATE TABLE `mantenimientos` (
   `observaciones` text DEFAULT NULL,
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `mantenimientos`
+--
+
+INSERT INTO `mantenimientos` (`id`, `equipo_id`, `usuario_id`, `reporte_id`, `destino`, `motivo`, `fecha_envio`, `fecha_devolucion`, `solucionado`, `observaciones`, `creado_en`) VALUES
+(2, 5, 7, 2, 'ai', 'bgd', '2025-10-28 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 22:53:36'),
+(3, 5, 7, 3, 'htrhet', 'hdnhey', '2025-10-28 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-28 22:55:01'),
+(4, 5, 7, 4, 'a otro lugar', 'si', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 23:16:42'),
+(5, 5, 7, 5, 'bfndb', 'bdfrbd', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 23:33:30'),
+(6, 5, 7, 6, 'nfcn', 'dfgtf', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-28 23:34:20'),
+(7, 5, 7, 7, 'ftugj', 'ftgtju', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 00:50:00'),
+(8, 5, 7, 8, 'bdgb', 'tebgd', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 01:05:06'),
+(9, 5, 7, 9, 'gvjv', 'hbyybh', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 01:35:20'),
+(10, 5, 7, 10, 'hdtc', 'cgnvc', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 01:36:39'),
+(11, 5, 7, NULL, NULL, NULL, '2025-10-28 23:08:29', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:08:29'),
+(12, 8, 7, 11, 'algun lugar', 'porque si', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 02:10:47'),
+(13, 5, 7, 12, 'hndxx', 'cgnj', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:11:21'),
+(14, 8, 7, NULL, 'gvuuguut', 'fxdhdxfn', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:12:15');
 
 -- --------------------------------------------------------
 
@@ -384,7 +525,19 @@ INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usua
 (14, 1, NULL, 3, 3, '2025-10-27 23:13:43', NULL, 'cancelado', '', '2025-10-28 02:13:43', NULL, NULL, NULL),
 (15, 1, NULL, 2, 2, '2025-10-27 23:14:35', NULL, 'cancelado', '', '2025-10-28 02:14:30', NULL, NULL, NULL),
 (16, 2, NULL, 2, 2, '2025-10-27 23:49:41', NULL, 'cancelado', '', '2025-10-28 02:49:31', NULL, NULL, NULL),
-(17, 5, NULL, 3, 3, '2025-10-28 12:03:28', NULL, 'cancelado', '', '2025-10-28 15:03:09', NULL, NULL, NULL);
+(17, 5, NULL, 3, 3, '2025-10-28 12:03:28', NULL, 'cancelado', '', '2025-10-28 15:03:09', NULL, NULL, NULL),
+(18, 4, NULL, 3, 3, '2025-10-28 13:55:35', '2025-10-28 13:56:10', 'devuelto', '', '2025-10-28 16:55:29', NULL, NULL, NULL),
+(19, 4, NULL, 2, 2, '2025-10-28 14:50:40', '2025-10-28 14:50:56', 'devuelto', '', '2025-10-28 17:50:33', NULL, NULL, NULL),
+(20, 5, NULL, 2, 2, '2025-10-28 14:52:17', '2025-10-28 14:52:31', 'devuelto', '', '2025-10-28 17:52:11', NULL, NULL, NULL),
+(21, 4, NULL, 2, 2, '2025-10-28 15:12:22', NULL, 'cancelado', '', '2025-10-28 18:12:18', NULL, NULL, NULL),
+(22, 4, NULL, 2, 2, '2025-10-28 15:21:54', '2025-10-28 15:22:13', 'devuelto', '', '2025-10-28 18:21:50', NULL, NULL, NULL),
+(23, 4, NULL, 2, 2, '2025-10-28 15:24:44', '2025-10-28 15:25:06', 'devuelto', '', '2025-10-28 18:24:41', NULL, NULL, NULL),
+(24, 4, NULL, 2, 2, '2025-10-28 15:27:15', '2025-10-28 15:27:28', 'devuelto', '', '2025-10-28 18:27:10', NULL, NULL, NULL),
+(25, 1, NULL, 3, 3, '2025-10-28 19:57:24', '2025-10-28 19:58:00', 'devuelto', '', '2025-10-28 22:57:18', NULL, NULL, NULL),
+(26, 8, NULL, 3, 3, '2025-10-28 20:00:57', '2025-10-28 20:01:18', 'devuelto', '', '2025-10-28 23:00:51', NULL, NULL, NULL),
+(27, 8, NULL, 3, 3, '2025-10-28 20:02:53', '2025-10-28 20:03:12', 'devuelto', '', '2025-10-28 23:02:47', NULL, NULL, NULL),
+(28, 1, NULL, 3, 3, '2025-10-29 00:25:37', '2025-10-29 00:28:52', 'devuelto', '', '2025-10-29 03:25:33', NULL, NULL, NULL),
+(29, 2, NULL, 3, 3, '2025-10-29 00:29:35', NULL, 'cancelado', '', '2025-10-29 03:29:32', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -400,6 +553,23 @@ CREATE TABLE `reporte_fallos` (
   `id_equipo` int(11) NOT NULL,
   `nombre_usuario_reportante` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `reporte_fallos`
+--
+
+INSERT INTO `reporte_fallos` (`id`, `fecha`, `tipo_fallo`, `descripcion_fallo`, `id_equipo`, `nombre_usuario_reportante`) VALUES
+(2, '0000-00-00', 'slgo', 'dfb', 5, 'kevin'),
+(3, '0000-00-00', 'dhb', 'dfbdfb', 5, 'kevin'),
+(4, '0000-00-00', 'prueba', 'gdb', 5, 'kevin'),
+(5, '0000-00-00', 'gcjgcvj', 'hbvjhv', 5, 'kevin'),
+(6, '0000-00-00', 'hdthnde', 'ghfyj', 5, 'kevin'),
+(7, '0000-00-00', '15516', 'rdhd', 5, 'kevin'),
+(8, '0000-00-00', 'hvjcj', 'fviyfj', 5, 'kevin'),
+(9, '0000-00-00', 'gtucgju', 'gyui', 5, 'kevin'),
+(10, '0000-00-00', 'vggj', 'tfitju', 5, 'kevin'),
+(11, '0000-00-00', 'falloooo', 'si', 8, 'kevin'),
+(12, '0000-00-00', 'cgnd', 'ncgn', 5, 'kevin');
 
 -- --------------------------------------------------------
 
@@ -440,7 +610,8 @@ CREATE TABLE `salas` (
 
 INSERT INTO `salas` (`id`, `area_id`, `nombre`, `descripcion`, `creado_en`) VALUES
 (1, 2, 'Biblioteca', '', '2025-10-27 17:53:41'),
-(2, 2, 'Laboratorio', '', '2025-10-27 17:57:59');
+(2, 2, 'Laboratorio', '', '2025-10-27 17:57:59'),
+(3, 2, 'Salón Auditorio', 'no', '2025-10-28 22:26:16');
 
 -- --------------------------------------------------------
 
@@ -465,7 +636,8 @@ CREATE TABLE `usuarios` (
 INSERT INTO `usuarios` (`id`, `ci`, `email`, `nombre`, `password_hash`, `role_id`, `creado_en`) VALUES
 (5, '123456', 'isaacmiranda290@gmail.com', 'Isaac Miranda', '$2a$12$obdsmKZKP18niFoFF8iG6eV7y6APB2Q3GjQXPdC5dvb5rMKZkwyuu', 2, '2025-09-14 19:01:44'),
 (7, '7400254', 'kevinalegre181@gmail.com', 'kevin', '$2y$10$uQL8gx.A7r.TgSjhHp9V1OernamyNR4kRtDKVZLX/WaenuS1eYRne', 1, '2025-09-19 18:55:41'),
-(10, '5920912', 'perlaj34@gamil.com', 'richar', '$2y$10$ZSCq4gccx6biyaA1DIzR2eoWYX5MtoIjLAsiaqfBP6/uucowyKnBy', 2, '2025-09-29 17:43:29');
+(10, '5920912', 'perlaj34@gamil.com', 'richar', '$2y$10$ZSCq4gccx6biyaA1DIzR2eoWYX5MtoIjLAsiaqfBP6/uucowyKnBy', 2, '2025-09-29 17:43:29'),
+(12, '5695298', 'nathaliarotela5@gmail.com', 'Nathi', '$2y$10$KrjgddfjprCWcA7YIANNeuc65ZsuCoShDRF0ZoxJQpAmcwd742jDa', 1, '2025-10-28 17:49:14');
 
 --
 -- Índices para tablas volcadas
@@ -617,7 +789,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
 
 --
 -- AUTO_INCREMENT de la tabla `cesiones`
@@ -629,7 +801,7 @@ ALTER TABLE `cesiones`
 -- AUTO_INCREMENT de la tabla `componentes`
 --
 ALTER TABLE `componentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `devoluciones`
@@ -641,19 +813,19 @@ ALTER TABLE `devoluciones`
 -- AUTO_INCREMENT de la tabla `docentes`
 --
 ALTER TABLE `docentes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `equipos`
 --
 ALTER TABLE `equipos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `estudiantes`
 --
 ALTER TABLE `estudiantes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `historial_cesiones`
@@ -665,7 +837,7 @@ ALTER TABLE `historial_cesiones`
 -- AUTO_INCREMENT de la tabla `mantenimientos`
 --
 ALTER TABLE `mantenimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT de la tabla `password_resets`
@@ -683,13 +855,13 @@ ALTER TABLE `password_resets_estudiantes`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte_fallos`
 --
 ALTER TABLE `reporte_fallos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`
@@ -701,13 +873,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `salas`
 --
 ALTER TABLE `salas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Restricciones para tablas volcadas

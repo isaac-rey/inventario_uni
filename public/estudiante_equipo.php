@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $stmt->execute();
 
       // Marcar equipo en uso
-      $stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='en_uso' WHERE id=? LIMIT 1");
+      $stmt = $mysqli->prepare("UPDATE equipos SET prestado=1, estado='En uso' WHERE id=? LIMIT 1");
       $stmt->bind_param("i", $equipo_id);
       $stmt->execute();
 
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <?php
             $cls = 'ok';
             if ($equipo['estado']==='dañado' || $equipo['estado']==='fuera_servicio') $cls='bad';
-            elseif ($equipo['estado']==='en_uso') $cls='warn';
+            elseif ($equipo['estado']==='En uso') $cls='warn';
           ?>
           <span class="badge <?=$cls?>"><?=htmlspecialchars($equipo['estado'])?></span>
           · Prestado: <?= $equipo['prestado'] ? 'Sí' : 'No' ?>

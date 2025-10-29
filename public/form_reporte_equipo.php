@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $equipo_desc = $equipo_data['tipo'] . ' ' . $equipo_data['marca'] . ' ' . $equipo_data['modelo'];
           $reporte_desc = "Fallo: {$tipo_fallo}. Descripción: " . substr($descripcion_fallo, 0, 50) . "...";
 
-          auditar("Reportó un fallo para el equipo ID {$id_equipo} ({$equipo_desc}). {$reporte_desc}");
+          // CLAVE: Añadir el tipo de acción 'reporte'
+          auditar("Reportó un fallo para el equipo ID {$id_equipo} ({$equipo_desc}). {$reporte_desc}", 'reporte');
         }
 
 

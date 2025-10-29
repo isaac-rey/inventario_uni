@@ -35,7 +35,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if ($stmt->execute()) {
         $nueva_sala_id = $mysqli->insert_id;
-        auditar("Registró una nueva sala con ID {$nueva_sala_id} y Nombre: {$nombre}");
+
+        // --- LÓGICA DE AUDITORÍA ---
+
+        // 1. Obtener el nombre del área para el registro de auditoría
+        $stmt_area_name = $mysqli->prepare("SELECT nombre FROM areas WHERE id = ?");
+        $stmt_area_name->bind_param("i", $area_id);
+        $stmt_area_name->execute();
+        $area_nombre = $stmt_area_name->get_result()->fetch_assoc()['nombre'] ?? 'ID Desconocido';
+        $stmt_area_name->close();
+
+        // 2. Construir el mensaje
+        $accion_msg = "Registró la sala ID {$nueva_sala_id}: '{$nombre}' en el área: '{$area_nombre}' (ID {$area_id}).";
+
+        // 3. Llamar a auditar con el tipo de acción 'registro_sala'
+        auditar($accion_msg, 'acción_sala');
+
+        // ---------------------------
         $ok = true;
       } else {
         $error = "Error al registrar la sala: " . $mysqli->error;
@@ -65,7 +81,7 @@ $currentPage = basename(__FILE__);
     <?php if ($ok): ?>
       <div class="ok">¡Sala registrada exitosamente!</div>
       <div class="muted">
-        <a href="/inventario_uni/public/salas.php">Ver listado de salas</a> | 
+        <a href="/inventario_uni/public/salas_index.php">Ver listado de salas</a> | 
         <a href="/inventario_uni/public/salas_registro.php">Registrar otra sala</a>
       </div>
     <?php else: ?>

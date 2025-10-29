@@ -31,9 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $docente_nombre = htmlspecialchars($docente['nombre'] . ' ' . $docente['apellido']);
         $docente_ci = htmlspecialchars($docente['ci']);
         
-        $accion_msg = "Eliminó el Docente ID {$id}: {$docente_nombre} (CI: {$docente_ci}).";
+        $accion_msg = "Eliminó el docente ID {$id}: {$docente_nombre} (CI: {$docente_ci}).";
         // El ID del usuario logueado que realiza la acción se toma de la sesión (user())
-        auditar($accion_msg);
+        // CLAVE: Añadir el tipo de acción 'accion_docentes'
+auditar($accion_msg, 'acción_docentes');;
         // ----------------------------------------------
     } else {
         $error = "No se pudo eliminar el docente.";

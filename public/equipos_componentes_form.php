@@ -36,9 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($stmt->execute()) {
         // ✅ INSERCIÓN DE LA AUDITORÍA AQUÍ
         $equipo_desc = htmlspecialchars($equipo['tipo'] . ' ' . $equipo['marca'] . ' ' . $equipo['modelo']);
-        $componente_desc = htmlspecialchars($tipo . ' ' . $marca . ' ' . $modelo . ' (' . $estado . ')');
+        $componente_desc = htmlspecialchars($tipo . ' ' . $marca . ' ' . $modelo);
 
-        auditar("Agregó el componente: {$componente_desc} al equipo ID {$equipo_id} ({$equipo_desc}).");
+        // CLAVE: Usamos el tipo de acción 'registro_componente'
+        auditar(
+            "Agregó el componente: '{$componente_desc}' al equipo ID {$equipo_id} ({$equipo_desc}).",
+            'acción_componente'
+        );
 
         echo "<p class='muted'>Componente agregado correctamente.</p>";
     } else {
@@ -91,7 +95,7 @@ include __DIR__ . '/navbar.php';
                 <label>Estado</label>
                 <select name="estado">
                     <option value="bueno">Bueno</option>
-                    <option value="en_uso">En uso</option>
+                    <option value="En Uso">En uso</option>
                     <option value="dañado">Dañado</option>
                     <option value="fuera_servicio">Fuera de servicio</option>
                 </select>

@@ -336,7 +336,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                 input: 'text',
                 inputPlaceholder: 'Motivo de la cancelación (opcional)',
                 showCancelButton: true,
-                confirmButtonText: 'Sí, Cancelar',
+                confirmButtonText: 'Sí, cancelar',
                 icon: 'warning',
                 confirmButtonColor: '#dc2626'
             }).then(res => {

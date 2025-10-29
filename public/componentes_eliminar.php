@@ -34,7 +34,7 @@ if ($stmt->execute()) {
 
   // Si tienes acceso a la información del equipo (como el serial o el tipo), podrías hacer un segundo SELECT
   // para un mensaje más detallado. Aquí usamos solo el ID del equipo.
-  auditar("Eliminó el componente ID {$comp_id} ({$componente_desc}) del equipo ID {$equipo_id}.");
+  auditar("Eliminó el componente ID {$comp_id} ({$componente_desc}) del equipo ID {$equipo_id}.", 'acción_componente');
 }
 //$stmt->execute();
 

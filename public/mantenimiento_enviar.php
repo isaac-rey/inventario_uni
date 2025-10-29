@@ -2,22 +2,36 @@
 require __DIR__ . '/../init.php';
 require_login();
 
-// Obtener id del reporte (no solo del equipo)
+// Intentar obtener el reporte o el equipo
 $reporte_id = intval($_GET['reporte_id'] ?? 0);
-if (!$reporte_id) die("Reporte no especificado.");
+$equipo_id = intval($_GET['id_equipo'] ?? 0);
 
-// Obtener info del reporte y equipo
-$stmt = $mysqli->prepare("SELECT r.*, e.id AS equipo_id, e.marca, e.modelo, e.tipo, e.serial_interno 
-                          FROM reporte_fallos r
-                          JOIN equipos e ON e.id = r.id_equipo
-                          WHERE r.id = ?");
-$stmt->bind_param("i", $reporte_id);
+if (!$reporte_id && !$equipo_id) {
+    die("Ni reporte ni equipo especificado.");
+}
+
+if ($reporte_id) {
+    // Si viene un reporte_id, obtener datos del reporte y equipo
+    $stmt = $mysqli->prepare("SELECT r.*, e.id AS equipo_id, e.marca, e.modelo, e.tipo, e.serial_interno 
+                              FROM reporte_fallos r
+                              JOIN equipos e ON e.id = r.id_equipo
+                              WHERE r.id = ?");
+    $stmt->bind_param("i", $reporte_id);
+} else {
+    // Si solo viene el equipo_id (sin reporte)
+    $stmt = $mysqli->prepare("SELECT e.id AS equipo_id, e.marca, e.modelo, e.tipo, e.serial_interno 
+                              FROM equipos e
+                              WHERE e.id = ?");
+    $stmt->bind_param("i", $equipo_id);
+}
+
 $stmt->execute();
 $reporte = $stmt->get_result()->fetch_assoc();
-if (!$reporte) die("Reporte no encontrado.");
+if (!$reporte) die("Equipo o reporte no encontrado.");
 
 $ok = false;
 $error = '';
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $destino = trim($_POST['destino']);
@@ -35,10 +49,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 2. Insertar registro en la tabla mantenimientos vinculado al reporte
         $stmt2 = $mysqli->prepare("
-            INSERT INTO mantenimientos (equipo_id, reporte_id, destino, motivo, fecha_envio, usuario_id)
-            VALUES (?, ?, ?, ?, ?, ?)
-        ");
-        $stmt2->bind_param("iisssi", $reporte['equipo_id'], $reporte_id, $destino, $motivo, $fecha_envio, $usuario_id);
+    INSERT INTO mantenimientos (equipo_id, reporte_id, destino, motivo, fecha_envio, usuario_id)
+    VALUES (?, ?, ?, ?, ?, ?)
+");
+$reporte_id_final = $reporte_id ?: null; // Si no hay reporte, insertar NULL
+$stmt2->bind_param("iisssi", $reporte['equipo_id'], $reporte_id_final, $destino, $motivo, $fecha_envio, $usuario_id);
+
 
         if ($stmt2->execute()) {
             $ok = true;
@@ -47,7 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $equipo_desc = htmlspecialchars($reporte['tipo'] . ' ' . $reporte['marca'] . ' (Serial: ' . $reporte['serial_interno'] . ')');
             $accion_msg = "Envió el Equipo ID {$reporte['equipo_id']} ({$equipo_desc}) a mantenimiento. Destino: {$destino}. Motivo: {$motivo}.";
             // El ID del usuario que realiza la acción se toma de la sesión (user())
-            auditar($accion_msg);
+            // CLAVE: Se añade el tipo de acción 'mantenimiento'
+ auditar($accion_msg, 'mantenimiento');
             // --------------------------------
 
         } else {
@@ -70,44 +87,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php include __DIR__ . '/navbar.php'; ?>
 
 <div class="card">
-    <h1>Enviar equipo a mantenimiento</h1>
+ <h1>Enviar equipo a mantenimiento</h1>
 
-    <?php if ($ok): ?>
-        <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>
-        <div class="muted"><a href="reportes.php">← Volver a reportes</a></div>
-    <?php else: ?>
-        <?php if ($error) echo '<div class="error">'.htmlspecialchars($error).'</div>'; ?>
+ <?php if ($ok): ?>
+ <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>
+ <div class="muted"><a href="reportes.php">← Volver a reportes</a></div>
+<?php else: ?>
+<?php if ($error) echo '<div class="error">'.htmlspecialchars($error).'</div>'; ?>
 
-        <p class="muted">
-            <strong>Equipo:</strong> <?= htmlspecialchars($reporte['marca'] . ' ' . $reporte['modelo']) ?> <br>
-            <strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
-        </p>
+ <p class="muted">
+<strong>Equipo:</strong> <?= htmlspecialchars($reporte['marca'] . ' ' . $reporte['modelo']) ?> <br>
+<strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
+</p>
 
-        <?php if ($ok): ?>
-            <div class="ok">✔ Equipo enviado a mantenimiento correctamente.</div>
-            <div class="muted"><a href="reportes.php">← Volver a reportes</a></div>
-        <?php else: ?>
-            <?php if ($error) echo '<div class="error">' . htmlspecialchars($error) . '</div>'; ?>
+ <form method="post">
+ <label for="destino">Destino *</label>
+<input id="destino" type="text" name="destino" required>
 
-            <p class="muted">
-                <strong>Equipo:</strong> <?= htmlspecialchars($reporte['marca'] . ' ' . $reporte['modelo']) ?> <br>
-                <strong>Serial:</strong> <?= htmlspecialchars($reporte['serial_interno']) ?>
-            </p>
+ <label for="motivo">Motivo *</label>
+ <textarea id="motivo" name="motivo" required rows="4"></textarea>
 
-            <form method="post">
-                <label for="destino">Destino *</label>
-                <input id="destino" type="text" name="destino" required>
+ <button type="submit">Guardar</button>
+ </form>
+<div class="muted">
+<a href="mantenimientos.php">← Volver a mantenimientos</a>
+ </div>
+ <?php endif; ?> 
+</div>
 
-                <label for="motivo">Motivo *</label>
-                <textarea id="motivo" name="motivo" required rows="4"></textarea>
-
-                <button type="submit">Guardar</button>
-            </form>
-            <div class="muted">
-                <a href="mantenimientos.php">← Volver a mantenimientos</a>
-            </div>
-        <?php endif; ?>
-    </div>
 </body>
-
 </html>

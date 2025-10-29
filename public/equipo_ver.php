@@ -25,7 +25,7 @@ $componentes = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
   <p class="muted">Área: <?=htmlspecialchars($equipo['area'])?><?= $equipo['sala']?' / '.htmlspecialchars($equipo['sala']):'' ?></p>
   <p><strong>Serial interno:</strong> <?=htmlspecialchars($equipo['serial_interno'])?></p>
   <p><strong>Estado:</strong>
-    <?php $cls='ok'; if($equipo['estado']==='dañado'||$equipo['estado']==='fuera_servicio')$cls='bad'; elseif($equipo['estado']==='en_uso')$cls='warn'; ?>
+    <?php $cls='ok'; if($equipo['estado']==='dañado'||$equipo['estado']==='fuera_servicio')$cls='bad'; elseif($equipo['estado']==='En uso')$cls='warn'; ?>
     <span class="badge <?=$cls?>"><?=htmlspecialchars($equipo['estado'])?></span> · <strong>Prestado:</strong> <?=$equipo['prestado']?'Sí':'No'?>
   </p>
 

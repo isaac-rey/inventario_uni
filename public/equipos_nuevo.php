@@ -30,11 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $mysqli->prepare("INSERT INTO equipos (area_id, sala_id, tipo, marca, modelo, serial_interno, estado) VALUES (?,?,?,?,?,?,?)");
     $stmt->bind_param("iisssss", $area_id, $sala_id, $tipo, $marca, $modelo, $serial, $estado);
     if ($stmt->execute()) {
-        $ok = true;
-        // Redirigir si quieres, o mostrar mensaje:
-        // header("Location: /inventario_uni/public/equipos_index.php"); exit;
+      $ok = true;
+      // --- INICIO: CAMBIOS PARA AUDITORÍA ---
+      $nuevo_equipo_id = $mysqli->insert_id;
+      $nombre_usuario = user()['nombre']; // Obtiene el nombre del usuario logueado
+
+      // 1. Definir la descripción
+      $descripcion = "Registró el equipo ID {$nuevo_equipo_id}: {$tipo} {$marca} {$modelo} con Serial: {$serial}.";
+
+      // 2. Llamar a la función auditar con el tipo de acción
+      auditar($descripcion, 'acción_equipo');
+
+      // --- FIN: CAMBIOS PARA AUDITORÍA ---
+
+      // Redirigir si quieres, o mostrar mensaje:
+      // header("Location: /inventario_uni/public/equipos_index.php"); exit;
     } else {
-        $error = "Error al guardar el equipo.";
+      $error = "Error al guardar el equipo.";
     }
   }
 }
@@ -57,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card">
       <h1>Nuevo equipo</h1>
 
-      
+
 
       <form method="post">
         <div>
@@ -100,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <label for="estado">Estado</label>
           <select name="estado" id="estado">
             <option value="Disponible">Bueno</option>
-            <option value="en_uso">En uso</option>
+            <option value="En uso">En uso</option>
             <option value="dañado">Dañado</option>
             <option value="fuera_servicio">Fuera de servicio</option>
           </select>

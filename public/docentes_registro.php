@@ -47,9 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $docente_nombre = htmlspecialchars($nombre . ' ' . $apellido);
       $docente_ci = htmlspecialchars($ci);
 
-      $accion_msg = "Registró un nuevo Docente ID {$new_docente_id}: {$docente_nombre} (CI: {$docente_ci}).";
+      $accion_msg = "Registró un nuevo docente ID {$new_docente_id}: {$docente_nombre} (CI: {$docente_ci}).";
       // El ID del usuario que realiza la acción se toma de la sesión (user())
-      auditar($accion_msg);
+      // CLAVE: Añadir el tipo de acción 'accion_docentes'
+auditar($accion_msg, 'acción_docentes');
       // ---------------------------------------------
     }
   }

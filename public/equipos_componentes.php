@@ -32,8 +32,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $stmt->bind_param("isssss", $equipo_id, $tipo, $marca, $modelo, $estado, $obs);
   $stmt->execute();
 
-
-
   echo "<p class='muted'>Componente agregado correctamente.</p>";
 }
 
@@ -85,7 +83,7 @@ include __DIR__ . '/navbar.php';
                 <?php
                 $cls = 'ok';
                 if ($c['estado'] === 'dañado' || $c['estado'] === 'fuera_servicio') $cls = 'bad';
-                elseif ($c['estado'] === 'en_uso') $cls = 'warn';
+                elseif ($c['estado'] === 'En uso') $cls = 'warn';
                 ?>
                 <span class="badge <?= $cls ?>"><?= htmlspecialchars($c['estado']) ?></span>
               </td>

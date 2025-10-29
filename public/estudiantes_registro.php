@@ -45,9 +45,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  $nuevo_estudiante_id = $mysqli->insert_id;
         
         // --- CAMBIO CLAVE AQUÍ ---
-        $accion_descripcion = "Registró un nuevo estudiante con ID {$nuevo_estudiante_id} y Nombre: {$nombre} {$apellido}.";
+        $accion_descripcion = "Registró un nuevo estudiante con ID {$nuevo_estudiante_id} - Nombre: {$nombre} {$apellido} (C.I: {$ci}).";
         // Añadimos el nuevo parámetro: 'registro_estudiante'
-auditar($accion_descripcion, 'registro_estudiante'); 
+auditar($accion_descripcion, 'acción_estudiante'); 
 
 $ok = true;
       } else {
