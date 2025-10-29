@@ -1,4 +1,7 @@
 <?php
+// =================================================================
+// REPORTE DE AUDITORÍA - CÓDIGO FINAL COMPLETO Y MEJORADO
+// =================================================================
 require __DIR__ . '/../init.php';
 require_login();
 
@@ -80,12 +83,15 @@ if (!empty($params)) {
     if ($stmt) {
         $stmt->bind_param($types, ...$params);
         $stmt->execute();
-        $result = $stmt->get_result();
+        $all_results = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
     } else {
         die("Error al preparar la consulta: " . $mysqli->error);
     }
 } else {
     $result = $mysqli->query($sql);
+    $all_results = $result->fetch_all(MYSQLI_ASSOC);
+    $result->close();
 }
 
 $all_results = [];
@@ -96,6 +102,7 @@ if ($result) {
 }
 
 $formato = $_GET['formato'] ?? 'csv';
+$filename = "Reporte_Auditoria_" . date('Y-m-d') . "." . $formato;
 
 $nombre_tipo = [
     'sesión' => 'Sesiones',
@@ -118,6 +125,9 @@ if (!empty($tipo_accion) && isset($nombre_tipo[$tipo_accion])) {
 
 $filename = "Reporte_{$nombre_base}_" . date('Y-m-d') . "." . $formato;
 
+// ------------------------------------------------------------------
+// --- GENERACIÓN CSV (FECHA LARGA LOCALIZADA) ---
+// ------------------------------------------------------------------
 if ($formato == 'csv') {
     setlocale(LC_TIME, 'es_ES.UTF-8', 'es_ES', 'es');
     header('Content-Type: text/csv; charset=utf-8');
@@ -322,3 +332,4 @@ if ($formato == 'csv') {
     $pdf->Output('D', $filename);
     exit;
 }
+?>

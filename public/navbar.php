@@ -266,7 +266,7 @@ $totalActivos = $prestamos->fetch_assoc()['total'] ?? 0;
                 <li class="nav-item"><a href="/inventario_uni/public/docentes_listar.php" class="nav-link <?= isActive($currentPage, 'docentes_listar.php') ?>">Docentes</a></li>
                 <li class="nav-item"><a href="/inventario_uni/public/estudiantes_listar.php" class="nav-link <?= isActive($currentPage, 'estudiantes_listar.php') ?>">Estudiantes</a></li>
                 <?php if ($rol === 'admin'): ?>
-                    <li class="nav-item"><a href="/inventario_uni/public/salas.php" class="nav-link <?= isActive($currentPage, 'salas.php') ?>">Salas</a></li>
+                    <li class="nav-item"><a href="/inventario_uni/public/salas_index.php" class="nav-link <?= isActive($currentPage, 'salas.php') ?>">Salas</a></li>
                     <li class="nav-item"><a href="/inventario_uni/public/auditoria.php" class="nav-link <?= isActive($currentPage, 'auditoria.php') ?>">Auditoría</a></li>
                 <?php endif; ?>
                 <!-- -->
