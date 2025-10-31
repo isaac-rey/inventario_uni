@@ -175,27 +175,35 @@ try {
 
 
       <?php foreach ($usuarios as $usuario): ?>
-        <tr>
-          <form method="post">
-            <td><?= htmlspecialchars($usuario['id']) ?></td>
-            <td><input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>"></td>
-            <td><input type="text" name="ci" value="<?= htmlspecialchars($usuario['ci']) ?>"></td>
-            <td>
-              <select name="role_id">
+       <tr>
+    <form method="post">
+        <td data-label="ID"><?= htmlspecialchars($usuario['id']) ?></td>
+        
+        <td data-label="NOMBRE">
+            <input type="text" name="nombre" value="<?= htmlspecialchars($usuario['nombre']) ?>">
+        </td>
+        
+        <td data-label="CI">
+            <input type="text" name="ci" value="<?= htmlspecialchars($usuario['ci']) ?>">
+        </td>
+        
+        <td data-label="ROL">
+            <select name="role_id">
                 <?php foreach ($roles as $rol_option): ?>
-                  <option value="<?= $rol_option['id'] ?>" <?= ($usuario[$rol_field] == $rol_option['id']) ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($rol_option['rol']) ?>
-                  </option>
+                    <option value="<?= $rol_option['id'] ?>" <?= ($usuario[$rol_field] == $rol_option['id']) ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($rol_option['rol']) ?>
+                    </option>
                 <?php endforeach; ?>
-              </select>
-            </td>
-            <td>
-              <input type="hidden" name="user_id" value="<?= $usuario['id'] ?>">
-              <button type="submit" name="update">Guardar</button>
-              <button type="submit" name="delete" onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">Eliminar</button>
-            </td>
-          </form>
-        </tr>
+            </select>
+        </td>
+        
+        <td data-label="ACCIONES">
+            <input type="hidden" name="user_id" value="<?= $usuario['id'] ?>">
+            <button type="submit" name="update" class="btn btn-primary">Guardar</button>
+            <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('¿Seguro que quieres eliminar este usuario?')">Eliminar</button>
+        </td>
+    </form>
+</tr>
       <?php endforeach; ?>
     </table>
   </div>

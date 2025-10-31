@@ -272,3 +272,225 @@ td:nth-child(2) a {
   border-radius: 4px;
   border: 1px solid #e2e8f0;
 }
+
+/* === Paginación en Azul Fuerte === */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #1e3a8a;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.6);
+}
+
+.pagination-button {
+    background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color: #ffffff;
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.6);
+}
+
+.pagination-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(37, 99, 235, 0.6);
+}
+
+.pagination-button:disabled {
+    background: #94a3b8;
+    color: #e2e8f0;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.pagination-info {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/* === Responsive para la paginación === */
+@media (max-width: 480px) {
+    .pagination-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .pagination-button {
+        width: 100%;
+    }
+}
+ body {
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* === ESTILOS PARA TABLAS Y CONTENEDORES === */
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            /* Espaciado entre tarjetas */
+        }
+
+        /* Tarjetas para las tablas */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e1e8ed;
+            overflow: hidden;
+            padding: 0;
+            /* Quitado el padding del card, se mueve a h2 y td/th */
+        }
+
+        /* Títulos de las secciones */
+        .card h2 {
+            color: #2c3e50;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .pill {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            min-width: 24px;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0;
+            /* Ya no lleva margen superior si el card no tiene padding */
+        }
+
+        thead {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: #fff;
+        }
+
+        th {
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        tbody tr:hover {
+            background: #f0f4f8;
+        }
+
+        .muted {
+            color: #888;
+            text-align: center;
+        }
+
+        select,
+        input {
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #1e3c72;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2a5298;
+        }
+
+        /* Estilo para el botón de cancelar/rechazar */
+        button[style*="#dc2626"] {
+            background: #dc2626 !important;
+        }
+
+        button[style*="#dc2626"]:hover {
+            background: #b91c1c !important;
+        }
+
+        /* Contenedor de Acciones (Flexbox) */
+        td.acciones {
+            white-space: nowrap;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            /* Espacio entre los botones */
+            align-items: center;
+        }
+
+        /* Estilos para la sección de filtros */
+        #filtroPrestamos {
+            padding: 0 20px 20px 20px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        #filtroPrestamos label {
+            font-weight: 500;
+            color: #4a5568;
+        }
+
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 0;
+            }
+
+            .card {
+                overflow-x: auto;
+                /* Permite scroll horizontal en móviles */
+            }
+
+            table {
+                min-width: 750px;
+                /* Asegura que la tabla no sea demasiado pequeña */
+            }
+        }

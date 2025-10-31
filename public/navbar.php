@@ -33,213 +33,9 @@ $totalActivos = $prestamos->fetch_assoc()['total'] ?? 0;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Inventario</title>
+    <link rel="stylesheet" href="../css/navbar.css">
     <style>
-        /* ======== NAVBAR ESTILO AZUL MODERNO ======== */
-        body {
-            margin: 0;
-            font-family: 'Segoe UI', Roboto, sans-serif;
-            background-color: #f5f6fa;
-        }
-
-        .navbar {
-            background: linear-gradient(90deg, #1e3c72, #2a5298);
-            color: #fff;
-            padding: 12px 25px;
-            display: flex;
-            justify-content: center;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .nav-container {
-            width: 100%;
-            max-width: 1200px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .nav-brand a {
-            color: #fff;
-            text-decoration: none;
-            font-size: 22px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .badge {
-            background: rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 13px;
-            margin-left: 10px;
-        }
-
-        .nav-menu {
-            list-style: none;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin: 0;
-        }
-
-        .nav-item a {
-            text-decoration: none;
-            color: #fff;
-            font-weight: 500;
-            transition: color 0.3s, transform 0.2s;
-        }
-
-        .nav-item a:hover,
-        .nav-item a.active {
-            color: #ffd166;
-            transform: scale(1.05);
-        }
-
-        /* ======== MENÚ USUARIO ======== */
-        .nav-user {
-            position: relative;
-        }
-
-        .user-dropdown {
-            position: relative;
-        }
-
-        .user-btn {
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 25px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: #fff;
-            cursor: pointer;
-            padding: 8px 14px;
-            transition: background 0.3s;
-        }
-
-        .user-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-        }
-
-        /* 🔹 Nuevo estilo de imagen de usuario */
-        .user-icon {
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            background: radial-gradient(circle at top left, #ffffff, #cfd9ff);
-            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .user-icon:hover {
-            transform: scale(1.08);
-            box-shadow: 0 0 12px rgba(255, 255, 255, 0.8), 0 0 20px rgba(42, 82, 152, 0.7);
-        }
-
-        .arrow {
-            border: solid #fff;
-            border-width: 0 2px 2px 0;
-            padding: 3px;
-            transform: rotate(45deg);
-            margin-left: 5px;
-        }
-
-        .user-menu {
-            display: none;
-            position: absolute;
-            top: 45px;
-            right: 0;
-            background: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-            padding: 10px 0;
-            min-width: 160px;
-            z-index: 100;
-        }
-
-        .user-menu a {
-            display: block;
-            padding: 10px 15px;
-            color: #2c3e50;
-            text-decoration: none;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .user-menu a:hover {
-            background: #f2f2f2;
-        }
-
-        .user-dropdown.active .user-menu {
-            display: block;
-        }
-
-        .logout-btn {
-            color: #e74c3c !important;
-            font-weight: bold;
-        }
-
-        /* ======== MENÚ RESPONSIVO ======== */
-        .nav-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            gap: 4px;
-        }
-
-        .nav-toggle span {
-            background: #fff;
-            width: 25px;
-            height: 3px;
-            border-radius: 2px;
-        }
-
-        @media (max-width: 768px) {
-            .nav-menu {
-                position: absolute;
-                top: 60px;
-                right: 0;
-                flex-direction: column;
-                background: #1e3c72;
-                width: 100%;
-                text-align: center;
-                max-height: 0;
-                overflow: hidden;
-                transition: max-height 0.4s ease;
-            }
-
-            .nav-menu.active {
-                max-height: 400px;
-                padding: 15px 0;
-            }
-
-            .nav-toggle {
-                display: flex;
-            }
-        }
-
-        /* ======== NOTIFICACIÓN ======== */
-        .notificacion-fija {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background: #f39c12;
-            color: #fff;
-            padding: 10px 15px;
-            border-radius: 6px;
-            z-index: 9999;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            font-weight: bold;
-            opacity: 0;
-            transition: opacity 1s ease, transform 0.5s ease;
-            transform: translateY(-20px);
-        }
-
-        .notificacion-fija.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
+         
     </style>
 </head>
 
@@ -289,61 +85,49 @@ $totalActivos = $prestamos->fetch_assoc()['total'] ?? 0;
     <div id="notificacion" class="notificacion-fija"></div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const toggle = document.getElementById('nav-toggle');
-            const menu = document.getElementById('nav-menu');
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggle = document.getElementById('nav-toggle'); // Botón de hamburguesa
+        const menu = document.getElementById('nav-menu'); // El UL del menú
+        const body = document.body; // Referencia al body
+        
+        // --- Lógica del Menú Principal ---
+        if (toggle && menu) {
             toggle.addEventListener('click', () => {
                 toggle.classList.toggle('active');
                 menu.classList.toggle('active');
+                
+                // 🔑 CLAVE: Bloquea/desbloquea el scroll del body
+                body.classList.toggle('menu-open');
             });
-
-            const userDropdown = document.querySelector('.user-dropdown');
-            const userBtn = document.querySelector('.user-btn');
-
-            userBtn.addEventListener('click', () => {
-                userDropdown.classList.toggle('active');
-            });
-
-            document.addEventListener('click', (e) => {
-                if (!userDropdown.contains(e.target)) {
-                    userDropdown.classList.remove('active');
-                }
-            });
-        });
-
-        const cierre = new Date("<?= $cierreStr ?>");
-        const totalActivos = <?= $totalActivos ?>;
-        const notificacionDiv = document.getElementById('notificacion');
-
-        let ultimaNotificacion = 0;
-
-        function actualizarAlerta() {
-            const ahora = new Date();
-            const diffMs = cierre - ahora;
-            const diffMin = Math.ceil(diffMs / 60000);
-
-            if (diffMin <= 30 && diffMin > 0 && totalActivos > 0) {
-                const ahoraTimestamp = Date.now();
-                if (ahoraTimestamp - ultimaNotificacion > 5 * 60 * 1000) { // cada 5 min
-                    const mensaje = `⚠️ Faltan ${diffMin} min para el cierre. ${totalActivos} equipos prestados.`;
-                    notificacionDiv.textContent = mensaje;
-                    notificacionDiv.style.opacity = 1; // mostrar suavemente
-                    ultimaNotificacion = ahoraTimestamp;
-
-                    // Desvanecer después de 6 segundos
-                    setTimeout(() => {
-                        notificacionDiv.style.opacity = 0; // desaparece suavemente
-                    }, 6000);
-                }
-            } else {
-                notificacionDiv.style.opacity = 0;
-            }
         }
 
-        // Ejecutar al cargar y luego cada minuto
-        actualizarAlerta();
-        setInterval(actualizarAlerta, 60000);
-    </script>
+        // --- Lógica del Menú de Usuario ---
+        const userDropdown = document.querySelector('.user-dropdown');
+        const userBtn = document.querySelector('.user-btn');
+
+        if (userBtn) {
+            userBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); 
+                userDropdown.classList.toggle('active');
+            });
+        }
+
+        // --- Cierre Global ---
+        document.addEventListener('click', (e) => {
+            // Cierra el dropdown de usuario si se hace clic fuera
+            if (userDropdown && !userDropdown.contains(e.target) && userDropdown.classList.contains('active')) {
+                userDropdown.classList.remove('active');
+            }
+            
+            // Cierra el menú principal si se hace clic en un enlace DENTRO del menú
+            if (e.target.closest('.nav-item a') && menu.classList.contains('active')) {
+                 toggle.classList.remove('active');
+                 menu.classList.remove('active');
+                 body.classList.remove('menu-open'); // Desbloquea el scroll
+            }
+        });
+    });
+</script>
 </body>
 
 </html>

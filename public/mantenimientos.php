@@ -39,7 +39,7 @@ $mantenimientos = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
                     <th>Fecha Envío</th>
                     <th>Fecha Devolución</th>
                     <th>Solucionado</th>
-                    <th>Observaciones</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -55,7 +55,7 @@ $mantenimientos = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
                     <td class="<?= $m['solucionado'] ? 'status-active' : 'status-returned' ?>">
                         <?= $m['solucionado'] ? 'Sí' : 'No' ?>
                     </td>
-                    <td><?= htmlspecialchars($m['observaciones'] ?? '-') ?></td>
+                  
     
                 </tr>
                 <?php endforeach; ?>

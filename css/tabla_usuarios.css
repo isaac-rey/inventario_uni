@@ -1,57 +1,41 @@
-/* === ESTILOS PARA TABLAS Y CONTENEDORES === */
+/* === ESTILOS PARA TABLA DE USUARIOS (Diseño Moderno y Responsive con Tipografía Consistente) === */
+
+/* --- DECLARACIÓN DE FUENTE CONSISTENTE --- */
+/* Aplica una fuente moderna y legible a todo el contenido de la tabla */
+.container,
+table {
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+}
+/* ------------------------------------------- */
 
 /* Contenedor principal */
 .container {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 2rem auto;
   padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-/* Tarjetas para las tablas */
-.card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   border: 1px solid #e1e8ed;
   overflow: hidden;
-  transition: all 0.3s ease;
 }
 
-.card:hover {
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-}
-
-/* Títulos de las secciones */
-.card h2 {
-  color: #2d3748;
-  font-size: 1.5rem;
-  font-weight: 600;
-  margin: 0;
-  padding: 1.5rem 2rem;
+/* Sección de acciones (botones superiores y búsqueda) */
+.actions {
   background: linear-gradient(135deg, #f8fafc 0%, #edf2f7 100%);
+  padding: 1.5rem 2rem;
   border-bottom: 1px solid #e2e8f0;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
 }
 
-/* Pill/Badge con contador */
-.pill {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  min-width: 24px;
-  text-align: center;
-}
-
+/* Botón principal (+ Nuevo) */
 .actions .btn {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: white;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -64,16 +48,47 @@
   gap: 0.5rem;
   border: none;
   cursor: pointer;
+  font-family: inherit; 
 }
 
-/* Tablas */
+.actions .btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(7, 45, 218, 0.4);
+  color: white;
+}
+
+/* Búsqueda y Filtros en Actions */
+.actions form input {
+  padding: 0.6rem 0.8rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e0;
+  font-size: 0.9rem;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.actions form button {
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #764ba2;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.actions form button:hover {
+  background: #6a429b;
+}
+
+/* Tabla principal */
 table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
-/* Headers de tabla */
+/* Headers */
 thead {
   background: linear-gradient(90deg, #1e3c72, #2a5298);
   color: #fff;
@@ -81,22 +96,22 @@ thead {
 
 th {
   color: white;
-  padding: 1rem;
+  padding: 1rem 0.75rem;
   text-align: left;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;
 }
 
-/* Celdas de datos */
+/* Celdas */
 td {
-  padding: 1rem;
+  padding: 1rem 0.75rem;
   border-bottom: 1px solid #e2e8f0;
   color: #4a5568;
   vertical-align: middle;
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* Filas alternas y hover */
@@ -104,199 +119,216 @@ tbody tr:nth-child(even) {
   background: #f8fafc;
 }
 
-tbody tr:hover {
-  background: #e6fffa;
-  transform: translateY(-1px);
-  transition: all 0.3s ease;
+tbody tr {
+  transition: all 0.2s ease; /* Para el hover sutil */
 }
 
-/* Última fila sin borde inferior */
+tbody tr:hover {
+  background: #e6fffa;
+  transform: translateY(-1px); /* Efecto sutil */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
 tbody tr:last-child td {
   border-bottom: none;
 }
 
-/* Enlaces dentro de las tablas */
-td a {
-  color: #667eea;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  padding: 0.25rem 0;
-}
-
-td a:hover {
-  color: #764ba2;
-  text-decoration: underline;
-}
-
-/* Enlaces externos (target="_blank") */
-td a[target="_blank"]:after {
-  content: " ↗";
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
-/* Botones de acción */
-button[name="update"] {
-  background: linear-gradient(90deg, #1e3c72, #2a5298);
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
+/* Estilo para inputs y selects editables dentro de la tabla */
+td input,
+td select {
+  padding: 0.5rem;
+  border: 1px solid #cbd5e0;
   border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-
-button[name="delete"] {
-  background: linear-gradient(135deg, #ea6666 0%, #a24b4b 100%);
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  border: none;
-  cursor: pointer;
-}
-
-/* Campos de entrada */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-select {
+  font-size: 0.9rem;
   width: 100%;
-  padding: 0.875rem 1rem;
-  border: 2px solid #e2e8f0;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+  font-family: inherit; /* Hereda la fuente principal */
+}
+
+td input:focus,
+td select:focus {
+  border-color: #667eea;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2);
+}
+
+/* === AJUSTES GLOBALES PARA BOTONES DENTRO DE LA TABLA (Modernos) === */
+td button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
   border-radius: 8px;
-  font-size: 1rem;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
-  background: #fff;
+  white-space: nowrap;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  font-family: inherit; /* Hereda la fuente principal */
+}
+
+td button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* === BOTÓN GUARDAR === */
+td .btn-primary {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: #ffffff;
+}
+
+td .btn-primary:hover {
+  background: linear-gradient(135deg, #122a57 0%, #1c3b6d 100%);
+}
+
+/* === BOTÓN ELIMINAR === */
+td .btn-danger {
+  background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+  color: #ffffff;
+}
+
+td .btn-danger:hover {
+  background: linear-gradient(135deg, #b32a2a 0%, #a02424 100%);
+}
+
+/* Ajustes específicos de columnas */
+
+/* Columna ID */
+td:nth-child(1) {
+  font-weight: 600;
   color: #2d3748;
-  font-family: inherit;
+  width: 50px;
 }
 
-/* Texto muted */
-.muted {
-  color: #718096;
-  font-style: italic;
-  text-align: center;
-  padding: 2rem !important;
+/* Columna NOMBRE */
+td:nth-child(2) {
+  min-width: 150px;
 }
 
-/* Celdas vacías centradas */
-td.muted {
-  text-align: center;
-  font-size: 1rem;
-  color: #a0aec0;
+/* Columna CI */
+td:nth-child(3) {
+  min-width: 120px;
+  /* Nota: Mantenemos 'Courier New' solo para el CI para un aspecto de código/número */
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
 }
 
-/* Responsive para móviles */
+/* Columna ROL */
+td:nth-child(4) {
+  min-width: 100px;
+}
+
+/* Columna ACCIONES */
+td:nth-child(5) {
+  min-width: 180px;
+  white-space: nowrap;
+}
+
+
+/* Estilos irrelevantes de equipos eliminados */
+.badge,
+.qr-mini,
+.serial-section,
+.serial-code,
+.serial-highlight,
+td:last-child:last-line {
+  display: none !important;
+}
+
+
+/* === RESPONSIVE (Estilo Tarjetas) === */
 @media (max-width: 768px) {
-  .container {
-    margin: 1rem;
-    padding: 0;
-    gap: 1.5rem;
+  /* Ocultar la tabla y mostrar solo las filas como bloques (tarjetas) */
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
   }
 
-  .card h2 {
+  thead {
+    display: none;
+  }
+
+  tbody tr {
+    background: white;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
     padding: 1rem;
-    font-size: 1.25rem;
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+    animation: slideIn 0.3s ease-out;
   }
 
-  /* Hacer la tabla scrollable horizontalmente */
-  .card {
-    overflow-x: auto;
+  tbody tr:hover {
+    transform: none;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
   }
 
-  table {
-    min-width: 600px;
-  }
-
-  th,
   td {
-    padding: 0.75rem 0.5rem;
-    font-size: 0.85rem;
+    border: none;
+    padding: 0.75rem 0;
+    text-align: left;
+    position: relative;
+    font-size: 0.9rem;
+    width: 100% !important; /* Asegura que la celda ocupe todo el ancho */
+    font-family: inherit; /* Hereda la fuente principal */
   }
 
-  .btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
-  }
-}
-
-/* Para pantallas muy pequeñas */
-@media (max-width: 480px) {
-
-  th,
-  td {
-    padding: 0.5rem 0.25rem;
-    font-size: 0.8rem;
-  }
-
-  .card h2 {
-    padding: 0.75rem;
-    font-size: 1.1rem;
-  }
-
-  .btn {
-    padding: 0.35rem 0.6rem;
+  /* Etiqueta simulando el <th> usando data-label */
+  td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #4a5568;
+    display: block;
+    margin-bottom: 0.25rem;
     font-size: 0.75rem;
+    opacity: 0.8;
+    font-family: inherit; /* Hereda la fuente principal */
+  }
+
+  /* La columna de acciones debe ir al final y centrarse */
+  td:nth-child(5) {
+    padding-top: 1rem;
+    text-align: center;
+    border-top: 1px dashed #e2e8f0;
+    display: flex; /* Para alinear los botones en el centro */
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  td button {
+    flex-grow: 1;
+    max-width: 150px;
+  }
+
+  td input,
+  td select {
+    display: block;
+    margin-top: 0.5rem;
   }
 }
 
-/* Animaciones */
-@keyframes fadeIn {
+/* === ANIMACIONES === */
+@keyframes slideIn {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
-
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-.card {
-  animation: fadeIn 0.6s ease-out;
-}
-
-/* Indicadores de estado */
-.status-active {
-  color: #38a169;
-  font-weight: 600;
-}
-
-.status-returned {
-  color: #718096;
-}
-
-/* Mejoras visuales para CI y datos */
-td:has-text("CI:") {
-  font-size: 0.9rem;
-  color: #718096;
-}
-
-/* Espaciado para información de estudiante */
-td:nth-child(3) {
-  line-height: 1.6;
-}
-
-/* Destacar seriales */
-td:nth-child(2) a {
-  font-family: 'Courier New', monospace;
-  background: #f7fafc;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid #e2e8f0;
+.container {
+  animation: slideIn 0.6s ease-out;
 }

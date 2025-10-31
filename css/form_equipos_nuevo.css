@@ -86,13 +86,12 @@ label {
     display: block;
 }
 
-/* Campos de entrada */
+/* Campos de entrada genéricos */
 input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
 input[type="date"] {
-    width: 100%;
     padding: 0.875rem 1rem;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
@@ -114,7 +113,7 @@ input:hover:not(:focus) {
     border-color: #cbd5e0;
 }
 
-/* Botón principal */
+/* Botón principal del formulario (diferente al .btn de acciones) */
 button[type="submit"] {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
@@ -189,6 +188,66 @@ select:hover:not(:focus) {
     border-color: #cbd5e0;
 }
 
+/* === NUEVOS ESTILOS PARA ACCIONES Y BOTONES PRINCIPALES (.btn) === */
+
+/* Estilo para el botón de acción (.btn) y el botón de búsqueda */
+.btn {
+    background: linear-gradient(135deg, #1e3c72 , #2a5298 );
+    color: white;
+    text-decoration: none;
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(7, 45, 218, 0.4);
+}
+
+/* Contenedor principal para centrar el contenido y dar margen */
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+/* Estilo para el área de acciones (botón Nuevo y formulario de Búsqueda) */
+.actions {
+    display: flex;
+    justify-content: space-between; /* Separa el botón del formulario */
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e1e8ed; /* Separador sutil */
+}
+
+/* Estilo para el formulario de búsqueda dentro de .actions */
+.actions form {
+    display: flex;
+    flex-direction: row; /* Asegura que input y button estén en línea */
+    gap: 0.5rem;
+    margin: 0; /* Limpia el margen del formulario por defecto */
+}
+
+/* Estilo para el input de búsqueda (ajustado para que coincida con el tamaño del .btn) */
+.actions input[type="text"] {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    /* Anula la transformación al enfocarse para un diseño más compacto en la barra de acciones */
+    transform: none; 
+}
+
+.actions input[type="text"]:focus {
+    transform: none;
+    box-shadow: 0 0 0 2px rgba(30, 60, 114, 0.2);
+    border-color: #1e3c72;
+}
 
 /* Responsive */
 @media (max-width: 768px) {
@@ -204,6 +263,26 @@ select:hover:not(:focus) {
     button[type="submit"] {
         padding: 0.875rem 1.5rem;
         font-size: 0.95rem;
+    }
+
+    /* Estilos responsivos para la barra de acciones */
+    .actions {
+        flex-direction: column; /* Apila los elementos verticalmente */
+        gap: 1rem;
+        align-items: stretch; /* Estira los elementos para ocupar todo el ancho */
+    }
+
+    .actions .btn {
+        width: 100%; /* El botón ocupa todo el ancho */
+        text-align: center;
+    }
+
+    .actions form {
+        width: 100%;
+    }
+    
+    .actions form input[type="text"] {
+        flex-grow: 1; /* El input de búsqueda ocupa el espacio restante */
     }
 }
 

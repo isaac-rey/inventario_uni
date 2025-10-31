@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="utf-8">
   <title>Registro — Inventario Universidad</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/form_login.css">
+  <link rel="stylesheet" href="../css/docentes_registro.css">
 </head>
 
 <body>

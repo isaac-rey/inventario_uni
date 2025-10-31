@@ -88,6 +88,7 @@ $data_params[] = $offset;
 
 $stmt = $mysqli->prepare($sql);
 if ($stmt) {
+    // Usar bind_param con referencias para parámetros dinámicos
     $bind_params = array_merge([$data_types], $data_params);
     $refs = [];
     foreach ($bind_params as $key => $value) $refs[$key] = &$bind_params[$key];
@@ -109,72 +110,79 @@ $contador = $offset;
     <meta charset="utf-8">
     <title>Auditoría - Inventario</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" href="../css/general.css">
     <link rel="stylesheet" href="../css/reportes.css">
-    <style>
-        .paginacion {
-            margin-top: 20px;
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            gap: 10px;
-            padding: 0 10px;
-        }
-
-        .paginacion button{
-            color: #1b228aff;
-        }
-
-        .paginacion button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-        }
-
-        .paginacion span {
-            font-weight: bold;
-            color: #333663ff;
-        }
-    </style>
 </head>
 
 <body>
     <?php include __DIR__ . '/navbar.php'; ?>
-    <div class="container">
-        <h2>Registros de Auditoría</h2>
-        <h3 style="text-align:right;color:#555;">Total de registros: <?= $total_registros ?></h3>
 
-        <div class="actions">
-            <form method="get" style="display:inline-flex;align-items:center;gap:10px;">
-                <input type="text" name="q" placeholder="Buscar..." value="<?= htmlspecialchars($search) ?>">
-                <label for="tipo">Tipo:</label>
-                <select name="tipo" id="tipo">
-                    <option value="">-- Todos --</option>
-                    <option value="sesión" <?= ($_GET['tipo'] ?? '') == 'sesión' ? 'selected' : '' ?>>Inicios de sesión</option>
-                    <option value="acción_equipo" <?= ($_GET['tipo'] ?? '') == 'acción_equipo' ? 'selected' : '' ?>>Equipos</option>
-                    <option value="acción_componente" <?= ($_GET['tipo'] ?? '') == 'acción_componente' ? 'selected' : '' ?>>Componentes</option>
-                    <option value="préstamo" <?= ($_GET['tipo'] ?? '') == 'préstamo' ? 'selected' : '' ?>>Préstamos</option>
-                    <option value="devolución" <?= ($_GET['tipo'] ?? '') == 'devolución' ? 'selected' : '' ?>>Devoluciones</option>
-                    <option value="reporte" <?= ($_GET['tipo'] ?? '') == 'reporte' ? 'selected' : '' ?>>Reportes de equipos</option>
-                    <option value="mantenimiento" <?= ($_GET['tipo'] ?? '') == 'mantenimiento' ? 'selected' : '' ?>>Mantenimientos</option>
-                    <option value="acción_usuario" <?= ($_GET['tipo'] ?? '') == 'acción_usuario' ? 'selected' : '' ?>>Usuarios</option>
-                    <option value="acción_docentes" <?= ($_GET['tipo'] ?? '') == 'acción_docentes' ? 'selected' : '' ?>>Docentes</option>
-                    <option value="acción_estudiante" <?= ($_GET['tipo'] ?? '') == 'acción_estudiante' ? 'selected' : '' ?>>Estudiantes</option>
-                    <option value="acción_sala" <?= ($_GET['tipo'] ?? '') == 'acción_sala' ? 'selected' : '' ?>>Salas</option>
-                </select>
-                <label for="fecha_inicio">Desde:</label>
-                <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?= htmlspecialchars($fecha_inicio) ?>">
-                <label for="fecha_fin">Hasta:</label>
-                <input type="date" id="fecha_fin" name="fecha_fin" value="<?= htmlspecialchars($fecha_fin) ?>">
-                <button type="submit">Filtrar</button>
+
+    <div class="container">
+        <h2 class="mb-2">Registros de Auditoría</h2>
+        <h3 class="text-right muted mb-3">Total de registros: <?= $total_registros ?></h3>
+
+
+        <div class="filter-card">
+
+            <form method="get" class="form-row">
+
+
+                <div class="form-group-custom">
+                    <label for="q">Buscar Acción o Usuario</label>
+                    <input type="text" id="q" name="q" placeholder="Buscar acción o usuario..." value="<?= htmlspecialchars($search) ?>">
+                </div>
+
+
+                <div class="form-group-custom">
+                    <label for="tipo">Tipo de Acción</label>
+                    <select name="tipo" id="tipo">
+                        <option value="">-- Todos los Tipos --</option>
+                        <option value="sesión" <?= ($_GET['tipo'] ?? '') == 'sesión' ? 'selected' : '' ?>>Inicios de sesión</option>
+                        <option value="acción_equipo" <?= ($_GET['tipo'] ?? '') == 'acción_equipo' ? 'selected' : '' ?>>Equipos</option>
+                        <option value="acción_componente" <?= ($_GET['tipo'] ?? '') == 'acción_componente' ? 'selected' : '' ?>>Componentes</option>
+                        <option value="préstamo" <?= ($_GET['tipo'] ?? '') == 'préstamo' ? 'selected' : '' ?>>Préstamos</option>
+                        <option value="devolución" <?= ($_GET['tipo'] ?? '') == 'devolución' ? 'selected' : '' ?>>Devoluciones</option>
+                        <option value="reporte" <?= ($_GET['tipo'] ?? '') == 'reporte' ? 'selected' : '' ?>>Reportes de equipos</option>
+                        <option value="mantenimiento" <?= ($_GET['tipo'] ?? '') == 'mantenimiento' ? 'selected' : '' ?>>Mantenimientos</option>
+                        <option value="acción_usuario" <?= ($_GET['tipo'] ?? '') == 'acción_usuario' ? 'selected' : '' ?>>Usuarios</option>
+                        <option value="acción_docentes" <?= ($_GET['tipo'] ?? '') == 'acción_docentes' ? 'selected' : '' ?>>Docentes</option>
+                        <option value="acción_estudiante" <?= ($_GET['tipo'] ?? '') == 'acción_estudiante' ? 'selected' : '' ?>>Estudiantes</option>
+                        <option value="acción_sala" <?= ($_GET['tipo'] ?? '') == 'acción_sala' ? 'selected' : '' ?>>Salas</option>
+                    </select>
+                </div>
+
+
+                <div class="form-group-custom">
+                    <label for="fecha_inicio">Desde (Fecha)</label>
+
+                    <input type="date" id="fecha_inicio" name="fecha_inicio" value="<?= htmlspecialchars($fecha_inicio) ?>">
+                </div>
+
+
+                <div class="form-group-custom">
+                    <label for="fecha_fin">Hasta (Fecha)</label>
+
+                    <input type="date" id="fecha_fin" name="fecha_fin" value="<?= htmlspecialchars($fecha_fin) ?>">
+                </div>
+
+
+                <div class="form-group-custom" style="flex-grow: 0;">
+                    <button type="submit" class="btn-filter-custom">Filtrar</button>
+                </div>
             </form>
         </div>
 
-        <div class="report-actions" style="margin-bottom:20px;">
+
+        <div class="report-buttons">
             <?php $query_string = http_build_query($_GET); ?>
-            <a href="generar_reporte.php?formato=xlsx&<?= $query_string ?>" class="button button-excel">Descargar Excel (XLSX)</a>
-            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="button button-csv">Descargar Excel (CSV)</a>
-            <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="button button-pdf">Descargar PDF</a>
+
+            <a href="generar_reporte.php?formato=xlsx&<?= $query_string ?>" class="btn-excel-xlsx">Descargar Excel (XLSX)</a>
+            <a href="generar_reporte.php?formato=csv&<?= $query_string ?>" class="btn-excel-csv">Descargar Excel (CSV)</a>
+            <a href="generar_reporte.php?formato=pdf&<?= $query_string ?>" class="btn-pdf">Descargar PDF</a>
         </div>
+
 
         <table>
             <thead>
@@ -190,36 +198,41 @@ $contador = $offset;
                     <?php while ($row = $result->fetch_assoc()): ?>
                         <?php $contador++; ?>
                         <tr>
-                            <td><?= $contador ?></td>
-                            <td><?= htmlspecialchars($row['nombre']) ?></td>
-                            <td><?= htmlspecialchars($row['accion']) ?></td>
-                            <td><?= htmlspecialchars($row['fecha']) ?></td>
+
+                            <td data-label="Nro"><?= $contador ?></td>
+                            <td data-label="Usuario"><?= htmlspecialchars($row['nombre']) ?></td>
+                            <td data-label="Acción"><?= htmlspecialchars($row['accion']) ?></td>
+                            <td data-label="Fecha"><?= htmlspecialchars($row['fecha']) ?></td>
                         </tr>
                     <?php endwhile; ?>
                 <?php else: ?>
                     <tr>
-                        <td colspan="4" style="text-align:center;">No se encontraron registros de auditoría con los filtros aplicados.</td>
+                        <td colspan="4" class="text-center muted">No se encontraron registros de auditoría con los filtros aplicados.</td>
                     </tr>
                 <?php endif; ?>
             </tbody>
         </table>
 
-        <div class="paginacion">
+
+        <div class="pagination-container">
             <?php
             $prev_query = $current_query;
             $prev_query['pagina'] = $pagina_actual - 1;
             $prev_link = http_build_query($prev_query);
             ?>
-            <button <?= $pagina_actual <= 1 ? 'disabled' : '' ?> onclick="window.location.href='?<?= $prev_link ?>'">Anterior</button>
-            <span>Página <?= $pagina_actual ?> de <?= $total_paginas ?></span>
+            <button class="pagination-button" <?= $pagina_actual <= 1 ? 'disabled' : '' ?> onclick="window.location.href='?<?= $prev_link ?>'">Anterior</button>
+
+            <span class="pagination-info">Página <?= $pagina_actual ?> de <?= $total_paginas ?></span>
+
             <?php
             $next_query = $current_query;
             $next_query['pagina'] = $pagina_actual + 1;
             $next_link = http_build_query($next_query);
             ?>
-            <button <?= $pagina_actual >= $total_paginas ? 'disabled' : '' ?> onclick="window.location.href='?<?= $next_link ?>'">Siguiente</button>
+            <button class="pagination-button" <?= $pagina_actual >= $total_paginas ? 'disabled' : '' ?> onclick="window.location.href='?<?= $next_link ?>'">Siguiente</button>
         </div>
     </div>
+
 </body>
 
 </html>
