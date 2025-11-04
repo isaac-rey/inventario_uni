@@ -8,6 +8,11 @@
 require __DIR__ . '/../config/db.php';
 require __DIR__ . '/../init.php';
 
+// Aseguramos que la sesión esté activa (sin mostrar notice si ya lo está)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // Variables de control
 $error = '';
 

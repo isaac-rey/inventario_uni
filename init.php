@@ -1,6 +1,8 @@
 <?php
 // init.php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 require __DIR__ . '/config/db.php';
 
 function is_logged_in(): bool
@@ -60,12 +62,8 @@ function auditar($accion, $tipo_accion = 'general', $override_user_id = null) //
  $ip = $_SERVER['REMOTE_ADDR'] ?? null;
  $user_agent = $_SERVER['HTTP_USER_AGENT'] ?? null;
 
- // 3. Modificar la consulta SQL para incluir tipo_accion
- $stmt = $mysqli->prepare("
-        INSERT INTO auditoria 
-        (usuario_id, accion, tipo_accion, ip_usuario, user_agent, fecha) 
-        VALUES (?, ?, ?, ?, ?, NOW())
-    ");
+ // 3. Modificar la consulta SQL para incluir tipo_accion (en una sola línea con comillas inversas para delimitar tablas y columnas)
+$stmt = $mysqli->prepare("INSERT INTO `auditoria` (`usuario_id`, `accion`, `tipo_accion`, `ip_usuario`, `user_agent`, `fecha`) VALUES (?, ?, ?, ?, ?, NOW())");
 
 
  if ($stmt === false) {

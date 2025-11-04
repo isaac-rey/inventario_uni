@@ -24,15 +24,7 @@ if (!$row || $row['used'] || strtotime($row['expires_at']) < time()) {
   <meta charset="utf-8">
   <title>Restablecer contraseña — Inventario Universidad</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body{font-family:system-ui,Segoe UI,Arial,sans-serif;background:#0f172a;color:#e2e8f0;display:flex;min-height:100vh;align-items:center;justify-content:center}
-    .card{background:#111827;padding:24px;border-radius:12px;max-width:380px;width:100%;box-shadow:0 10px 30px rgba(0,0,0,.3)}
-    h1{margin:0 0 16px;font-size:20px;text-align:center}
-    label{display:block;margin:12px 0 6px}
-    input{width:100%;padding:10px;border-radius:8px;border:1px solid #374151;background:#0b1220;color:#e5e7eb}
-    button{width:100%;padding:10px;margin-top:16px;border-radius:8px;border:0;background:#2563eb;color:white;font-weight:600;cursor:pointer}
-    .info{font-size:14px;text-align:center;margin-top:12px;color:#9ca3af}
-  </style>
+  <link rel="stylesheet" href="../css/form_login.css">
 </head>
 <body>
   <div class="card">

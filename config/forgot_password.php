@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
       $host = $_SERVER['HTTP_HOST']; // localhost o IP en red local
       $ruta = dirname($_SERVER['PHP_SELF']); // carpeta actual
-      $reset_link = $protocolo . "://" . $host . "/inventario_uni/config/reset.php?token=" . urlencode($token);
+      $reset_link = $protocolo . "://" . $host . "/inventario_uni-main/config/reset.php?token=" . urlencode($token);
 
       // --- Enviar correo con PHPMailer ---
       $mail = getMailer();
@@ -61,7 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Usamos la ID del usuario encontrado ($user['id']) en el mensaje 
         // porque el usuario que realiza la acción no está logueado.
         $user_desc = htmlspecialchars($user['nombre'] . ' (CI: ' . $ci . ')');
-        auditar("Solicitud de restablecimiento de contraseña. CI: {$ci}.", $user['id']);
+        // auditar(accion, tipo_accion, override_user_id)
+        auditar("Solicitud de restablecimiento de contraseña para CI: {$ci}.", 'general', $user['id']);
         //auditar("Solicitud de restablecimiento de contraseña para el usuario ID {$user['id']}: {$user_desc}.");
         // ------------------------------------------------------------------
       } catch (Exception $e) {
