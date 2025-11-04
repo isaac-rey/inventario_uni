@@ -50,13 +50,15 @@ function highlight($text, $search)
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Inventario de equipos</title>
   <link rel="stylesheet" href="../css/tabla_equipos_index.css">
   <style>
     .badge.danger {
-      background-color: #c03934ff; /* rojo fuerte */
+      background-color: #c03934ff;
+      /* rojo fuerte */
       color: #fff;
     }
   </style>
@@ -65,94 +67,97 @@ function highlight($text, $search)
 <body>
   <?php include __DIR__ . '/navbar.php'; ?>
 
-  <div class="container">
-    <div class="actions">
-      <a class="btn" href="/inventario_uni/public/equipos_nuevo.php">+ Nuevo equipo</a>
-      <form method="get">
-        <input type="text" name="q" placeholder="Buscar equipo..." value="<?= htmlspecialchars($search) ?>">
-        <button type="submit" class="btn">Buscar</button>
-      </form>
+  <div class="conl">
+    <div class="container">
+      <div class="actions">
+        <a class="btn" href="/inventario_uni/public/equipos_nuevo.php">+ Nuevo equipo</a>
+        <form method="get">
+          <input type="text" name="q" placeholder="Buscar equipo..." value="<?= htmlspecialchars($search) ?>">
+          <button type="submit" class="btn">Buscar</button>
+        </form>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Marca / Modelo</th>
+            <th>Área / Sala</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+            <th>Serial interno</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if (!$rows): ?>
+            <tr>
+              <td colspan="7" class="muted">Sin equipos cargados aún.</td>
+            </tr>
+            <?php else: foreach ($rows as $r): ?>
+              <tr>
+                <td data-label="Tipo"><?= highlight($r['tipo'], $search) ?></td>
+                <td data-label="Marca / Modelo"><?= highlight(trim(($r['marca'] ?? '') . ' ' . ($r['modelo'] ?? '')), $search) ?></td>
+                <td data-label="Área / Sala"><?= htmlspecialchars($r['area']) ?><?= $r['sala'] ? ' / ' . htmlspecialchars($r['sala']) : '' ?></td>
+
+                <td data-label="Estado">
+                  <?php
+                  if ($r['en_mantenimiento'] > 0) {
+                    echo '<span class="badge warn">En mantenimiento</span>';
+                  } elseif ($r['con_fallos'] > 0) {
+                    echo '<span class="badge danger">Con fallos</span>';
+                  } elseif ($r['con_reporte'] > 0) {
+                    echo '<span class="badge warn">Con reporte</span>';
+                  } else {
+                    $cls = 'ok';
+                    if ($r['estado'] === 'dañado' || $r['estado'] === 'fuera_servicio') $cls = 'bad';
+                    elseif ($r['estado'] === 'En Uso') $cls = 'warn';
+                    echo '<span class="badge ' . $cls . '">' . htmlspecialchars($r['estado']) . '</span>';
+                  }
+                  ?>
+                </td>
+
+                <td data-label="Acciones">
+                  <a href="equipos_editar.php?id=<?= $r['id'] ?>">Editar</a><br>
+                  <a href="equipos_eliminar.php?id=<?= $r['id'] ?>" onclick="return confirm('¿Eliminar este equipo?');">Eliminar</a><br>
+
+                  <?php if ($r['en_mantenimiento'] && $r['con_reporte'] && $r['con_fallos']): ?>
+                    <a href="mantenimiento_volver.php?id_equipo=<?= $r['id'] ?>">Finalizar mantenimiento</a><br>
+
+                  <?php elseif ($r['prestado_activo'] > 0): ?>
+                    <a href="prestamos_devolver.php?equipo=<?= $r['id'] ?>" onclick="return confirm('¿Marcar devolución de este equipo?');">Devolver</a><br>
+                  <?php else: ?>
+                    <a href="prestamos_nuevo.php?equipo=<?= $r['id'] ?>">Prestar</a><br>
+                  <?php endif; ?>
+
+                  <a href="#" onclick="openModal('equipos_mantenimiento.php?id=<?= $r['id'] ?>&ajax=1'); return false;">Ver historial</a><br>
+
+                  <?php
+                  if ($r['con_reporte'] == 0 && $r['con_fallos'] == 0 && !$r['en_mantenimiento']) {
+                    echo '<a href="form_reporte_equipo.php?id_equipo=' . $r['id'] . '">Reportar fallo</a><br>';
+                  } elseif ($r['con_fallos'] == 1 && !$r['en_mantenimiento']) {
+                    echo '<a href="mantenimiento_enviar.php?id_equipo=' . $r['id'] . '">Enviar a mantenimiento</a><br>';
+                  }
+                  ?>
+                </td>
+
+                <td data-label="Serial interno">
+                  <div class="serial-section">
+                    <div class="qr-mini" title="Ver QR" onclick="openModal('equipo_qr.php?serial=<?= urlencode($r['serial_interno']) ?>&ajax=1')"></div>
+                    <div class="serial-code" onclick="navigator.clipboard.writeText('<?= htmlspecialchars($r['serial_interno']) ?>')" title="Click para copiar">
+                      <?= highlight($r['serial_interno'], $search) ?>
+                    </div>
+                    <div class="serial-actions">
+                      <a href="equipos_componentes.php?id=<?= $r['id'] ?>" class="serial-btn btn-components">Componentes</a>
+                      <a href="#" class="serial-btn btn-public" onclick="openModal('equipo_ver.php?serial=<?= urlencode($r['serial_interno']) ?>&ajax=1'); return false;">Ficha pública</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+          <?php endforeach;
+          endif; ?>
+        </tbody>
+      </table>
     </div>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Marca / Modelo</th>
-          <th>Área / Sala</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-          <th>Serial interno</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php if (!$rows): ?>
-          <tr>
-            <td colspan="7" class="muted">Sin equipos cargados aún.</td>
-          </tr>
-        <?php else: foreach ($rows as $r): ?>
-          <tr>
-            <td data-label="Tipo"><?= highlight($r['tipo'], $search) ?></td>
-            <td data-label="Marca / Modelo"><?= highlight(trim(($r['marca'] ?? '') . ' ' . ($r['modelo'] ?? '')), $search) ?></td>
-            <td data-label="Área / Sala"><?= htmlspecialchars($r['area']) ?><?= $r['sala'] ? ' / ' . htmlspecialchars($r['sala']) : '' ?></td>
-
-            <td data-label="Estado">
-              <?php
-              if ($r['en_mantenimiento'] > 0) {
-                echo '<span class="badge warn">En mantenimiento</span>';
-              } elseif ($r['con_fallos'] > 0) {
-                echo '<span class="badge danger">Con fallos</span>';
-              } elseif ($r['con_reporte'] > 0) {
-                echo '<span class="badge warn">Con reporte</span>';
-              } else {
-                $cls = 'ok';
-                if ($r['estado'] === 'dañado' || $r['estado'] === 'fuera_servicio') $cls = 'bad';
-                elseif ($r['estado'] === 'En Uso') $cls = 'warn';
-                echo '<span class="badge ' . $cls . '">' . htmlspecialchars($r['estado']) . '</span>';
-              }
-              ?>
-            </td>
-
-            <td data-label="Acciones">
-              <a href="equipos_editar.php?id=<?= $r['id'] ?>">Editar</a><br>
-              <a href="equipos_eliminar.php?id=<?= $r['id'] ?>" onclick="return confirm('¿Eliminar este equipo?');">Eliminar</a><br>
-
-              <?php if ($r['en_mantenimiento'] && $r['con_reporte'] && $r['con_fallos']): ?>
-                <a href="mantenimiento_volver.php?id_equipo=<?= $r['id'] ?>">Finalizar mantenimiento</a><br>
-
-              <?php elseif ($r['prestado_activo'] > 0): ?>
-                <a href="prestamos_devolver.php?equipo=<?= $r['id'] ?>" onclick="return confirm('¿Marcar devolución de este equipo?');">Devolver</a><br>
-              <?php else: ?>
-                <a href="prestamos_nuevo.php?equipo=<?= $r['id'] ?>">Prestar</a><br>
-              <?php endif; ?>
-
-              <a href="#" onclick="openModal('equipos_mantenimiento.php?id=<?= $r['id'] ?>&ajax=1'); return false;">Ver historial</a><br>
-
-              <?php
-              if ($r['con_reporte'] == 0 && $r['con_fallos'] == 0 && !$r['en_mantenimiento']) {
-                echo '<a href="form_reporte_equipo.php?id_equipo=' . $r['id'] . '">Reportar fallo</a><br>';
-              } elseif ($r['con_fallos'] == 1 && !$r['en_mantenimiento']) {
-                echo '<a href="mantenimiento_enviar.php?id_equipo=' . $r['id'] . '">Enviar a mantenimiento</a><br>';
-              }
-              ?>
-            </td>
-
-            <td data-label="Serial interno">
-              <div class="serial-section">
-                <div class="qr-mini" title="Ver QR" onclick="openModal('equipo_qr.php?serial=<?= urlencode($r['serial_interno']) ?>&ajax=1')"></div>
-                <div class="serial-code" onclick="navigator.clipboard.writeText('<?= htmlspecialchars($r['serial_interno']) ?>')" title="Click para copiar">
-                  <?= highlight($r['serial_interno'], $search) ?>
-                </div>
-                <div class="serial-actions">
-                  <a href="equipos_componentes.php?id=<?= $r['id'] ?>" class="serial-btn btn-components">Componentes</a>
-                  <a href="#" class="serial-btn btn-public" onclick="openModal('equipo_ver.php?serial=<?= urlencode($r['serial_interno']) ?>&ajax=1'); return false;">Ficha pública</a>
-                </div>
-              </div>
-            </td>
-          </tr>
-        <?php endforeach; endif; ?>
-      </tbody>
-    </table>
   </div>
 
   <!-- Modal global -->
@@ -186,4 +191,5 @@ function highlight($text, $search)
   </script>
 
 </body>
+
 </html>

@@ -44,9 +44,9 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             font-size: 0.875rem;
             cursor: default;
         }
-        
-        .form-group-custom input[type="text"], 
-        .form-group-custom select, 
+
+        .form-group-custom input[type="text"],
+        .form-group-custom select,
         .form-group-custom input[type="date"] {
             padding: 10px 15px;
             border: 1px solid #ccc;
@@ -57,7 +57,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             -moz-appearance: none;
             appearance: none;
         }
-        
+
         /* Contenedor principal */
         .container {
             max-width: 1200px;
@@ -139,7 +139,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         }
 
         select,
-        input:not([type="date"]) { 
+        input:not([type="date"]) {
             padding: 6px 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
@@ -190,7 +190,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             flex-wrap: wrap;
             align-items: center;
         }
-        
+
         /* === ESTILOS PARA LA PAGINACIÓN (Basados en la imagen) === */
         #paginacionHistorial {
             display: flex;
@@ -200,48 +200,54 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         .pagination-container {
             display: flex;
             align-items: center;
-            justify-content: center; 
-            gap: 10px; 
+            justify-content: center;
+            gap: 10px;
             padding: 10px 15px;
-            background: #1e3c72; /* Fondo de la barra de paginación: Azul oscuro */
-            border-radius: 12px; 
+            background: #1e3c72;
+            /* Fondo de la barra de paginación: Azul oscuro */
+            border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-            margin-top: 15px; 
+            margin-top: 15px;
             color: #fff;
         }
 
         .pagination-button {
             padding: 8px 18px;
             border: none;
-            border-radius: 8px; 
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
             transition: 0.2s ease-in-out;
             font-size: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
             color: #fff;
         }
 
         /* Estilo para botón Siguiente (activo) */
         .pagination-button.active-next {
-            background: #2a5298; /* Un azul más vibrante para el botón activo */
+            background: #2a5298;
+            /* Un azul más vibrante para el botón activo */
         }
+
         .pagination-button.active-next:hover:not(:disabled) {
             background: #3e68b3;
         }
 
         /* Estilo para botón Anterior (deshabilitado/menos activo) */
         .pagination-button:disabled {
-            background: #4a5a7d; /* Tono grisáceo azulado y más oscuro */
+            background: #4a5a7d;
+            /* Tono grisáceo azulado y más oscuro */
             color: rgba(255, 255, 255, 0.7);
             cursor: not-allowed;
             box-shadow: none;
         }
+
         .pagination-button:not(:disabled):not(.active-next) {
-             /* Si quieres que 'Anterior' se vea como 'Siguiente' si está activo, 
+            /* Si quieres que 'Anterior' se vea como 'Siguiente' si está activo, 
                 pero no es la página 1, puedes usar esta regla o ajustarla */
-            background: #2a5298; 
+            background: #2a5298;
         }
+
         .pagination-button:not(:disabled):not(.active-next):hover {
             background: #3e68b3;
         }
@@ -249,11 +255,13 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
 
         .pagination-info {
             font-size: 1rem;
-            font-weight: 600; /* Más audaz para el número de página */
+            font-weight: 600;
+            /* Más audaz para el número de página */
             color: #fff;
             padding: 0 10px;
             text-align: center;
-            white-space: nowrap; /* Evita que el texto de página se rompa */
+            white-space: nowrap;
+            /* Evita que el texto de página se rompa */
         }
 
         /* Responsive para móviles */
@@ -323,7 +331,6 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         </div>
 
     </div>
-
     <script>
         // ---- PRÉSTAMOS ACTIVOS ----
         function actualizarPrestamos() {
@@ -366,8 +373,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                                     <button onclick="aprobar(${p.id},'devolucion')">Aprobar</button>
                                     <button style="background:#dc2626" onclick="rechazar(${p.id})">Rechazar</button>
                                 </div>`;
-                        }
-                        else if (p.estado === 'activo') {
+                        } else if (p.estado === 'activo') {
                             accion = `
                                 <div class="action-buttons">
                                     <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Cancelar préstamo</button>
@@ -493,7 +499,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             const datos = new FormData(form);
             datos.append('pagina', paginaActual);
             // Mostrar estado de carga
-            document.getElementById('tablaHistorial').innerHTML = 'Cargando...'; 
+            document.getElementById('tablaHistorial').innerHTML = 'Cargando...';
 
             fetch('prestamos_historial_ajax.php', {
                     method: 'POST',
@@ -513,11 +519,11 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             const totalPaginasEl = document.getElementById('totalPaginas');
             const totalPaginas = totalPaginasEl ? parseInt(totalPaginasEl.dataset.total) : 1;
             const cont = document.getElementById('paginacionHistorial');
-            
+
             // Si no hay tablaHistorial, no renderizamos botones.
             if (!document.getElementById('tablaHistorial').innerHTML.includes('<table>')) {
-                 cont.innerHTML = '';
-                 return;
+                cont.innerHTML = '';
+                return;
             }
 
             cont.innerHTML = ''; // Limpiar contenido anterior
@@ -533,7 +539,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             btnPrev.disabled = paginaActual <= 1;
             // Estilo específico para deshabilitado (como en la imagen)
             if (paginaActual <= 1) {
-                 btnPrev.style.opacity = '0.7'; 
+                btnPrev.style.opacity = '0.7';
             }
             btnPrev.onclick = () => cargarHistorial(paginaActual - 1);
             paginationContainer.appendChild(btnPrev);
@@ -549,13 +555,13 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             btnNext.textContent = 'Siguiente';
             btnNext.classList.add('pagination-button', 'active-next'); // Usamos active-next como el estilo principal
             btnNext.disabled = paginaActual >= totalPaginas;
-            
+
             // Si Siguiente está deshabilitado, aplicar estilo de deshabilitado
             if (paginaActual >= totalPaginas) {
-                 btnNext.classList.remove('active-next');
-                 btnNext.style.opacity = '0.7'; 
+                btnNext.classList.remove('active-next');
+                btnNext.style.opacity = '0.7';
             }
-            
+
             btnNext.onclick = () => cargarHistorial(paginaActual + 1);
             paginationContainer.appendChild(btnNext);
 
