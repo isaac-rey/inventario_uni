@@ -121,6 +121,7 @@ $data_params[] = $offset;
 
 $stmt = $mysqli->prepare($sql);
 if ($stmt) {
+    // Usar bind_param con referencias para parámetros dinámicos
     $bind_params = array_merge([$data_types], $data_params);
     $refs = [];
     foreach ($bind_params as $key => $value) $refs[$key] = &$bind_params[$key];
@@ -230,7 +231,7 @@ $contador = $offset;
                         <tr>
 
                             <td data-label="Nro"><?= $contador ?></td>
-                            <td data-label="Ejecutor"><?= htmlspecialchars($row['nombre_actor'] ?? 'Sistema/Anónimo') ?></td> 
+                            <td data-label="Usuario"><?= htmlspecialchars($row['nombre_actor'] ?? 'Sistema/Anónimo') ?></td> 
                             <td data-label="Acción"><?= htmlspecialchars($row['accion']) ?></td>
                             <td data-label="Fecha" class="align-left"><?= htmlspecialchars($row['fecha']) ?></td>
                         </tr>
