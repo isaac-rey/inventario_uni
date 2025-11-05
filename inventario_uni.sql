@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2025 a las 02:58:44
+-- Tiempo de generación: 05-11-2025 a las 05:27:33
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -221,7 +221,38 @@ INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `tipo_accion`, `ip_usuari
 (234, 12, 'Cierre de sesión exitoso. Usuario: Nathi (Rol: admin)', 'cierre_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:44:52'),
 (235, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin)', 'inicio_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:44:57'),
 (236, 6, 'Cedió el equipo \'Proyector Epson C0-W012 (Serial: 1fd38f17793a)\' al Docente Nathalia Rotela (CI: 5695298)', 'cesión_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-11-04 22:45:45'),
-(237, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:46:25');
+(237, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:46:25'),
+(238, 7, 'El usuario kevin  verificó el reporte ID 2 del equipo (Tele  ). Fallo: slgo. Descripción: dfb...', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 23:53:02'),
+(239, 7, 'El usuario kevin  verificó el reporte ID 3 del equipo (Tele  ). Fallo: dhb. Descripción: dfbdfb...', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 23:54:49'),
+(240, 7, 'El usuario kevin  verificó el reporte ID 4 del equipo (Tele  ). Fallo: prueba. Descripción: gdb...', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 23:56:19'),
+(241, 3, 'Reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: Daño físico. Descripción: Prueba...', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-11-04 23:56:38'),
+(242, 7, 'El usuario kevin  verificó el reporte ID 13 del equipo (Proyector Epson C0-W012). Fallo: Daño físico. Descripción: Prueba...', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 23:57:07'),
+(243, 7, 'Envió el Equipo ID 1 (Proyector Epson (Serial: 1fd38f17793a)) a mantenimiento. Destino: algun lugar. Motivo: Pruebaa.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 23:58:12'),
+(244, 7, 'Finalizó el mantenimiento del Equipo ID 1 (Serial: 1fd38f17793a). Resultado: DEVUELTO SIN SOLUCIONAR', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:03:30'),
+(245, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W012) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:07:12'),
+(246, 3, 'Cedió el equipo \'Proyector Epson C0-W012 (Serial: 1fd38f17793a)\' al Docente Joaquin Profe (CI: 12345678)', 'cesión_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:07:34'),
+(247, 6, 'Cedió el equipo \'Proyector Epson C0-W012 (Serial: 1fd38f17793a)\' al Docente Nathalia Rotela (CI: 5695298)', 'cesión_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-11-05 00:23:20'),
+(248, 6, 'Reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: Algo.', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:24:22'),
+(249, 7, 'El usuario kevin  verificó el reporte ID 14 del equipo (Proyector Epson C0-W012). Fallo: Algo. Descripción: No...', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:24:56'),
+(250, 7, 'Envió el Equipo ID 1 (Proyector Epson (Serial: 1fd38f17793a)) a mantenimiento. Destino: si. Motivo: no.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:27:05'),
+(251, 7, 'Ha cancelado de préstamo activo del equipo ID 1 (Proyector Epson C0-W012) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:27:24'),
+(252, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W012) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:27:42'),
+(253, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin)', 'inicio_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:27:57'),
+(254, 7, 'Editó los datos del estudiante ID 1 \'Joaquin Ayala\' (C.I: 5534142).', 'acción_estudiante', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:28:09'),
+(255, 2, 'Reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: Daño.', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:34:09'),
+(256, 7, 'Verificó el reporte del equipo (Proyector Epson C0-W012). Fallo: Daño.', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:35:33'),
+(257, 7, 'Envió el Equipo ID 1 (Proyector Epson (Serial: 1fd38f17793a)) a mantenimiento. Destino: si. Motivo: thdh.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:35:47'),
+(258, 2, 'Reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: bgihkv.', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 00:44:36'),
+(259, 7, 'Verificó el reporte del equipo (Proyector Epson C0-W012). Fallo: bgihkv.', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:03:52'),
+(260, 2, 'El/la alumno/a reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: srgbisrhg.', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:17:38'),
+(261, 7, 'Verificó el reporte del equipo (Proyector Epson C0-W012). Fallo: srgbisrhg.', 'verificacion', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:18:28'),
+(262, 7, 'Envió el Equipo ID 1 (Proyector Epson (Serial: 1fd38f17793a)) a mantenimiento. Destino: siuuuu. Motivo: mooooo.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:21:11'),
+(263, 7, 'Finalizó el mantenimiento del Equipo ID 1 (Serial: 1fd38f17793a). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:21:38'),
+(264, 7, 'Finalizó el mantenimiento del Equipo ID 1 (Serial: 1fd38f17793a). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:22:01'),
+(265, 7, 'Envió el Equipo ID 1 (Proyector Epson (Serial: 1fd38f17793a)) a mantenimiento. Destino: Se fue. Motivo: dv.', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:22:13'),
+(266, 7, 'Finalizó el mantenimiento del Equipo ID 1 (Serial: 1fd38f17793a). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:22:21'),
+(267, 7, 'Finalizó el mantenimiento del Equipo ID 1 (Serial: 1fd38f17793a). Resultado: SOLUCIONADO y devuelto', 'mantenimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-05 01:22:29'),
+(268, 6, 'El/la docente reportó un fallo para el equipo ID 1 (Proyector Epson C0-W012). Fallo: Se dañó.', 'reporte', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-11-05 01:23:43');
 
 -- --------------------------------------------------------
 
@@ -293,7 +324,9 @@ INSERT INTO `cesiones` (`id`, `prestamo_id`, `cedente_id`, `a_docente_id`, `fech
 (46, 52, 6, 3, '2025-11-04 21:23:51', '2025-11-05 01:24:11', 'aceptada', NULL),
 (47, 52, 3, 6, '2025-11-04 21:28:19', '2025-11-05 01:42:40', 'rechazada', NULL),
 (48, 52, 3, 6, '2025-11-04 21:42:59', '2025-11-05 01:44:40', 'aceptada', NULL),
-(49, 53, 6, 3, '2025-11-04 22:45:37', '2025-11-05 02:45:45', 'aceptada', NULL);
+(49, 53, 6, 3, '2025-11-04 22:45:37', '2025-11-05 02:45:45', 'aceptada', NULL),
+(50, 54, 3, 6, '2025-11-05 00:07:30', '2025-11-05 04:07:34', 'aceptada', NULL),
+(51, 54, 6, 3, '2025-11-05 00:23:06', '2025-11-05 04:23:20', 'aceptada', NULL);
 
 -- --------------------------------------------------------
 
@@ -404,7 +437,7 @@ CREATE TABLE `equipos` (
 --
 
 INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`, `con_fallos`) VALUES
-(1, 2, 1, 'Proyector', 'Epson', 'C0-W012', NULL, '1fd38f17793a', 'Disponible', 0, 0, NULL, '2025-10-27 18:06:38', '2025-11-05 01:46:25', 0, 0),
+(1, 2, 1, 'Proyector', 'Epson', 'C0-W012', NULL, '1fd38f17793a', 'Disponible', 1, 1, NULL, '2025-10-27 18:06:38', '2025-11-05 04:23:43', 0, 0),
 (2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-11-04 17:00:24', 0, 0),
 (4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'bueno', 0, 0, NULL, '2025-10-27 18:08:26', '2025-11-04 21:06:26', 0, 0),
 (5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'Disponible', 0, 0, NULL, '2025-10-27 21:35:24', '2025-11-04 00:46:01', 0, 0),
@@ -432,7 +465,7 @@ CREATE TABLE `estudiantes` (
 --
 
 INSERT INTO `estudiantes` (`id`, `ci`, `nombre`, `apellido`, `email`, `password_hash`, `creado_en`) VALUES
-(1, '5534142', 'Joaquín', 'Ayala', 'isrraesp19@gmail.com', '$2y$10$t0wXgPnizOJQ21N7STH1YODG0LCyGBqVMjVQTJH2Ru6iU0UGhZvH6', '2025-10-27 19:17:19'),
+(1, '5534142', 'Joaquin', 'Ayala', 'isrraesp19@gmail.com', '$2y$10$t0wXgPnizOJQ21N7STH1YODG0LCyGBqVMjVQTJH2Ru6iU0UGhZvH6', '2025-10-27 19:17:19'),
 (2, '5695298', 'Nathi', 'Rotela', 'nathaliarotela5@gmail.com', '$2y$10$97nA8c48j7bEIvNUtjIFwOYP0R/vwJFcvUgDwxPXZX8KXwsrwKsxa', '2025-10-28 04:48:03');
 
 -- --------------------------------------------------------
@@ -495,7 +528,9 @@ INSERT INTO `historial_cesiones` (`id`, `prestamo_id`, `de_docente_id`, `a_docen
 (38, 52, 3, 6, NULL, '2025-11-04 21:21:39'),
 (39, 52, 6, 3, NULL, '2025-11-04 21:24:11'),
 (40, 52, 3, 6, NULL, '2025-11-04 21:44:40'),
-(41, 53, 6, 3, NULL, '2025-11-04 22:45:45');
+(41, 53, 6, 3, NULL, '2025-11-04 22:45:45'),
+(42, 54, 3, 6, NULL, '2025-11-05 00:07:34'),
+(43, 54, 6, 3, NULL, '2025-11-05 00:23:20');
 
 -- --------------------------------------------------------
 
@@ -510,8 +545,8 @@ CREATE TABLE `mantenimientos` (
   `reporte_id` int(11) DEFAULT NULL,
   `destino` varchar(255) DEFAULT NULL,
   `motivo` text DEFAULT NULL,
-  `fecha_envio` datetime NOT NULL,
-  `fecha_devolucion` datetime DEFAULT NULL,
+  `fecha_envio` date NOT NULL,
+  `fecha_devolucion` date DEFAULT NULL,
   `solucionado` tinyint(1) DEFAULT NULL,
   `observaciones` text DEFAULT NULL,
   `creado_en` timestamp NOT NULL DEFAULT current_timestamp()
@@ -522,19 +557,11 @@ CREATE TABLE `mantenimientos` (
 --
 
 INSERT INTO `mantenimientos` (`id`, `equipo_id`, `usuario_id`, `reporte_id`, `destino`, `motivo`, `fecha_envio`, `fecha_devolucion`, `solucionado`, `observaciones`, `creado_en`) VALUES
-(2, 5, 7, 2, 'ai', 'bgd', '2025-10-28 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 22:53:36'),
-(3, 5, 7, 3, 'htrhet', 'hdnhey', '2025-10-28 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-28 22:55:01'),
-(4, 5, 7, 4, 'a otro lugar', 'si', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 23:16:42'),
-(5, 5, 7, 5, 'bfndb', 'bdfrbd', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-28 23:33:30'),
-(6, 5, 7, 6, 'nfcn', 'dfgtf', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-28 23:34:20'),
-(7, 5, 7, 7, 'ftugj', 'ftgtju', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 00:50:00'),
-(8, 5, 7, 8, 'bdgb', 'tebgd', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 01:05:06'),
-(9, 5, 7, 9, 'gvjv', 'hbyybh', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 01:35:20'),
-(10, 5, 7, 10, 'hdtc', 'cgnvc', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 01:36:39'),
-(11, 5, 7, NULL, NULL, NULL, '2025-10-28 23:08:29', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:08:29'),
-(12, 8, 7, 11, 'algun lugar', 'porque si', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 0, NULL, '2025-10-29 02:10:47'),
-(13, 5, 7, 12, 'hndxx', 'cgnj', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:11:21'),
-(14, 8, 7, NULL, 'gvuuguut', 'fxdhdxfn', '2025-10-29 00:00:00', '2025-10-28 00:00:00', 1, NULL, '2025-10-29 02:12:15');
+(15, 1, 7, 13, 'algun lugar', 'Pruebaa', '2025-11-05', '2025-11-05', 0, NULL, '2025-11-05 02:58:12'),
+(16, 1, 7, 14, 'si', 'no', '2025-11-05', '2025-11-05', 1, NULL, '2025-11-05 03:27:05'),
+(17, 1, 7, 15, 'si', 'thdh', '2025-11-05', '2025-11-05', 1, NULL, '2025-11-05 03:35:47'),
+(18, 1, 7, 17, 'siuuuu', 'mooooo', '2025-11-05', '2025-11-05', 1, NULL, '2025-11-05 04:21:11'),
+(19, 1, 7, 16, 'Se fue', 'dv', '2025-11-05', '2025-11-06', 1, NULL, '2025-11-05 04:22:13');
 
 -- --------------------------------------------------------
 
@@ -653,7 +680,9 @@ INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usua
 (50, 1, NULL, 6, 6, '2025-11-04 19:30:01', NULL, 'cancelado', '', '2025-11-04 22:29:53', NULL, NULL, NULL),
 (51, 1, NULL, 6, 6, '2025-11-04 19:51:42', NULL, 'cancelado', '', '2025-11-04 22:51:35', NULL, NULL, NULL),
 (52, 1, NULL, 6, 6, '2025-11-04 21:17:14', NULL, 'cancelado', '', '2025-11-05 00:17:10', NULL, NULL, NULL),
-(53, 1, NULL, 3, 3, '2025-11-04 21:53:13', '2025-11-04 22:46:25', 'devuelto', '', '2025-11-05 00:53:10', NULL, NULL, NULL);
+(53, 1, NULL, 3, 3, '2025-11-04 21:53:13', '2025-11-04 22:46:25', 'devuelto', '', '2025-11-05 00:53:10', NULL, NULL, NULL),
+(54, 1, NULL, 3, 3, '2025-11-05 00:07:12', NULL, 'cancelado', '', '2025-11-05 03:07:06', NULL, NULL, NULL),
+(55, 1, NULL, 3, 3, '2025-11-05 00:27:42', NULL, 'activo', '', '2025-11-05 03:27:38', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -663,29 +692,25 @@ INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usua
 
 CREATE TABLE `reporte_fallos` (
   `id` int(11) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` varchar(10) NOT NULL,
   `tipo_fallo` varchar(255) NOT NULL,
   `descripcion_fallo` text NOT NULL,
   `id_equipo` int(11) NOT NULL,
-  `nombre_usuario_reportante` varchar(120) NOT NULL
+  `nombre_usuario_reportante` varchar(120) NOT NULL,
+  `reporte_verificar` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `reporte_fallos`
 --
 
-INSERT INTO `reporte_fallos` (`id`, `fecha`, `tipo_fallo`, `descripcion_fallo`, `id_equipo`, `nombre_usuario_reportante`) VALUES
-(2, '0000-00-00', 'slgo', 'dfb', 5, 'kevin'),
-(3, '0000-00-00', 'dhb', 'dfbdfb', 5, 'kevin'),
-(4, '0000-00-00', 'prueba', 'gdb', 5, 'kevin'),
-(5, '0000-00-00', 'gcjgcvj', 'hbvjhv', 5, 'kevin'),
-(6, '0000-00-00', 'hdthnde', 'ghfyj', 5, 'kevin'),
-(7, '0000-00-00', '15516', 'rdhd', 5, 'kevin'),
-(8, '0000-00-00', 'hvjcj', 'fviyfj', 5, 'kevin'),
-(9, '0000-00-00', 'gtucgju', 'gyui', 5, 'kevin'),
-(10, '0000-00-00', 'vggj', 'tfitju', 5, 'kevin'),
-(11, '0000-00-00', 'falloooo', 'si', 8, 'kevin'),
-(12, '0000-00-00', 'cgnd', 'ncgn', 5, 'kevin');
+INSERT INTO `reporte_fallos` (`id`, `fecha`, `tipo_fallo`, `descripcion_fallo`, `id_equipo`, `nombre_usuario_reportante`, `reporte_verificar`) VALUES
+(13, '04-11-2025', 'Daño físico', 'Prueba', 1, 'Nathalia Rotela', 1),
+(14, '04-11-2025', 'Algo', 'No', 1, 'Joaquin Profe', 1),
+(15, '05-11-2025', 'Daño', 'Se dañó', 1, 'Nathi Rotela', 1),
+(16, '05-11-2025', 'bgihkv', 'hvuhj', 1, 'Nathi Rotela', 1),
+(17, '05-11-2025', 'srgbisrhg', 'fhbsfh', 1, 'Nathi Rotela', 1),
+(18, '05-11-2025', 'Se dañó', 'Si', 1, 'Joaquin Profe', 0);
 
 -- --------------------------------------------------------
 
@@ -905,13 +930,13 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
 
 --
 -- AUTO_INCREMENT de la tabla `cesiones`
 --
 ALTER TABLE `cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT de la tabla `componentes`
@@ -947,13 +972,13 @@ ALTER TABLE `estudiantes`
 -- AUTO_INCREMENT de la tabla `historial_cesiones`
 --
 ALTER TABLE `historial_cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `mantenimientos`
 --
 ALTER TABLE `mantenimientos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `password_resets`
@@ -971,13 +996,13 @@ ALTER TABLE `password_resets_estudiantes`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte_fallos`
 --
 ALTER TABLE `reporte_fallos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT de la tabla `roles`

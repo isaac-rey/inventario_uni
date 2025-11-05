@@ -24,13 +24,19 @@ $where_clauses = [];
 
 // Ajuste en la búsqueda para incluir nombres de docentes
 if (!empty($search)) {
-    // La búsqueda debe seguir siendo flexible (accion, usuario, docente)
-    $where_clauses[] = "(a.accion LIKE ? OR u.nombre LIKE ? OR CONCAT(d.nombre, ' ', d.apellido) LIKE ?)";
-    $like_search = "%" . $search . "%";
-    $params[] = $like_search; // a.accion
-    $params[] = $like_search; // u.nombre
-    $params[] = $like_search; // CONCAT(d.nombre, ' ', d.apellido)
-    $types .= 'sss'; 
+ // La búsqueda incluye ahora (acción, usuario, docente, estudiante)
+ $where_clauses[] = "(
+ a.accion LIKE ? 
+ OR u.nombre LIKE ? 
+ OR CONCAT(d.nombre, ' ', d.apellido) LIKE ? 
+ OR CONCAT(e.nombre, ' ', e.apellido) LIKE ? -- ⭐ NUEVO
+ )";
+ $like_search = "%" . $search . "%";
+ $params[] = $like_search; // a.accion
+ $params[] = $like_search; // u.nombre
+ $params[] = $like_search; // CONCAT(d.nombre, ' ', d.apellido)
+ $params[] = $like_search; // CONCAT(e.nombre, ' ', e.apellido) -- ⭐ NUEVO
+ $types .= 'ssss'; // Se añade un 's' adicional por el nuevo parámetro
 }
 if (!empty($fecha_inicio)) {
     $where_clauses[] = "a.fecha >= ?";
@@ -59,11 +65,12 @@ $count_params = $params;
 $count_types = $types;
 
 $sql_count = "
-    SELECT COUNT(*) AS total 
-    FROM auditoria a 
-    LEFT JOIN usuarios u ON a.usuario_id = u.id 
-    LEFT JOIN docentes d ON a.usuario_id = d.id 
-    " . $where;
+ SELECT COUNT(*) AS total 
+ FROM auditoria a 
+ LEFT JOIN usuarios u ON a.usuario_id = u.id 
+ LEFT JOIN docentes d ON a.usuario_id = d.id 
+ LEFT JOIN estudiantes e ON a.usuario_id = e.id -- ⭐ NUEVO
+ " . $where;
 
 if (!empty($count_params)) {
     $stmt_count = $mysqli->prepare($sql_count);
@@ -85,33 +92,51 @@ $total_paginas = ceil($total_registros / $items_por_pagina);
 $pagina_actual = min($pagina_actual, $total_paginas);
 $offset = ($pagina_actual - 1) * $items_por_pagina;
 
-// --- CONSULTA DE DATOS CON LÓGICA ESPECIAL PARA CESIÓN ---
+// --- CONSULTA DE DATOS CON LÓGICA ESPECIAL PARA CESIÓN, REPORTE Y AMBIGÜEDAD ---
 $sql = "
-    SELECT 
-        a.id, 
-        a.accion, 
-        a.fecha, 
-        a.tipo_accion,
-        -- ⭐ LOGICA CONDICIONAL DE ACTOR
-        CASE 
-            WHEN a.tipo_accion = 'CESION' THEN
-                -- Extrae el nombre del Docente Cedente del campo 'a.accion'.
-                -- Ejemplo: 'El/la Docente Joaquin Profe (...) cedió...'
-                SUBSTRING_INDEX(
-                    SUBSTRING_INDEX(a.accion, ' cedió el equipo', 1),
-                    'Docente ', -1
-                )
-            ELSE
-                -- Mantiene la lógica normal: Usuario o Docente asociado al a.usuario_id
-                COALESCE(u.nombre, CONCAT(d.nombre, ' ', d.apellido))
-        END AS nombre_actor
-    FROM auditoria a
-    -- Se mantienen las uniones para que el filtro de búsqueda funcione correctamente
-    LEFT JOIN usuarios u ON a.usuario_id = u.id
-    LEFT JOIN docentes d ON a.usuario_id = d.id  
-    $where
-    ORDER BY a.fecha DESC
-    LIMIT ? OFFSET ?
+SELECT 
+    a.id, 
+    a.accion, 
+    a.fecha, 
+    a.tipo_accion,
+    -- ⭐ LÓGICA CORREGIDA PARA EL ACTOR (Añadiendo lógica basada en el texto para REPORTE) ⭐
+    CASE 
+        WHEN a.tipo_accion = 'CESION' THEN
+            -- Lógica para cesión (no cambia)
+            SUBSTRING_INDEX(
+                SUBSTRING_INDEX(a.accion, ' cedió el equipo', 1),
+                'Docente ', -1
+            )
+        -- ⭐ NUEVA LÓGICA: Usar el texto de la acción para distinguir Docente/Estudiante en 'reporte' ⭐
+        WHEN a.tipo_accion = 'reporte' THEN
+            CASE
+                -- 1. Si la acción dice 'alumno/a', priorizar el Estudiante
+                WHEN a.accion LIKE '%alumno/a reportó%' THEN
+                    COALESCE(u.nombre, CONCAT(e.nombre, ' ', e.apellido))
+                -- 2. Si la acción dice 'docente', priorizar el Docente
+                WHEN a.accion LIKE '%docente Reportó%' THEN
+                    COALESCE(u.nombre, CONCAT(d.nombre, ' ', d.apellido))
+                ELSE
+                    -- Si el tipo es 'reporte' pero el texto no coincide, usar la lógica general
+                    COALESCE(u.nombre, CONCAT(d.nombre, ' ', d.apellido), CONCAT(e.nombre, ' ', e.apellido))
+            END
+        -- Para el resto de acciones (préstamo, devolución, etc. donde no hay texto distintivo en la acción)
+        ELSE
+            -- Prioridad general (asumiendo que Docente sigue siendo la entidad principal, salvo que se demuestre lo contrario)
+            COALESCE(
+                u.nombre, 
+                CONCAT(d.nombre, ' ', d.apellido),
+                CONCAT(e.nombre, ' ', e.apellido)
+            )
+    END AS nombre_actor
+FROM auditoria a
+-- Se mantienen las uniones para que el filtro de búsqueda funcione correctamente
+LEFT JOIN usuarios u ON a.usuario_id = u.id
+LEFT JOIN docentes d ON a.usuario_id = d.id 
+LEFT JOIN estudiantes e ON a.usuario_id = e.id 
+$where
+ORDER BY a.fecha DESC
+LIMIT ? OFFSET ?
 ";
 
 $data_params = $params;
@@ -121,7 +146,6 @@ $data_params[] = $offset;
 
 $stmt = $mysqli->prepare($sql);
 if ($stmt) {
-    // Usar bind_param con referencias para parámetros dinámicos
     $bind_params = array_merge([$data_types], $data_params);
     $refs = [];
     foreach ($bind_params as $key => $value) $refs[$key] = &$bind_params[$key];

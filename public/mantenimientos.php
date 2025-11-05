@@ -53,10 +53,14 @@ $mantenimientos = $res ? $res->fetch_all(MYSQLI_ASSOC) : [];
                     <td><?= $m['fecha_envio'] ?></td>
                     <td><?= $m['fecha_devolucion'] ?? '<span class="muted">No devuelto</span>' ?></td>
                     <td class="<?= $m['solucionado'] ? 'status-active' : 'status-returned' ?>">
-                        <?= $m['solucionado'] ? 'Sí' : 'No' ?>
+                        <?php if ($m['solucionado'] ==1): ?>
+                                      Si  
+                        <?php elseif (is_null($m['solucionado'])): ?>
+                                 -                       
+                        <?php else: ?>
+                               NO             
+                        <?php endif; ?>
                     </td>
-                  
-    
                 </tr>
                 <?php endforeach; ?>
             </tbody>
