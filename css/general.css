@@ -1,7 +1,23 @@
 /* ===================================
    SISTEMA DE INVENTARIO UNIVERSITARIO
    CSS GLOBAL - Versión 2025
+   (LIMPIO DE ESTILOS DE BARRA DE NAVEGACIÓN)
    =================================== */
+
+/* Oculta la barra de scroll en todo el documento */
+body {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE y Edge antiguos */
+  overflow-y: scroll;
+  /* asegura que no se "salte" el layout */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+  /* Chrome, Safari, Opera */
+}
 
 /* === VARIABLES GLOBALES === */
 :root {
@@ -11,7 +27,7 @@
   --primary-light: #818cf8;
   --secondary-color: #0f172a;
   --secondary-light: #1e293b;
-  
+
   /* Colores de estado */
   --success-color: #10b981;
   --success-bg: #d1fae5;
@@ -21,7 +37,7 @@
   --danger-bg: #fee2e2;
   --info-color: #3b82f6;
   --info-bg: #dbeafe;
-  
+
   /* Neutrales */
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
@@ -30,24 +46,24 @@
   --text-primary: #1e293b;
   --text-secondary: #64748b;
   --text-muted: #94a3b8;
-  
+
   /* Sombras */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  
+
   /* Transiciones */
   --transition-fast: 150ms ease-in-out;
   --transition-normal: 300ms ease-in-out;
-  
+
   /* Espaciado */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
-  
+
   /* Bordes */
   --radius-sm: 6px;
   --radius-md: 8px;
@@ -64,12 +80,11 @@
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 
-               'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
   background: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.6;
-  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -125,7 +140,8 @@ table {
   border-collapse: separate;
   border-spacing: 0;
   background: var(--bg-secondary);
-  border-radius: var(--radius-lg);
+  border-radius: 0;
+  /* AHORA RECTO: Antes era var(--radius-lg) */
   overflow: hidden;
   box-shadow: var(--shadow-md);
 }
@@ -173,7 +189,9 @@ td[data-label]::before {
 }
 
 /* === BOTONES === */
-.btn, button, input[type="submit"] {
+.btn,
+button,
+input[type="submit"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -191,29 +209,38 @@ td[data-label]::before {
 }
 
 /* Botón primario */
-.btn, .btn-primary, button[type="submit"] {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+.btn,
+.btn-primary,
+button[type="submit"] {
+ background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
   color: white;
-  box-shadow: 0 4px 6px rgba(99, 102, 241, 0.2);
+box-shadow: 0 4px 10px rgb(6, 25, 131);
+
 }
 
-.btn:hover, .btn-primary:hover, button[type="submit"]:hover {
+.btn:hover,
+.btn-primary:hover,
+button[type="submit"]:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(99, 102, 241, 0.3);
+  box-shadow: 0 4px 10px rgb(6, 25, 131);
 }
 
 /* Botón secundario */
-.btn-secondary, .secondary {
-  background: var(--bg-secondary);
-  color: var(--text-primary);
-  border: 2px solid var(--border-color);
-  box-shadow: var(--shadow-sm);
+.btn-secondary,
+.secondary {
+  background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+  color: #ffffff;
+  border: 2px solid #1e3a8a;
+  box-shadow: 0 4px 10px rgba(30, 58, 138, 0.6);
+  transition: all 0.3s ease;
 }
 
-.btn-secondary:hover {
-  background: var(--bg-primary);
-  border-color: var(--primary-color);
-  color: var(--primary-color);
+.btn-secondary:hover,
+.secondary:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  border-color: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 6px 12px rgba(37, 99, 235, 0.6);
 }
 
 /* Botón de éxito */
@@ -229,7 +256,8 @@ td[data-label]::before {
 }
 
 /* Botón de peligro */
-.btn-danger, button[name="delete"] {
+.btn-danger,
+button[name="delete"] {
   background: linear-gradient(135deg, var(--danger-color) 0%, #dc2626 100%);
   color: white;
   box-shadow: 0 4px 6px rgba(239, 68, 68, 0.2);
@@ -260,7 +288,8 @@ td[data-label]::before {
 }
 
 /* Botón deshabilitado */
-.btn:disabled, button:disabled {
+.btn:disabled,
+button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none !important;
@@ -328,7 +357,9 @@ select {
 }
 
 /* === BADGES Y PILLS === */
-.badge, .pill, .status {
+.badge,
+.pill,
+.status {
   display: inline-flex;
   align-items: center;
   padding: 0.375rem 0.75rem;
@@ -339,17 +370,21 @@ select {
   letter-spacing: 0.5px;
 }
 
-.badge.ok, .status-active, .pill {
+.badge.ok,
+.status-active,
+.pill {
   background: var(--success-bg);
   color: var(--success-color);
 }
 
-.badge.warn, .status-returned {
+.badge.warn,
+.status-returned {
   background: var(--warning-bg);
   color: var(--warning-color);
 }
 
-.badge.bad, .status-inactive {
+.badge.bad,
+.status-inactive {
   background: var(--danger-bg);
   color: var(--danger-color);
 }
@@ -360,7 +395,9 @@ select {
 }
 
 /* === ALERTAS Y MENSAJES === */
-.ok, .success, .msg {
+.ok,
+.success,
+.msg {
   padding: var(--spacing-lg);
   border-radius: var(--radius-md);
   background: var(--success-bg);
@@ -422,7 +459,8 @@ select {
 }
 
 /* === ACCIONES EN TABLAS === */
-.acciones, td.acciones {
+.acciones,
+td.acciones {
   white-space: nowrap;
 }
 
@@ -466,6 +504,7 @@ select {
     opacity: 0;
     transform: translateY(-50px) scale(0.95);
   }
+
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -572,30 +611,6 @@ select {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-/* === NAVEGACIÓN/HEADER === */
-header {
-  background: linear-gradient(135deg, var(--secondary-color) 0%, var(--secondary-light) 100%);
-  color: white;
-  padding: var(--spacing-lg) var(--spacing-xl);
-  box-shadow: var(--shadow-md);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-header a {
-  color: #93c5fd;
-  text-decoration: none;
-  transition: color var(--transition-fast);
-}
-
-header a:hover {
-  color: white;
-}
-
 /* === ENLACES === */
 a {
   color: var(--primary-color);
@@ -609,24 +624,56 @@ a:hover {
 }
 
 /* === UTILIDADES === */
-.text-center { text-align: center; }
-.text-right { text-align: right; }
-.mt-1 { margin-top: var(--spacing-sm); }
-.mt-2 { margin-top: var(--spacing-md); }
-.mt-3 { margin-top: var(--spacing-lg); }
-.mb-1 { margin-bottom: var(--spacing-sm); }
-.mb-2 { margin-bottom: var(--spacing-md); }
-.mb-3 { margin-bottom: var(--spacing-lg); }
-.p-1 { padding: var(--spacing-sm); }
-.p-2 { padding: var(--spacing-md); }
-.p-3 { padding: var(--spacing-lg); }
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.mt-1 {
+  margin-top: var(--spacing-sm);
+}
+
+.mt-2 {
+  margin-top: var(--spacing-md);
+}
+
+.mt-3 {
+  margin-top: var(--spacing-lg);
+}
+
+.mb-1 {
+  margin-bottom: var(--spacing-sm);
+}
+
+.mb-2 {
+  margin-bottom: var(--spacing-md);
+}
+
+.mb-3 {
+  margin-bottom: var(--spacing-lg);
+}
+
+.p-1 {
+  padding: var(--spacing-sm);
+}
+
+.p-2 {
+  padding: var(--spacing-md);
+}
+
+.p-3 {
+  padding: var(--spacing-lg);
+}
 
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .container {
     padding: var(--spacing-lg);
   }
-  
+
   table {
     display: block;
     overflow-x: auto;
@@ -634,32 +681,39 @@ a:hover {
 }
 
 @media (max-width: 768px) {
+
   /* Tablas responsive */
-  table, thead, tbody, th, td, tr {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
     display: block;
   }
-  
+
   thead {
     display: none;
   }
-  
+
   tbody tr {
     margin-bottom: var(--spacing-lg);
     border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
+    border-radius: 0;
+    /* AHORA RECTO: Antes era var(--radius-md) */
     padding: var(--spacing-md);
   }
-  
+
   td {
     text-align: right;
     padding: var(--spacing-sm) 0;
     border-bottom: 1px solid var(--border-color);
   }
-  
+
   td:last-child {
     border-bottom: none;
   }
-  
+
   td[data-label]::before {
     content: attr(data-label);
     float: left;
@@ -667,50 +721,47 @@ a:hover {
     text-transform: uppercase;
     display: block;
   }
-  
+
   /* Botones en móvil */
   .action-buttons {
     flex-direction: column;
   }
-  
+
   .actions {
     flex-direction: column;
     align-items: stretch;
   }
-  
-  .btn, button {
+
+  .btn,
+  button {
     width: 100%;
     justify-content: center;
   }
-  
+
   /* Grid en móvil */
-  .grid, .row {
+  .grid,
+  .row {
     grid-template-columns: 1fr;
   }
-  
+
   /* Contenedores en móvil */
   .container {
     padding: var(--spacing-md);
   }
-  
-  /* Header en móvil */
-  header {
-    flex-direction: column;
-    gap: var(--spacing-md);
-    text-align: center;
-  }
+
 }
 
 @media (max-width: 480px) {
   body {
     font-size: 13px;
   }
-  
+
   .card-body {
     padding: var(--spacing-md);
   }
-  
-  th, td {
+
+  th,
+  td {
     padding: 0.75rem;
   }
 }
@@ -721,6 +772,7 @@ a:hover {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -731,44 +783,26 @@ a:hover {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* === SCROLLBAR PERSONALIZADA === */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--bg-primary);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-color);
-  border-radius: var(--radius-full);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-hover);
-}
 
 /* === IMPRESIÓN === */
 @media print {
-  .noprint, .btn, button, .actions, header {
+
+  .noprint,
+  .btn,
+  button,
+  .actions,
+  header {
     display: none !important;
   }
-  
+
   body {
     background: white;
   }
-  
+
   .card {
     box-shadow: none;
     border: 1px solid #000;
   }
-}
-
-/* === COMPATIBILIDAD CON CLASES EXISTENTES === */
-.styled-table {
-  /* Hereda estilos de table */
 }
 
 .col {
@@ -845,7 +879,9 @@ a:hover {
   justify-content: center;
   border-radius: var(--radius-full);
   font-weight: 700;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
+
 
 /* === FIN DEL CSS === */

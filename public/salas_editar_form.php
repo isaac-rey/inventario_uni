@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="utf-8">
   <title>Editar Sala</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../css/docentes_registro.css">
+  <link rel="stylesheet" href="../css/form_equipos_editar.css">
 </head>
 
 <body>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-10-2025 a las 06:02:50
+-- Tiempo de generación: 05-11-2025 a las 02:58:44
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -215,7 +215,13 @@ INSERT INTO `auditoria` (`id`, `usuario_id`, `accion`, `tipo_accion`, `ip_usuari
 (151, 7, 'Aprobó el préstamo del equipo ID 1 (Proyector Epson C0-W012) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:25:37'),
 (152, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:28:52'),
 (153, 7, 'Aprobó el préstamo del equipo ID 2 (Monitor AOC ) al docente Nathalia Rotela (C.I: 5695298).', 'préstamo', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:29:35'),
-(154, 7, 'Ha cancelado de préstamo activo del equipo ID 2 (Monitor AOC) al docente \'Nathalia Rotela\'', 'general', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-10-29 00:29:57');
+(230, 12, 'Solicitud de restablecimiento de contraseña para CI: 5695298', 'contra_restablecimiento', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:24:08'),
+(231, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin)', 'inicio_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:24:41'),
+(233, 12, 'Inicio de sesión exitoso. Usuario: Nathi (Rol: admin)', 'inicio_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:27:00'),
+(234, 12, 'Cierre de sesión exitoso. Usuario: Nathi (Rol: admin)', 'cierre_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:44:52'),
+(235, 7, 'Inicio de sesión exitoso. Usuario: kevin (Rol: admin)', 'inicio_sesión', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:44:57'),
+(236, 6, 'Cedió el equipo \'Proyector Epson C0-W012 (Serial: 1fd38f17793a)\' al Docente Nathalia Rotela (CI: 5695298)', 'cesión_docentes', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36', '2025-11-04 22:45:45'),
+(237, 7, 'Aprobó la devolución del préstamo del equipo ID 1 (Proyector Epson C0-W012), devuelto por el docente: \'Nathalia Rotela\' (CI: 5695298).', 'devolución', '::1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/142.0.0.0 Safari/537.36', '2025-11-04 22:46:25');
 
 -- --------------------------------------------------------
 
@@ -242,7 +248,52 @@ INSERT INTO `cesiones` (`id`, `prestamo_id`, `cedente_id`, `a_docente_id`, `fech
 (1, 12, 2, 1, '2025-10-27 21:00:48', '2025-10-28 01:02:00', 'aceptada', NULL),
 (2, 13, 3, 2, '2025-10-27 22:08:50', NULL, 'pendiente', NULL),
 (3, 15, 3, 2, '2025-10-27 23:14:59', '2025-10-28 03:15:04', 'aceptada', NULL),
-(4, 16, 3, 2, '2025-10-27 23:50:03', '2025-10-28 03:50:23', 'aceptada', NULL);
+(4, 16, 3, 2, '2025-10-27 23:50:03', '2025-10-28 03:50:23', 'aceptada', NULL),
+(5, 31, 3, 2, '2025-11-03 22:59:50', NULL, 'pendiente', NULL),
+(6, 32, 3, 6, '2025-11-03 23:05:22', '2025-11-04 03:05:29', 'aceptada', NULL),
+(7, 32, 6, 3, '2025-11-03 23:10:31', '2025-11-04 03:10:41', 'aceptada', NULL),
+(8, 32, 3, 6, '2025-11-03 23:11:04', '2025-11-04 03:11:38', 'aceptada', NULL),
+(9, 32, 6, 3, '2025-11-03 23:25:29', '2025-11-04 03:25:37', 'aceptada', NULL),
+(10, 33, 6, 3, '2025-11-04 12:26:53', '2025-11-04 16:27:00', 'aceptada', NULL),
+(11, 35, 6, 3, '2025-11-04 12:41:54', '2025-11-04 16:42:05', 'aceptada', NULL),
+(12, 35, 3, 6, '2025-11-04 13:41:26', '2025-11-04 17:41:41', 'aceptada', NULL),
+(13, 35, 6, 3, '2025-11-04 13:41:49', '2025-11-04 17:46:52', 'aceptada', NULL),
+(14, 35, 3, 6, '2025-11-04 13:48:12', '2025-11-04 17:48:17', 'aceptada', NULL),
+(15, 35, 6, 3, '2025-11-04 13:53:55', '2025-11-04 17:54:00', 'aceptada', NULL),
+(16, 35, 3, 6, '2025-11-04 13:54:27', '2025-11-04 17:54:45', 'aceptada', NULL),
+(17, 35, 6, 3, '2025-11-04 13:55:26', NULL, 'pendiente', NULL),
+(18, 36, 3, 6, '2025-11-04 13:56:03', '2025-11-04 17:56:11', 'aceptada', NULL),
+(19, 37, 3, 6, '2025-11-04 13:57:37', '2025-11-04 17:57:45', 'rechazada', NULL),
+(20, 38, 3, 6, '2025-11-04 13:58:20', '2025-11-04 17:58:32', 'rechazada', NULL),
+(21, 38, 3, 6, '2025-11-04 13:59:03', '2025-11-04 17:59:09', 'aceptada', NULL),
+(22, 39, 6, 3, '2025-11-04 17:17:57', '2025-11-04 21:18:06', 'aceptada', NULL),
+(23, 40, 3, 6, '2025-11-04 17:23:06', '2025-11-04 21:23:15', 'aceptada', NULL),
+(24, 41, 6, 3, '2025-11-04 17:27:06', NULL, 'pendiente', NULL),
+(25, 42, 3, 6, '2025-11-04 17:29:35', '2025-11-04 21:30:12', 'aceptada', NULL),
+(26, 42, 6, 3, '2025-11-04 17:31:08', '2025-11-04 21:31:32', 'aceptada', NULL),
+(27, 42, 3, 6, '2025-11-04 17:32:32', NULL, 'pendiente', NULL),
+(28, 43, 6, 3, '2025-11-04 17:43:22', '2025-11-04 21:43:26', 'aceptada', NULL),
+(29, 44, 3, 6, '2025-11-04 18:06:54', '2025-11-04 22:06:58', 'aceptada', NULL),
+(30, 45, 3, 6, '2025-11-04 18:16:41', '2025-11-04 22:16:48', 'aceptada', NULL),
+(31, 46, 6, 3, '2025-11-04 18:24:53', '2025-11-04 22:24:59', 'aceptada', NULL),
+(32, 47, 6, 3, '2025-11-04 18:31:31', '2025-11-04 22:31:35', 'aceptada', NULL),
+(33, 48, 3, 6, '2025-11-04 18:42:01', '2025-11-04 22:42:06', 'aceptada', NULL),
+(34, 49, 3, 6, '2025-11-04 18:57:06', '2025-11-04 22:57:11', 'aceptada', NULL),
+(35, 49, 6, 3, '2025-11-04 19:07:00', '2025-11-04 23:12:22', 'aceptada', NULL),
+(36, 49, 3, 6, '2025-11-04 19:12:42', '2025-11-04 23:12:47', 'aceptada', NULL),
+(37, 49, 6, 3, '2025-11-04 19:14:37', '2025-11-04 23:15:06', 'aceptada', NULL),
+(38, 49, 3, 6, '2025-11-04 19:18:27', '2025-11-04 23:18:33', 'aceptada', NULL),
+(39, 49, 6, 3, '2025-11-04 19:28:49', '2025-11-04 23:29:03', 'aceptada', NULL),
+(40, 49, 3, 6, '2025-11-04 19:29:26', '2025-11-04 23:29:29', 'aceptada', NULL),
+(41, 51, 3, 6, '2025-11-04 19:52:00', '2025-11-04 23:52:09', 'aceptada', NULL),
+(42, 51, 6, 3, '2025-11-04 20:13:38', '2025-11-05 00:13:44', 'aceptada', NULL),
+(43, 51, 3, 6, '2025-11-04 21:15:01', '2025-11-05 01:15:07', 'aceptada', NULL),
+(44, 52, 6, 3, '2025-11-04 21:17:52', '2025-11-05 01:17:56', 'aceptada', NULL),
+(45, 52, 3, 6, '2025-11-04 21:21:23', '2025-11-05 01:21:39', 'aceptada', NULL),
+(46, 52, 6, 3, '2025-11-04 21:23:51', '2025-11-05 01:24:11', 'aceptada', NULL),
+(47, 52, 3, 6, '2025-11-04 21:28:19', '2025-11-05 01:42:40', 'rechazada', NULL),
+(48, 52, 3, 6, '2025-11-04 21:42:59', '2025-11-05 01:44:40', 'aceptada', NULL),
+(49, 53, 6, 3, '2025-11-04 22:45:37', '2025-11-05 02:45:45', 'aceptada', NULL);
 
 -- --------------------------------------------------------
 
@@ -353,10 +404,10 @@ CREATE TABLE `equipos` (
 --
 
 INSERT INTO `equipos` (`id`, `area_id`, `sala_id`, `tipo`, `marca`, `modelo`, `nro_serie`, `serial_interno`, `estado`, `prestado`, `con_reporte`, `detalles`, `creado_en`, `actualizado_en`, `en_mantenimiento`, `con_fallos`) VALUES
-(1, 2, 1, 'Proyector', 'Epson', 'C0-W012', NULL, '1fd38f17793a', 'Disponible', 0, 0, NULL, '2025-10-27 18:06:38', '2025-10-29 03:28:52', 0, 0),
-(2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-10-29 03:29:57', 0, 0),
-(4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'bueno', 0, 0, NULL, '2025-10-27 18:08:26', '2025-10-28 18:27:28', 0, 0),
-(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'Disponible', 0, 0, NULL, '2025-10-27 21:35:24', '2025-10-29 02:11:55', 0, 0),
+(1, 2, 1, 'Proyector', 'Epson', 'C0-W012', NULL, '1fd38f17793a', 'Disponible', 0, 0, NULL, '2025-10-27 18:06:38', '2025-11-05 01:46:25', 0, 0),
+(2, 2, 1, 'Monitor', 'AOC', '', NULL, 'c313dbed9f5d', 'bueno', 0, 0, NULL, '2025-10-27 18:07:51', '2025-11-04 17:00:24', 0, 0),
+(4, 2, 1, 'Mouse', 'SATE', '', NULL, '6d13f0a478c9', 'bueno', 0, 0, NULL, '2025-10-27 18:08:26', '2025-11-04 21:06:26', 0, 0),
+(5, 2, 1, 'Tele', '', '', NULL, 'c597582e367c', 'Disponible', 0, 0, NULL, '2025-10-27 21:35:24', '2025-11-04 00:46:01', 0, 0),
 (8, 2, 3, 'gvguu', 'vjgvj', '', NULL, 'c14283f2f360', 'Disponible', 0, 0, NULL, '2025-10-28 23:00:13', '2025-10-29 02:12:54', 0, 0),
 (9, 2, 3, 'bgdtt', 'hbd', 'dth', NULL, '13607aa0e833', 'Disponible', 0, 0, NULL, '2025-10-29 02:58:44', NULL, 0, 0);
 
@@ -406,7 +457,45 @@ CREATE TABLE `historial_cesiones` (
 INSERT INTO `historial_cesiones` (`id`, `prestamo_id`, `de_docente_id`, `a_docente_id`, `observacion`, `fecha`) VALUES
 (1, 12, 2, 1, NULL, '2025-10-27 21:02:00'),
 (2, 15, 3, 2, NULL, '2025-10-27 23:15:04'),
-(3, 16, 3, 2, NULL, '2025-10-27 23:50:23');
+(3, 16, 3, 2, NULL, '2025-10-27 23:50:23'),
+(4, 32, 3, 6, NULL, '2025-11-03 23:05:29'),
+(5, 32, 6, 3, NULL, '2025-11-03 23:10:41'),
+(6, 32, 3, 6, NULL, '2025-11-03 23:11:38'),
+(7, 32, 6, 3, NULL, '2025-11-03 23:25:37'),
+(8, 33, 6, 3, NULL, '2025-11-04 12:27:00'),
+(9, 35, 6, 3, NULL, '2025-11-04 12:42:05'),
+(10, 35, 3, 6, NULL, '2025-11-04 13:41:41'),
+(11, 35, 6, 3, NULL, '2025-11-04 13:46:52'),
+(12, 35, 3, 6, NULL, '2025-11-04 13:48:17'),
+(13, 35, 6, 3, NULL, '2025-11-04 13:54:00'),
+(14, 35, 3, 6, NULL, '2025-11-04 13:54:45'),
+(15, 36, 3, 6, NULL, '2025-11-04 13:56:11'),
+(16, 38, 3, 6, NULL, '2025-11-04 13:59:09'),
+(17, 39, 6, 3, NULL, '2025-11-04 17:18:06'),
+(18, 40, 3, 6, NULL, '2025-11-04 17:23:15'),
+(19, 42, 3, 6, NULL, '2025-11-04 17:30:12'),
+(20, 42, 6, 3, NULL, '2025-11-04 17:31:32'),
+(21, 43, 6, 3, NULL, '2025-11-04 17:43:26'),
+(22, 44, 3, 6, NULL, '2025-11-04 18:06:58'),
+(23, 45, 3, 6, NULL, '2025-11-04 18:16:48'),
+(24, 46, 6, 3, NULL, '2025-11-04 18:24:59'),
+(25, 47, 6, 3, NULL, '2025-11-04 18:31:35'),
+(26, 48, 3, 6, NULL, '2025-11-04 18:42:06'),
+(27, 49, 3, 6, NULL, '2025-11-04 18:57:11'),
+(28, 49, 6, 3, NULL, '2025-11-04 19:12:22'),
+(29, 49, 3, 6, NULL, '2025-11-04 19:12:47'),
+(30, 49, 6, 3, NULL, '2025-11-04 19:15:06'),
+(31, 49, 3, 6, NULL, '2025-11-04 19:18:33'),
+(32, 49, 6, 3, NULL, '2025-11-04 19:29:03'),
+(33, 49, 3, 6, NULL, '2025-11-04 19:29:29'),
+(34, 51, 3, 6, NULL, '2025-11-04 19:52:09'),
+(35, 51, 6, 3, NULL, '2025-11-04 20:13:44'),
+(36, 51, 3, 6, NULL, '2025-11-04 21:15:07'),
+(37, 52, 6, 3, NULL, '2025-11-04 21:17:56'),
+(38, 52, 3, 6, NULL, '2025-11-04 21:21:39'),
+(39, 52, 6, 3, NULL, '2025-11-04 21:24:11'),
+(40, 52, 3, 6, NULL, '2025-11-04 21:44:40'),
+(41, 53, 6, 3, NULL, '2025-11-04 22:45:45');
 
 -- --------------------------------------------------------
 
@@ -469,7 +558,10 @@ CREATE TABLE `password_resets` (
 
 INSERT INTO `password_resets` (`id`, `user_id`, `token`, `expires_at`, `used`, `created_at`, `table_name`) VALUES
 (1, 1, '44cb5e7fbe8b743e88d8fd23ce474c796a0fe964d62dcc1ce23289e02974022b', '2025-10-27 20:50:35', 1, '2025-10-27 16:20:35', 'estudiantes'),
-(2, 1, '0802ee066b5776f2ede6ba1a454fad05f45d2de347048490afbdb90b44c4ebb6', '2025-10-27 21:58:35', 1, '2025-10-27 17:28:35', 'docentes');
+(2, 1, '0802ee066b5776f2ede6ba1a454fad05f45d2de347048490afbdb90b44c4ebb6', '2025-10-27 21:58:35', 1, '2025-10-27 17:28:35', 'docentes'),
+(3, 12, '892882bc020ac21c70eea18dacf817cab77b5eeb2075dc7498c07fe0da26bee6', '2025-11-05 02:34:18', 0, '2025-11-04 22:04:18', ''),
+(4, 12, '4dc1a4a1e037b4dc4f8783b6a0186b0e95a09bbed721bef924ea420765e48b23', '2025-11-05 02:43:44', 0, '2025-11-04 22:13:44', ''),
+(5, 12, '724d39ffa4f4dbfce76940d886ff0ef89152c8188c1fbabc2657d2b5d976dfd0', '2025-11-05 02:54:02', 0, '2025-11-04 22:24:02', '');
 
 -- --------------------------------------------------------
 
@@ -537,7 +629,31 @@ INSERT INTO `prestamos` (`id`, `equipo_id`, `estudiante_id`, `docente_id`, `usua
 (26, 8, NULL, 3, 3, '2025-10-28 20:00:57', '2025-10-28 20:01:18', 'devuelto', '', '2025-10-28 23:00:51', NULL, NULL, NULL),
 (27, 8, NULL, 3, 3, '2025-10-28 20:02:53', '2025-10-28 20:03:12', 'devuelto', '', '2025-10-28 23:02:47', NULL, NULL, NULL),
 (28, 1, NULL, 3, 3, '2025-10-29 00:25:37', '2025-10-29 00:28:52', 'devuelto', '', '2025-10-29 03:25:33', NULL, NULL, NULL),
-(29, 2, NULL, 3, 3, '2025-10-29 00:29:35', NULL, 'cancelado', '', '2025-10-29 03:29:32', NULL, NULL, NULL);
+(29, 2, NULL, 3, 3, '2025-10-29 00:29:35', NULL, 'cancelado', '', '2025-10-29 03:29:32', NULL, NULL, NULL),
+(30, 5, 2, NULL, 2, '2025-11-03 21:44:53', '2025-11-03 21:46:01', 'devuelto', '', '2025-11-04 00:44:43', NULL, NULL, NULL),
+(31, 1, NULL, 3, 3, '2025-11-03 22:59:22', NULL, 'cancelado', '', '2025-11-04 01:59:02', NULL, NULL, NULL),
+(32, 1, NULL, 3, 3, '2025-11-03 23:05:04', NULL, 'cancelado', '', '2025-11-04 02:05:01', NULL, NULL, NULL),
+(33, 1, NULL, 3, 3, '2025-11-04 12:25:54', NULL, 'cancelado', '', '2025-11-04 15:25:50', NULL, NULL, NULL),
+(34, 1, NULL, 6, 6, '2025-11-04 12:39:44', NULL, 'cancelado', '', '2025-11-04 15:39:44', NULL, NULL, NULL),
+(35, 1, NULL, 6, 6, '2025-11-04 12:41:29', NULL, 'cancelado', '', '2025-11-04 15:41:24', NULL, NULL, NULL),
+(36, 1, NULL, 6, 6, '2025-11-04 13:55:49', NULL, 'cancelado', '', '2025-11-04 16:55:42', NULL, NULL, NULL),
+(37, 1, NULL, 3, 3, '2025-11-04 13:57:20', NULL, 'cancelado', '', '2025-11-04 16:57:12', NULL, NULL, NULL),
+(38, 2, NULL, 6, 6, '2025-11-04 13:58:07', NULL, 'cancelado', '', '2025-11-04 16:57:59', NULL, NULL, NULL),
+(39, 1, NULL, 3, 3, '2025-11-04 17:17:35', NULL, 'cancelado', '', '2025-11-04 20:17:32', NULL, NULL, NULL),
+(40, 1, NULL, 6, 6, '2025-11-04 17:22:52', NULL, 'cancelado', '', '2025-11-04 20:22:48', NULL, NULL, NULL),
+(41, 1, NULL, 6, 6, '2025-11-04 17:26:23', NULL, 'cancelado', '', '2025-11-04 20:26:19', NULL, NULL, NULL),
+(42, 1, NULL, 3, 3, '2025-11-04 17:27:55', NULL, 'cancelado', '', '2025-11-04 20:27:50', NULL, NULL, NULL),
+(43, 4, NULL, 3, 3, '2025-11-04 17:42:58', NULL, 'cancelado', '', '2025-11-04 20:42:52', NULL, NULL, NULL),
+(44, 1, NULL, 6, 6, '2025-11-04 18:06:41', NULL, 'cancelado', '', '2025-11-04 21:06:37', NULL, NULL, NULL),
+(45, 1, NULL, 6, 6, '2025-11-04 18:16:31', NULL, 'cancelado', '', '2025-11-04 21:16:26', NULL, NULL, NULL),
+(46, 1, NULL, 3, 3, '2025-11-04 18:24:38', NULL, 'cancelado', '', '2025-11-04 21:24:35', NULL, NULL, NULL),
+(47, 1, NULL, 3, 3, '2025-11-04 18:31:16', '2025-11-04 18:32:02', 'devuelto', '', '2025-11-04 21:31:13', NULL, NULL, NULL),
+(48, 1, NULL, 6, 6, '2025-11-04 18:41:22', NULL, 'cancelado', '', '2025-11-04 21:41:17', NULL, NULL, NULL),
+(49, 1, NULL, 6, 6, '2025-11-04 18:56:52', NULL, 'cancelado', '', '2025-11-04 21:56:47', NULL, NULL, NULL),
+(50, 1, NULL, 6, 6, '2025-11-04 19:30:01', NULL, 'cancelado', '', '2025-11-04 22:29:53', NULL, NULL, NULL),
+(51, 1, NULL, 6, 6, '2025-11-04 19:51:42', NULL, 'cancelado', '', '2025-11-04 22:51:35', NULL, NULL, NULL),
+(52, 1, NULL, 6, 6, '2025-11-04 21:17:14', NULL, 'cancelado', '', '2025-11-05 00:17:10', NULL, NULL, NULL),
+(53, 1, NULL, 3, 3, '2025-11-04 21:53:13', '2025-11-04 22:46:25', 'devuelto', '', '2025-11-05 00:53:10', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -789,13 +905,13 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT de la tabla `auditoria`
 --
 ALTER TABLE `auditoria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 
 --
 -- AUTO_INCREMENT de la tabla `cesiones`
 --
 ALTER TABLE `cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT de la tabla `componentes`
@@ -831,7 +947,7 @@ ALTER TABLE `estudiantes`
 -- AUTO_INCREMENT de la tabla `historial_cesiones`
 --
 ALTER TABLE `historial_cesiones`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `mantenimientos`
@@ -843,7 +959,7 @@ ALTER TABLE `mantenimientos`
 -- AUTO_INCREMENT de la tabla `password_resets`
 --
 ALTER TABLE `password_resets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `password_resets_estudiantes`
@@ -855,7 +971,7 @@ ALTER TABLE `password_resets_estudiantes`
 -- AUTO_INCREMENT de la tabla `prestamos`
 --
 ALTER TABLE `prestamos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT de la tabla `reporte_fallos`

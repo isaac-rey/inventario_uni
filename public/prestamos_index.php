@@ -14,6 +14,7 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
     <title>Préstamos — Inventario</title>
     <link rel="stylesheet" href="../css/tabla_prestamo_index.css">
     <style>
+        /* === ESTILOS GENERALES === */
         body {
             font-family: 'Segoe UI', Roboto, sans-serif;
             background: #f4f6f9;
@@ -21,7 +22,41 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             padding: 0;
         }
 
-        /* === ESTILOS PARA TABLAS Y CONTENEDORES === */
+        /* Variables CSS (necesarias para tus estilos de label) */
+        :root {
+            --text-primary: #2c3e50;
+            --spacing-sm: 6px;
+        }
+
+        /* === ESTILOS DE FORMULARIO Y LABEL === */
+        .form-group-custom label {
+            font-weight: 600;
+            color: #4a4a4a;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: var(--spacing-sm);
+            font-size: 0.875rem;
+            cursor: default;
+        }
+
+        .form-group-custom input[type="text"],
+        .form-group-custom select,
+        .form-group-custom input[type="date"] {
+            padding: 10px 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
 
         /* Contenedor principal */
         .container {
@@ -31,7 +66,6 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             display: flex;
             flex-direction: column;
             gap: 25px;
-            /* Espaciado entre tarjetas */
         }
 
         /* Tarjetas para las tablas */
@@ -42,7 +76,6 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             border: 1px solid #e1e8ed;
             overflow: hidden;
             padding: 0;
-            /* Quitado el padding del card, se mueve a h2 y td/th */
         }
 
         /* Títulos de las secciones */
@@ -74,7 +107,6 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             width: 100%;
             border-collapse: collapse;
             margin-top: 0;
-            /* Ya no lleva margen superior si el card no tiene padding */
         }
 
         thead {
@@ -107,34 +139,11 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         }
 
         select,
-        input {
+        input:not([type="date"]) {
             padding: 6px 10px;
             border-radius: 6px;
             border: 1px solid #ccc;
             margin-bottom: 10px;
-        }
-
-        button {
-            padding: 7px 14px;
-            border: none;
-            border-radius: 6px;
-            background: #1e3c72;
-            color: #fff;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        button:hover {
-            background: #2a5298;
-        }
-
-        /* Estilo para el botón de cancelar/rechazar */
-        button[style*="#dc2626"] {
-            background: #dc2626 !important;
-        }
-
-        button[style*="#dc2626"]:hover {
-            background: #b91c1c !important;
         }
 
         /* Contenedor de Acciones (Flexbox) */
@@ -145,8 +154,32 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         .action-buttons {
             display: flex;
             gap: 8px;
-            /* Espacio entre los botones */
             align-items: center;
+        }
+
+        /* Estilos para botones de acción (Aprobar/Rechazar/Cancelar) */
+        .action-buttons button {
+            padding: 7px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #1e3c72;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .action-buttons button:hover {
+            background: #2a5298;
+        }
+
+        /* Estilo para el botón de cancelar/rechazar */
+        .action-buttons button[style*="#dc2626"] {
+            background: #dc2626 !important;
+        }
+
+        .action-buttons button[style*="#dc2626"]:hover {
+            background: #b91c1c !important;
         }
 
         /* Estilos para la sección de filtros */
@@ -158,9 +191,77 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             align-items: center;
         }
 
-        #filtroPrestamos label {
-            font-weight: 500;
-            color: #4a5568;
+        /* === ESTILOS PARA LA PAGINACIÓN (Basados en la imagen) === */
+        #paginacionHistorial {
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 15px;
+            background: #1e3c72;
+            /* Fondo de la barra de paginación: Azul oscuro */
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            margin-top: 15px;
+            color: #fff;
+        }
+
+        .pagination-button {
+            padding: 8px 18px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s ease-in-out;
+            font-size: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            color: #fff;
+        }
+
+        /* Estilo para botón Siguiente (activo) */
+        .pagination-button.active-next {
+            background: #2a5298;
+            /* Un azul más vibrante para el botón activo */
+        }
+
+        .pagination-button.active-next:hover:not(:disabled) {
+            background: #3e68b3;
+        }
+
+        /* Estilo para botón Anterior (deshabilitado/menos activo) */
+        .pagination-button:disabled {
+            background: #4a5a7d;
+            /* Tono grisáceo azulado y más oscuro */
+            color: rgba(255, 255, 255, 0.7);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .pagination-button:not(:disabled):not(.active-next) {
+            /* Si quieres que 'Anterior' se vea como 'Siguiente' si está activo, 
+                pero no es la página 1, puedes usar esta regla o ajustarla */
+            background: #2a5298;
+        }
+
+        .pagination-button:not(:disabled):not(.active-next):hover {
+            background: #3e68b3;
+        }
+
+
+        .pagination-info {
+            font-size: 1rem;
+            font-weight: 600;
+            /* Más audaz para el número de página */
+            color: #fff;
+            padding: 0 10px;
+            text-align: center;
+            white-space: nowrap;
+            /* Evita que el texto de página se rompa */
         }
 
         /* Responsive para móviles */
@@ -172,12 +273,10 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
 
             .card {
                 overflow-x: auto;
-                /* Permite scroll horizontal en móviles */
             }
 
             table {
                 min-width: 750px;
-                /* Asegura que la tabla no sea demasiado pequeña */
             }
         }
     </style>
@@ -232,7 +331,6 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
         </div>
 
     </div>
-
     <script>
         // ---- PRÉSTAMOS ACTIVOS ----
         function actualizarPrestamos() {
@@ -275,13 +373,12 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                                     <button onclick="aprobar(${p.id},'devolucion')">Aprobar</button>
                                     <button style="background:#dc2626" onclick="rechazar(${p.id})">Rechazar</button>
                                 </div>`;
+                        } else if (p.estado === 'activo') {
+                            accion = `
+                                <div class="action-buttons">
+                                    <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Cancelar préstamo</button>
+                                </div>`;
                         }
-                        else if (p.estado === 'activo') {
-    accion = `
-        <div class="action-buttons">
-            <button style="background:#dc2626" onclick="cancelar_solicitud(${p.id})">Cancelar préstamo</button>
-        </div>`;
-}
 
 
                         tbody.innerHTML += `<tr>
@@ -401,6 +498,9 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
             paginaActual = pagina;
             const datos = new FormData(form);
             datos.append('pagina', paginaActual);
+            // Mostrar estado de carga
+            document.getElementById('tablaHistorial').innerHTML = 'Cargando...';
+
             fetch('prestamos_historial_ajax.php', {
                     method: 'POST',
                     body: datos
@@ -412,22 +512,62 @@ $tipo_solicitante = $_GET['tipo_solicitante'] ?? ''; // 'docente' o 'estudiante'
                 });
         }
 
+        /**
+         * Genera los botones de paginación con el nuevo estilo.
+         */
         function actualizarBotones() {
             const totalPaginasEl = document.getElementById('totalPaginas');
             const totalPaginas = totalPaginasEl ? parseInt(totalPaginasEl.dataset.total) : 1;
             const cont = document.getElementById('paginacionHistorial');
-            cont.innerHTML = '';
+
+            // Si no hay tablaHistorial, no renderizamos botones.
+            if (!document.getElementById('tablaHistorial').innerHTML.includes('<table>')) {
+                cont.innerHTML = '';
+                return;
+            }
+
+            cont.innerHTML = ''; // Limpiar contenido anterior
+
+            // Crear el contenedor principal para la paginación
+            const paginationContainer = document.createElement('div');
+            paginationContainer.classList.add('pagination-container');
+
+            // Botón "Anterior"
             const btnPrev = document.createElement('button');
             btnPrev.textContent = 'Anterior';
+            btnPrev.classList.add('pagination-button');
             btnPrev.disabled = paginaActual <= 1;
+            // Estilo específico para deshabilitado (como en la imagen)
+            if (paginaActual <= 1) {
+                btnPrev.style.opacity = '0.7';
+            }
             btnPrev.onclick = () => cargarHistorial(paginaActual - 1);
-            cont.appendChild(btnPrev);
+            paginationContainer.appendChild(btnPrev);
+
+            // Información de página (ej: "Página 1 de 20")
+            const pageInfo = document.createElement('span');
+            pageInfo.classList.add('pagination-info');
+            pageInfo.textContent = `Página ${paginaActual} de ${totalPaginas}`;
+            paginationContainer.appendChild(pageInfo);
+
+            // Botón "Siguiente"
             const btnNext = document.createElement('button');
             btnNext.textContent = 'Siguiente';
+            btnNext.classList.add('pagination-button', 'active-next'); // Usamos active-next como el estilo principal
             btnNext.disabled = paginaActual >= totalPaginas;
+
+            // Si Siguiente está deshabilitado, aplicar estilo de deshabilitado
+            if (paginaActual >= totalPaginas) {
+                btnNext.classList.remove('active-next');
+                btnNext.style.opacity = '0.7';
+            }
+
             btnNext.onclick = () => cargarHistorial(paginaActual + 1);
-            cont.appendChild(btnNext);
+            paginationContainer.appendChild(btnNext);
+
+            cont.appendChild(paginationContainer); // Añadir el contenedor de paginación al div principal
         }
+
 
         // Detectar cambios en filtros
         form.querySelectorAll('input,select').forEach(el => el.addEventListener('change', () => cargarHistorial(1)));

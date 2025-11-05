@@ -31,7 +31,7 @@
     display: block;
     width: 60px;
     height: 3px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 , #2a5298 );
     margin: 0.75rem auto;
     border-radius: 2px;
 }
@@ -92,7 +92,6 @@ input[type="email"],
 input[type="password"],
 input[type="number"],
 textarea {
-    width: 100%;
     padding: 0.875rem 1rem;
     border: 2px solid #e2e8f0;
     border-radius: 8px;
@@ -116,7 +115,7 @@ input:hover:not(:focus) {
 
 /* Botón principal */
 button[type="submit"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #1e3c72 , #2a5298 );
     color: white;
     border: none;
     padding: 1rem 2rem;

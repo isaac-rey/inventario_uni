@@ -24,10 +24,11 @@ $totUsuarios = $mysqli->query("SELECT COUNT(*) AS total FROM usuarios")->fetch_a
   <title>Panel — Inventario Universidad</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/navbar.css">
 </head>
-<?php include __DIR__ . '/public/navbar.php'; ?>
 <body>
-
+  
+  <?php include __DIR__ . '/public/navbar.php'; ?>
   <main class="dashboard">
     <h1>Panel de Control</h1>
     <div class="cards">

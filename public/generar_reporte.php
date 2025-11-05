@@ -98,17 +98,20 @@ if ($result) {
 $formato = $_GET['formato'] ?? 'csv';
 
 $nombre_tipo = [
-    'sesión' => 'Sesiones',
-    'préstamo' => 'Prestamos',
-    'devolución' => 'Devoluciones',
-    'reporte' => 'Reportes_De_Equipos',
-    'mantenimiento' => 'Mantenimientos',
+    'inicio_sesión' => 'Inicios_De_Sesion',
+    'cierre_sesión' => 'Cierres_De_Sesion',
+    'contra_restablecimiento' => 'Acciones_De_Contraseñas',
     'acción_equipo' => 'Equipos',
     'acción_componente' => 'Componentes',
-    'acción_sala' => 'Salas',
+    'préstamo' => 'Préstamos',
+    'devolución' => 'Devoluciones',
+    'cesión_docentes' => 'Cesiones_Entre_Docentes',
+    'reporte' => 'Reportes_De_Equipos',
+    'mantenimiento' => 'Mantenimientos',
     'acción_usuario' => 'Usuarios',
-    'acción_estudiante' => 'Estudiantes',
     'acción_docentes' => 'Docentes',
+    'acción_estudiante' => 'Estudiantes',
+    'acción_sala' => 'Salas',
 ];
 
 $nombre_base = 'auditoria_general';

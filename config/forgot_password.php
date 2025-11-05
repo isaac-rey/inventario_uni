@@ -41,15 +41,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $protocolo = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? "https" : "http";
       $host = $_SERVER['HTTP_HOST']; // localhost o IP en red local
       $ruta = dirname($_SERVER['PHP_SELF']); // carpeta actual
-      $reset_link = $protocolo . "://" . $host . "/inventario_uni/config/reset.php?token=" . urlencode($token);
+      $reset_link = $protocolo . "://" . $host . "/inventario_uni-main/config/reset.php?token=" . urlencode($token);
 
       // --- Enviar correo con PHPMailer ---
-      $mail = getMailer();
+$mail = getMailer();
 
-      try {
-        $mail->addAddress($user['email'], $user['nombre']);
-        $mail->Subject = "Restablecer contraseña";
-        $mail->isHTML(true);
+try {
+    // *** AÑADE ESTA LÍNEA PARA SOLUCIONAR EL PROBLEMA DE LA Ñ ***
+    $mail->CharSet = 'UTF-8'; 
+    // *************************************************************
+
+    $mail->addAddress($user['email'], $user['nombre']);
+    $mail->Subject = "Restablecer contraseña"; // El asunto con la Ñ
+    $mail->isHTML(true);
         $mail->Body    = "Hola <b>{$user['nombre']}</b>,<br><br>
                                   Haz clic en el siguiente enlace para restablecer tu contraseña:<br>
                                   <a href='$reset_link'>$reset_link</a><br><br>
@@ -61,7 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Usamos la ID del usuario encontrado ($user['id']) en el mensaje 
         // porque el usuario que realiza la acción no está logueado.
         $user_desc = htmlspecialchars($user['nombre'] . ' (CI: ' . $ci . ')');
-        auditar("Solicitud de restablecimiento de contraseña. CI: {$ci}.", $user['id']);
+        // auditar(accion, tipo_accion, override_user_id)
+        auditar("Solicitud de restablecimiento de contraseña para CI: {$ci}", 'contra_restablecimiento', $user['id']);
         //auditar("Solicitud de restablecimiento de contraseña para el usuario ID {$user['id']}: {$user_desc}.");
         // ------------------------------------------------------------------
       } catch (Exception $e) {

@@ -25,7 +25,7 @@
 
 /* Botón principal (+ Nuevo equipo) */
 .actions .btn {
- background: linear-gradient(90deg, #1e3c72, #2a5298);
+  background: linear-gradient(90deg, #1e3c72, #2a5298);;
   color: white;
   text-decoration: none;
   padding: 0.75rem 1.5rem;
@@ -473,4 +473,72 @@ td:last-child {
   margin-top: 0.5rem;
   display: inline-block;
   font-size: 0.8rem;
+}
+
+
+/* ================================================= */
+/* === ESTILOS PARA BOTONES DE ACCIÓN (EDITAR/ELIMINAR) === */
+/* ================================================= */
+
+/* Contenedor de acciones para usar Flexbox y espaciar los botones */
+td[data-label="Acciones"] {
+    white-space: nowrap; 
+    display: flex; 
+    align-items: center;
+    gap: 8px; /* Espacio entre los botones 'Editar' y 'Eliminar' */
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+/* Estilo base para los botones de acción (.btn-sm) */
+.btn-sm {
+    /* Dimensiones y forma */
+    padding: 8px 18px; 
+    border: none;
+    border-radius: 8px; 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    color: #fff !important; 
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    line-height: 1.5;
+    text-align: center;
+    display: inline-block;
+
+    /* === PROPIEDAD SOLICITADA === */
+    font-family: inherit; 
+}
+
+/* Estilo para el botón primario (Editar) */
+.btn-sm:not(.btn-danger) {
+    background: linear-gradient(135deg, #3182ce 0%, #2c5282 100%);
+}
+
+.btn-sm:not(.btn-danger):hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(49, 130, 206, 0.4);
+}
+
+/* Estilo para el botón de peligro (Eliminar) */
+.btn-sm.btn-danger {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+}
+
+.btn-sm.btn-danger:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(229, 62, 62, 0.4);
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    td[data-label="Acciones"] {
+        justify-content: flex-start; 
+        flex-wrap: wrap;
+    }
+    .btn-sm {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
 }

@@ -1,29 +1,162 @@
-/* === ESTILOS PARA FORMULARIOS === */
+/* ===================================
+   SISTEMA DE LOGIN MODERNO
+   Universidad Católica - Fondo Transparente
+   =================================== */
 
-/* Contenedor principal del formulario */
+/* === VARIABLES CSS === */
+:root {
+    /* Colores primarios */
+    --primary: #2b4c9f;
+    --primary-light: #4a6bc4;
+    --primary-dark: #1a3570;
+    
+    /* Colores de estado */
+    --error-bg: rgba(254, 215, 215, 0.95);
+    --error-text: #c53030;
+    --error-border: #feb2b2;
+    --success-bg: rgba(198, 246, 213, 0.95);
+    --success-text: #22543d;
+    --success-border: #9ae6b4;
+    
+    /* Escala de grises */
+    --gray-50: #f7fafc;
+    --gray-100: #edf2f7;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e0;
+    --gray-400: #a0aec0;
+    --gray-600: #718096;
+    --gray-700: #4a5568;
+    --gray-800: #2d3748;
+    
+    /* Espaciado */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 2.5rem;
+    
+    /* Bordes */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    
+    /* Sombras */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.25), 0 8px 16px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 25px 60px rgba(0, 0, 0, 0.3), 0 10px 20px rgba(0, 0, 0, 0.2);
+    
+    /* Transiciones */
+    --transition-fast: 0.2s ease;
+    --transition-base: 0.3s ease;
+    --transition-slow: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* === RESET Y BASE === */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    color: var(--gray-800);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    
+    /* ⭐ IMAGEN DE FONDO - Ajusta la ruta según tu estructura */
+    background-image: url('image.png');
+    /* Si la imagen está en otro lugar, usa una de estas rutas:
+       url('/inventario_uni/img/fondo-universidad.jpg')
+       url('../images/fondo-universidad.jpg')
+       url('../../img/fondo-universidad.jpg')
+    */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-color: #2b4c9f; /* Color de respaldo si no carga la imagen */
+    
+    /* Centrado perfecto */
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+    position: relative;
+    overflow: auto;
+}
+
+/* Overlay muy sutil para mejorar contraste (opcional) */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.15); /* Oscurecimiento muy suave */
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* === CONTENEDOR GLASSMORPHISM === */
 .card {
-    max-width: 500px;
-    margin: 2rem auto;
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    padding: 2.5rem;
-    border: 1px solid #e1e8ed;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 420px;
+    
+    /* ⭐ GLASSMORPHISM - Fondo transparente con desenfoque */
+    background: rgba(103, 185, 227, 0.238); /* Muy transparente */
+    backdrop-filter: blur(25px) saturate(150%);
+    -webkit-backdrop-filter: blur(25px) saturate(150%);
+    
+    /* Borde brillante */
+ 
+    border-radius: var(--radius-lg);
+    
+    /* Estructura */
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    
+    /* Sombras profundas */
+    box-shadow: 
+        var(--shadow-lg),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+    /* Animación de entrada */
+    animation: slideInUp var(--transition-slow) backwards;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.92);
+        filter: blur(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
 .card:hover {
-    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-    transition: all 0.3s ease;
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(255, 255, 255, 0.35);
+    transition: all var(--transition-base);
 }
 
-/* Título del formulario */
+/* === ENCABEZADO === */
 .card h1 {
-    color: #2d3748;
-    font-size: 1.875rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 4vw, 1.875rem);
+    font-weight: 700;
+    margin-bottom: var(--spacing-lg);
     text-align: center;
-    position: relative;
+    letter-spacing: -0.025em;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
 .card h1::after {
@@ -31,196 +164,335 @@
     display: block;
     width: 60px;
     height: 3px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    margin: 0.75rem auto;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.3));
+    margin: var(--spacing-sm) auto 0;
     border-radius: 2px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.3);
 }
 
-/* Mensajes de éxito y error */
+/* === MENSAJES DE ESTADO === */
 .error,
 .ok {
-    padding: 1rem 1.25rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-radius: var(--radius-sm);
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.875rem;
     font-weight: 500;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--spacing-xs);
+    animation: slideInDown var(--transition-base) ease-out;
+    backdrop-filter: blur(10px);
 }
 
-.error {
-    background: #fed7d7;
-    color: #c53030;
-    border: 1px solid #feb2b2;
-}
-
-.error::before {
-    content: '⚠️';
-    font-size: 1.1rem;
-}
-
-.ok {
-    background: #c6f6d5;
-    color: #22543d;
-    border: 1px solid #9ae6b4;
-}
-
-.ok::before {
-    content: '✅';
-    font-size: 1.1rem;
-}
-
-/* Formulario */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-/* Labels */
-label {
-    font-weight: 600;
-    color: #4a5568;
-    font-size: 0.95rem;
-    margin-bottom: 0.5rem;
-    display: block;
-}
-
-/* Campos de entrada */
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"] {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: all 0.3s ease;
-    background: #fff;
-    color: #2d3748;
-    font-family: inherit;
-}
-
-input:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    transform: translateY(-1px);
-}
-
-input:hover:not(:focus) {
-    border-color: #cbd5e0;
-}
-
-
-
-/* Botón principal */
-button[type="submit"] {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    min-height: 50px;
-    font-family: inherit;
-}
-
-button[type="submit"]:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-button[type="submit"]:active {
-    transform: translateY(0);
-}
-
-/* Texto auxiliar */
-.muted {
-    color: #718096;
-    font-size: 0.875rem;
-    text-align: center;
-    margin-top: 1.5rem;
-}
-
-.muted a {
-    color: #667eea;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s ease;
-}
-
-.muted a:hover {
-    color: #764ba2;
-    text-decoration: underline;
-}
-
-/* === EXTENSIÓN DE ESTILOS DE FORMULARIO PARA SELECT === */
-
-select {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #fff;
-    color: #2d3748;
-    font-family: inherit;
-    transition: all 0.3s ease;
-    appearance: none;
-    /* Ocultar estilo nativo */
-    background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 16px;
-}
-
-select:focus {
-    outline: none;
-    border-color: #667eea;
-    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-    transform: translateY(-1px);
-}
-
-select:hover:not(:focus) {
-    border-color: #cbd5e0;
-}
-
-
-/* Responsive */
-@media (max-width: 768px) {
-    .card {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-
-    .card h1 {
-        font-size: 1.5rem;
-    }
-
-    button[type="submit"] {
-        padding: 0.875rem 1.5rem;
-        font-size: 0.95rem;
-    }
-}
-
-/* Animación de entrada */
-@keyframes slideIn {
+@keyframes slideInDown {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(-10px);
     }
-
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.card {
-    animation: slideIn 0.6s ease-out;
+.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+    border-left: 4px solid var(--error-text);
+    box-shadow: 0 4px 12px rgba(197, 48, 48, 0.2);
+}
+
+.error::before {
+    content: '⚠️';
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+.ok {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-left: 4px solid var(--success-text);
+    box-shadow: 0 4px 12px rgba(34, 84, 61, 0.2);
+}
+
+.ok::before {
+    content: '✅';
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+/* === FORMULARIO === */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* Labels mejorados */
+label {
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 0.875rem;
+    letter-spacing: 0.01em;
+    margin-bottom: var(--spacing-xs);
+    display: block;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Inputs con glassmorphism */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #ffffff;
+    
+    /* Glassmorphism en inputs */
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    
+    /* Transiciones suaves */
+    transition: all var(--transition-base);
+    outline: none;
+    
+    /* Sombra interior */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estados de input */
+input:hover,
+select:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+input:focus,
+select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 
+        0 0 0 3px rgba(255, 255, 255, 0.1),
+        inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Placeholder mejorado */
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+    opacity: 1;
+}
+
+/* Autocompletado del navegador */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #ffffff;
+    -webkit-box-shadow: 0 0 0px 1000px rgba(255, 255, 255, 0.1) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Select personalizado */
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 12px;
+    padding-right: 2.5rem;
+    cursor: pointer;
+}
+
+/* Estados deshabilitados */
+input:disabled,
+select:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.4);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* === BOTÓN PRINCIPAL === */
+button[type="submit"] {
+    width: 100%;
+    padding: 1rem;
+    margin-top: var(--spacing-xs);
+    font-size: 1rem;
+    font-weight: 600;
+    font-family: inherit;
+    color: white;
+    
+    /* Fondo sólido elegante */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.15) 100%);
+    backdrop-filter: blur(15px);
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    
+    /* Efectos */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all var(--transition-base);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    
+    /* Prevenir selección de texto */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+button[type="submit"]:hover {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.25) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+button[type="submit"]:disabled {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+    opacity: 0.5;
+}
+
+/* Indicador de carga */
+button[type="submit"].loading {
+    position: relative;
+    color: transparent;
+    pointer-events: none;
+}
+
+button[type="submit"].loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* === ENLACES === */
+.forgot-password,
+.muted {
+    text-align: center;
+    margin-top: var(--spacing-md);
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.forgot-password {
+    text-align: right;
+    margin-top: calc(var(--spacing-xs) * -1);
+    margin-bottom: var(--spacing-sm);
+}
+
+.forgot-password a,
+.muted a {
+    color: rgba(255, 255, 255, 0.95);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all var(--transition-fast);
+    position: relative;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.forgot-password a::after,
+.muted a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    transition: width var(--transition-fast);
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.3);
+}
+
+.forgot-password a:hover,
+.muted a:hover {
+    color: #ffffff;
+}
+
+.forgot-password a:hover::after,
+.muted a:hover::after {
+    width: 100%;
+}
+
+/* === RESPONSIVO === */
+@media (max-width: 640px) {
+    body {
+        padding: var(--spacing-sm);
+    }
+    
+    .card {
+        padding: var(--spacing-xl) var(--spacing-lg);
+        border-radius: var(--radius-md);
+        max-width: 100%;
+    }
+    
+    .card h1 {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-md);
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    select,
+    button[type="submit"] {
+        padding: 0.75rem;
+        font-size: 0.9375rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .card {
+        padding: var(--spacing-lg);
+    }
+    
+    .card h1 {
+        font-size: 1.25rem;
+    }
+}
+
+/* === ACCESIBILIDAD === */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Foco visible para teclado */
+input:focus-visible,
+select:focus-visible,
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.6);
+    outline-offset: 2px;
 }
