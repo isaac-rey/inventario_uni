@@ -402,11 +402,11 @@ $verificados   = array_filter($rows, fn($r) => $r['reporte_verificar'] == 1);
                                             <span class="badge ok status-devuelto">Volvió del mantenimiento</span>
                                         <?php elseif ($r['en_mantenimiento'] > 0): ?>
                                             <span class="badge warn status-enviado">Enviado a mantenimiento</span>
-                                            <div class="action_buttons">
+                                            <div class="action-buttons">
                                                 <a href="mantenimiento_volver.php?reporte_id=<?= $r['reporte_id'] ?>" class="btn">Volvió del mantenimiento</a>
                                             </div>
-                                            <?php else: ?>
-                                                <a href="mantenimiento_enviar.php?reporte_id=<?= $r['reporte_id'] ?>" class="btn">Enviar a mantenimiento</a>
+                                        <?php else: ?>
+                                            <a href="mantenimiento_enviar.php?reporte_id=<?= $r['reporte_id'] ?>" class="btn">Enviar a mantenimiento</a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -426,90 +426,163 @@ $verificados   = array_filter($rows, fn($r) => $r['reporte_verificar'] == 1);
 
 
     <script>
-        /**
-         * Manejo de verificación:
-         * - Llamamos a verificar_reporte.php enviando reporte_id (POST urlencoded)
-         * - Si ok: movemos la fila a la tabla de verificados y reemplazamos la celda de acciones
-         */
-        document.addEventListener('DOMContentLoaded', () => {
-            const botones = document.querySelectorAll('.btn-verificar');
+document.addEventListener('DOMContentLoaded', () => {
 
-            botones.forEach(btn => {
-                btn.addEventListener('click', async (ev) => {
-                    const id = btn.dataset.id;
-                    const fila = document.querySelector(`#reporte-${id}`);
-                    if (!fila) return;
+    // --- 1️⃣ Delegación de eventos para botón "Verificar" ---
+    const tbodyPend = document.getElementById('tbody-pendientes');
+    tbodyPend.addEventListener('click', async (ev) => {
+        const btn = ev.target.closest('.btn-verificar');
+        if (!btn) return;
 
-                    const confirmacion = confirm('¿Estás seguro de que deseas marcar este reporte como verificado?');
-                    if (!confirmacion) return;
+        const id = btn.dataset.id;
+        const fila = document.querySelector(`#reporte-${id}`);
+        if (!fila) return;
 
-                    try {
-                        const res = await fetch('verificar_reporte.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/x-www-form-urlencoded'
-                            },
-                            body: 'reporte_id=' + encodeURIComponent(id)
-                        });
-                        const data = await res.json();
-                        if (data.success) {
-                            // Construir la celda de acciones para verificados usando los datos ya presentes en la fila
-                            const en_mantenimiento = parseInt(fila.dataset.en_mantenimiento || '0', 10);
-                            const devoluciones = parseInt(fila.dataset.devoluciones || '0', 10);
+        const confirmacion = confirm('¿Estás seguro de que deseas marcar este reporte como verificado?');
+        if (!confirmacion) return;
 
-                            // Remover la celda actual de acciones (botón Verificar)
-                            const accionesCell = fila.querySelector('.actions-cell') || fila.querySelector('td:last-child');
-                            if (accionesCell) accionesCell.remove();
-
-                            // Crear nueva celda de acciones con el mismo markup que usabas para verificados
-                            const nuevaAcciones = document.createElement('td');
-                            nuevaAcciones.className = 'actions-cell';
-
-                            if (devoluciones > 0) {
-                                nuevaAcciones.innerHTML = '<span class="badge ok status-devuelto">Volvió del mantenimiento</span>';
-                            } else if (en_mantenimiento > 0) {
-                                nuevaAcciones.innerHTML = '<span class="badge warn status-enviado">Enviado a mantenimiento</span>' +
-                                    '<a href="mantenimiento_volver.php?reporte_id=' + id + '" class="btn" style="margin-top:6px;display:inline-block">Volvió del mantenimiento</a>';
-                            } else {
-                                nuevaAcciones.innerHTML = '<a href="mantenimiento_enviar.php?reporte_id=' + id + '" class="btn">Enviar a mantenimiento</a>';
-                            }
-
-                            // Mover fila al comienzo de tbody-verificados
-                            const tbodyVer = document.getElementById('tbody-verificados');
-                            // Prepend: si tbodyVer tiene filas "No hay..." detectarlo y eliminar
-                            // (si existía fila de "No hay reportes verificados aún." la removemos)
-                            const firstRow = tbodyVer.querySelector('tr');
-                            if (firstRow && firstRow.querySelector('.muted')) {
-                                tbodyVer.innerHTML = '';
-                            }
-
-                            fila.appendChild(nuevaAcciones); // añadir la celda nueva al final de la fila
-                            tbodyVer.prepend(fila);
-
-                            // Actualizar contadores
-                            const countPendientesEl = document.getElementById('count-pendientes');
-                            const countVerificadosEl = document.getElementById('count-verificados');
-                            const pendientes = document.querySelectorAll('#tbody-pendientes tr').length;
-                            const verificados = document.querySelectorAll('#tbody-verificados tr').length;
-                            // Si en pendientes queda una fila tipo "No hay..." la cuenta puede incluirla; manejar:
-                            // Si tbody-pendientes tiene una fila con .muted no la contamos como reporte
-                            const pendRows = Array.from(document.querySelectorAll('#tbody-pendientes tr'));
-                            const pendCount = pendRows.filter(r => !r.querySelector('.muted')).length;
-                            countPendientesEl.textContent = pendCount;
-                            countVerificadosEl.textContent = verificados;
-
-                            alert('Reporte verificado correctamente.');
-                        } else {
-                            alert(data.error || 'Error al verificar el reporte.');
-                        }
-                    } catch (err) {
-                        console.error(err);
-                        alert('Error en la solicitud AJAX.');
-                    }
-                });
+        try {
+            const res = await fetch('verificar_reporte.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'reporte_id=' + encodeURIComponent(id)
             });
-        });
-    </script>
+            const data = await res.json();
+            if (!data.success) {
+                alert(data.error || 'Error al verificar el reporte.');
+                return;
+            }
+
+            // --- Construir nueva celda de acciones para verificados ---
+            const en_mantenimiento = parseInt(fila.dataset.en_mantenimiento || '0', 10);
+            const devoluciones = parseInt(fila.dataset.devoluciones || '0', 10);
+
+            // eliminar celda anterior (botón verificar)
+            const accionesCell = fila.querySelector('td:last-child');
+            if (accionesCell) accionesCell.remove();
+
+            const nuevaAcciones = document.createElement('td');
+            nuevaAcciones.className = 'actions-cell';
+            if (devoluciones > 0) {
+                nuevaAcciones.innerHTML = '<span class="badge ok status-devuelto">Volvió del mantenimiento</span>';
+            } else if (en_mantenimiento > 0) {
+                nuevaAcciones.innerHTML = '<span class="badge warn status-enviado">Enviado a mantenimiento</span>' +
+                    '<div class="action-buttons">' +
+                    '<a href="mantenimiento_volver.php?reporte_id=' + id + '" class="btn" style="margin-top:6px;display:inline-block">Volvió del mantenimiento</a>' +
+                    '</div>';
+            } else {
+                nuevaAcciones.innerHTML = '<div class="action-buttons">' +
+                    '<a href="mantenimiento_enviar.php?reporte_id=' + id + '" class="btn">Enviar a mantenimiento</a>' +
+                    '</div>';
+            }
+
+            fila.appendChild(nuevaAcciones);
+
+            // --- Mover fila al tbody-verificados ---
+            const tbodyVer = document.getElementById('tbody-verificados');
+            const firstRowVer = tbodyVer.querySelector('tr');
+            if (firstRowVer && firstRowVer.querySelector('.muted')) tbodyVer.innerHTML = '';
+            tbodyVer.prepend(fila);
+
+            // --- Actualizar contadores ---
+            const pendRows = Array.from(tbodyPend.querySelectorAll('tr'));
+            const pendCount = pendRows.filter(r => !r.querySelector('.muted')).length;
+            const verRows = Array.from(tbodyVer.querySelectorAll('tr'));
+            const verCount = verRows.filter(r => !r.querySelector('.muted')).length;
+
+            document.getElementById('count-pendientes').textContent = pendCount;
+            document.getElementById('count-verificados').textContent = verCount;
+
+            alert('Reporte verificado correctamente.');
+
+        } catch (err) {
+            console.error(err);
+            alert('Error en la solicitud AJAX.');
+        }
+    });
+
+
+    // --- 2️⃣ Función para actualizar tablas vía AJAX ---
+    function actualizarReportes() {
+        fetch('/inventario_uni/public/reportes_actualizacion_ajax.php')
+            .then(res => res.json())
+            .then(data => {
+
+                // ---- Pendientes ----
+                if (tbodyPend) {
+                    if (data.sin_verificar.length === 0) {
+                        tbodyPend.innerHTML = '<tr><td colspan="8" class="muted">No hay reportes pendientes.</td></tr>';
+                    } else {
+                        tbodyPend.innerHTML = data.sin_verificar.map(r => `
+                            <tr id="reporte-${r.reporte_id}" data-en_mantenimiento="${r.en_mantenimiento}" data-devoluciones="${r.devoluciones}">
+                              <td>${r.fecha}</td>
+                              <td>${r.marca} ${r.modelo} (${r.tipo})</td>
+                              <td>${r.estado}</td>
+                              <td>${r.serial_interno}</td>
+                              <td>${r.tipo_fallo}</td>
+                              <td>${r.descripcion_fallo}</td>
+                              <td>${r.nombre_usuario_reportante}</td>
+                              <td class="acciones">
+                                <div class="action-buttons">
+                                  <button class="btn-verificar" data-id="${r.reporte_id}">Verificar</button>
+                                </div>
+                              </td>
+                            </tr>
+                        `).join('');
+                    }
+                }
+
+                // ---- Verificados ----
+                const tbodyVer = document.getElementById('tbody-verificados');
+                if (tbodyVer) {
+                    if (data.verificados.length === 0) {
+                        tbodyVer.innerHTML = '<tr><td colspan="8" class="muted">No hay reportes verificados aún.</td></tr>';
+                    } else {
+                        tbodyVer.innerHTML = data.verificados.map(r => {
+                            let acciones = '';
+                            if (r.devoluciones > 0) {
+                                acciones = '<span class="badge ok status-devuelto">Volvió del mantenimiento</span>';
+                            } else if (r.en_mantenimiento > 0) {
+                                acciones = '<span class="badge warn status-enviado">Enviado a mantenimiento</span>' +
+                                    '<div class="action-buttons">' +
+                                    `<a href="mantenimiento_volver.php?reporte_id=${r.reporte_id}" class="btn" style="margin-top:6px;display:inline-block">Volvió del mantenimiento</a>` +
+                                    '</div>';
+                            } else {
+                                acciones = '<div class="action-buttons">' +
+                                    `<a href="mantenimiento_enviar.php?reporte_id=${r.reporte_id}" class="btn">Enviar a mantenimiento</a>` +
+                                    '</div>';
+                            }
+                            return `
+                              <tr id="reporte-${r.reporte_id}" data-en_mantenimiento="${r.en_mantenimiento}" data-devoluciones="${r.devoluciones}">
+                                <td>${r.fecha}</td>
+                                <td>${r.marca} ${r.modelo} (${r.tipo})</td>
+                                <td>${r.estado}</td>
+                                <td>${r.serial_interno}</td>
+                                <td>${r.tipo_fallo}</td>
+                                <td>${r.descripcion_fallo}</td>
+                                <td>${r.nombre_usuario_reportante}</td>
+                                <td class="acciones">${acciones}</td>
+                              </tr>
+                            `;
+                        }).join('');
+                    }
+                }
+
+                // ---- Actualizar contadores ----
+                document.getElementById('count-pendientes').textContent = data.sin_verificar.length;
+                document.getElementById('count-verificados').textContent = data.verificados.length;
+
+            })
+            .catch(err => console.error('Error actualizando reportes:', err));
+    }
+
+    // --- 3️⃣ Refrescar cada 2 segundos ---
+    setInterval(actualizarReportes, 2000);
+
+});
+</script>
+
+
 
 </body>
 
